@@ -47,18 +47,8 @@ git checkout -b feature/fazer-login
 # 1. Volte para a branch de desenvolvimento
 git checkout develop
 
-# 2. Atualize-a novamente, caso um dev tenha integrado outra feature
-git pull origin develop
-
-# 3. Mescle (merge) a sua feature na develop
-# O --no-ff garante que o Git crie um commit de merge, mantendo o histórico mais legível
-git merge --no-ff feature/fazer-login
-
-# 4. Envie a branch develop atualizada para o repositório remoto (GitHub)
+# 2. Envie a branch develop atualizada para o repositório remoto (GitHub)
 git push origin develop
-
-# 5. Apague sua branch de feature que já foi integrada
-git branch -d feature/fazer-login
 ```
 
 ## Padrões de Commit
