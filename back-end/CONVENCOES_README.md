@@ -50,6 +50,7 @@ git checkout develop
 # 2. Envie a branch develop atualizada para o repositório remoto (GitHub)
 git push origin develop
 ```
+4. Para adicionar a nova feature na branch `develop`, basta fazer um Pull Request no GitHub.
 
 ## Padrões de Commit
 
