@@ -39,10 +39,10 @@ Este repositório abriga o Trabalho de Conclusão de Curso (TCC) que eu e mais 3
             <p>Java JDK 21</p>
         </td>
         <td align="center">
-            <p>MySQL</p>
+            <p>MySQL 8</p>
         </td>
         <td align="center">
-            <p>SpringBoot</p>
+            <p>SpringBoot 3.5.5</p>
         </td>
         <td align="center">
             <p>Maven</p>
