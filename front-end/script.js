@@ -26,7 +26,7 @@ btn.addEventListener('click', async () => {
 
   //Fazer requisição para o backend
   //enviar para o backend o csv
-  const API_URL = "http://localhost:8080/api/students"
+  const API_URL = "http://localhost:8080/api/students/upload-csv"
   try{
     const response = await fetch(API_URL, {
       method: "POST",
@@ -35,9 +35,14 @@ btn.addEventListener('click', async () => {
     })
     //informar no front que deu certo
     if(response.ok){
-      const result = await response.text();
-      statusMensagem.textContent = result;
+      const result = await response.json();
       statusMensagem.style.color = 'green';
+      //name, registration
+      statusMensagem.innerHTML = 'Alunos cadastrados: <br>'
+      for(let i = 0; i < result.length; i++) {
+        statusMensagem.innerHTML += `Nome: ${result[i].name} | RA: ${result[i].registration}`;
+        statusMensagem.innerHTML += `<br>`;
+      }
     } else {
       const erro = response.text();
       //Informar no front se deu errado
