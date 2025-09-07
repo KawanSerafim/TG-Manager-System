@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de planilha de alunos</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Imports de fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <h1>Envio de planilha de alunos</h1>
+    <div class="container">
+      <label for="btn-file" class="lb-file">
+        Clique aqui para enviar arquivo (apenas .csv)
+      </label>
+      <input type="file" name="file" id="btn-file">
+      
+      <button id="btn-upload">Enviar</button>
+
+      <div id="status-mensagem"></div>
+    </div>
+  </main>
+  <script src="./script.js"></script>
+</body>
+</html>
