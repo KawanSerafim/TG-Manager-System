@@ -9,12 +9,33 @@ import com.opencsv.bean.CsvBindByName;
  * As anotações @CsvBindByName vêm da biblioteca OpenCSV 
  * e mapeiam as colunas do cabeçalho do CSV para os campos do record.
  */
-public record StudentCsvDTO(
+public class StudentCsvDTO {
 
     @CsvBindByName(column = "ALUNO", required = true)
-    String name,
+    private String name;
 
     @CsvBindByName(column = "RA", required = true)
-    String registration
-) {
+    private String registration;
+
+    public StudentCsvDTO() {}
+    
+    public String getName() {
+    
+        return name;
+    }
+
+    public void setName(String name) {
+    
+        this.name = name;
+    }
+
+    public String getRegistration() {
+    
+        return registration;
+    }
+
+    public void setRegistration(String registration) {
+    
+        this.registration = registration;
+    }
 }
