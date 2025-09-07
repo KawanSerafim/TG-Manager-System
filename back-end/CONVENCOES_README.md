@@ -44,13 +44,10 @@ git checkout -b feature/fazer-login
 3. Para finalizar a feature:
 
 ```bash
-# 1. Volte para a branch de desenvolvimento
-git checkout develop
-
-# 2. Envie a branch develop atualizada para o repositório remoto (GitHub)
-git push origin develop
+# Envie a branch para o repositório remoto (GitHub)
+git push origin feature/fazer-login
 ```
-4. Para adicionar a nova feature na branch `develop`, basta fazer um Pull Request no GitHub.
+4. Para adicionar a nova feature na branch `main`, basta fazer um Pull Request no GitHub.
 
 ## Padrões de Commit
 
