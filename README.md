@@ -76,8 +76,8 @@ Este repositório abriga o Trabalho de Conclusão de Curso (TCC) que eu e mais 3
 
 ### 👥 Thiago Silva Antenor:
 
-[![linkedin](https://img.icons8.com/color/60/linkedin.png)]()
-[![gmail](https://img.icons8.com/color/60/gmail-new.png)]()
+[![linkedin](https://img.icons8.com/color/60/linkedin.png)](https://www.linkedin.com/in/thiago-antenor)
+[![gmail](https://img.icons8.com/color/60/gmail-new.png)](mailto:thiagoantenor31@gmail.com)
 
 ---
 
