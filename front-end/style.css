@@ -1,0 +1,72 @@
+body{
+  font-family: "Ubuntu", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+main {
+  margin-top: 5rem;
+  padding: 3.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+/*input fica visualmente escondido para que o foco do css seja a label*/
+input[type="file"] {
+  display: none;
+}
+
+.lb-file {
+  font-weight: 400;
+  font-style: normal;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+
+.lb-file:hover{
+  transform: scale(1.05);
+  animation: 5s ease-in-out;
+}
+
+button {
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #6cf412;
+  color:black;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 1.5em;  
+  font-family: "Ubuntu", sans-serif;
+  font-style: normal;
+}
+
+button:hover{
+  transform: scale(1.05);
+  animation: ease 5s;
+}
+
+#status-mensagem {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
