@@ -1,3 +1,16 @@
+
+//Função para preencher o combo box de cursos
+function handleCourses(){
+  courses = [ 'ADS', 'DSM', 'LOG', 'CME']
+  const select = document.getElementById('coursesSelect');
+  for (const course of courses) {
+    select.innerHTML += `<option value='${course}'>${course}</option>`
+
+  }
+}
+addEventListener("DOMContentLoaded", handleCourses)
+
+
 //Capturar o csv do form
 //botão de envio
 const btn = document.getElementById("btn-upload");

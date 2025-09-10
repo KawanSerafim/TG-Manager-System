@@ -19,6 +19,60 @@ h1 {
   font-weight: 500;
 }
 
+.custom-select {
+  position: relative;
+  font-family: Arial, sans-serif;
+  display: inline-block; /* Garante que a largura seja respeitada */
+  margin-bottom: 2rem;
+}
+
+.custom-select select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+
+  /* Remove a aparência padrão do select */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Remove a seta padrão no Internet Explorer */
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.custom-select::after {
+  content: "▼"; /* Você pode usar um caractere de seta ou uma imagem */
+  font-size: 14px;
+  color: #333;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Impede que a seta seja clicável */
+}
+
+.custom-select::after {
+  content: "▼"; /* Você pode usar um caractere de seta ou uma imagem */
+  font-size: 14px;
+  color: #333;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Impede que a seta seja clicável */
+}
+
+
 .container{
   display: flex;
   flex-direction: column;
