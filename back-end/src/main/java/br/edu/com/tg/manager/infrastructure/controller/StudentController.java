@@ -1,13 +1,11 @@
 package br.edu.com.tg.manager.infrastructure.controller;
 
-import br.edu.com.tg.manager.application.dto.StudentCsvDTO;
-import br.edu.com.tg.manager.core.usecase.ReadCsvUseCase;
+import br.edu.com.tg.manager.core.usecase.ImportStudentsFromCsvUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Camada de Infraestrutura.
@@ -20,30 +18,35 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class StudentController {
 
-    private final ReadCsvUseCase readCsvUseCase;
+    private final ImportStudentsFromCsvUseCase importStudentsFromCsvUseCase;
 
-    /*
-     * O controller depende da interface do caso de uso (Porta de Entrada)
-     * nao da sua implementacao. O ReadCsvService eh injetado no construtor.
-     */
-    public StudentController(ReadCsvUseCase readCsvUseCase) {
+    public StudentController(ImportStudentsFromCsvUseCase importStudentsFromCsvUseCase) {
      
-        this.readCsvUseCase = readCsvUseCase;
+        this.importStudentsFromCsvUseCase = importStudentsFromCsvUseCase;
     }
 
     @PostMapping("/upload-csv")
-    public ResponseEntity<?> uploadStudentsCsv(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadStudentsCsv(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("courseName") String courseName,
+        @RequestParam("year") Integer year,
+        @RequestParam("semester") Integer semester) {
         
         if (file.isEmpty()) {
 
             return ResponseEntity.badRequest().body("Por favor, envie um arquivo CSV válido.");
         }
 
+        if (courseName == null || courseName.isBlank()) {
+            
+            return ResponseEntity.badRequest().body("O nome do curso é obrigatório.");
+        }
+
         try {
             
-            List<StudentCsvDTO> students = readCsvUseCase.importFromCsv(file.getInputStream(), StudentCsvDTO.class);
+            importStudentsFromCsvUseCase.importFromCsv(file.getInputStream(), courseName, year, semester);
             
-            return ResponseEntity.ok(students);
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
 
             return ResponseEntity.badRequest().body(e.getMessage());

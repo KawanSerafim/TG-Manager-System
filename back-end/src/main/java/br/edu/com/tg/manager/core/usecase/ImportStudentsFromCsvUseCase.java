@@ -1,7 +1,6 @@
 package br.edu.com.tg.manager.core.usecase;
 
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * Porta de entrada.
@@ -9,7 +8,7 @@ import java.util.List;
  * dados a partir de um arquivo CSV.
  */
 
-public interface ReadCsvUseCase {
+public interface ImportStudentsFromCsvUseCase {
 
     /**
      * Executa o caso de uso de importação.
@@ -17,5 +16,5 @@ public interface ReadCsvUseCase {
      * @param targetClass A classe que representa os dados a serem extraídos.
      * @return Uma lista com os objetos extraídos do arquivo.
      */
-    <T> List<T> importFromCsv(InputStream inputStream, Class<T> targetClass);
+    void importFromCsv(InputStream inputStream, String courseName, Integer year, Integer semester);
 }
