@@ -10,12 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-/**
- * Modelo de dados (JPA Entity)
- * Representa a tabela 'students' no banco de dados.
- * Esta classe contém as anotações de persistência e mapeia
- * a relação com a tabela 'student_groups'.
- */
 @Entity
 @Table(name = "students")
 public class StudentData {
@@ -36,8 +30,8 @@ public class StudentData {
     @Column(length = 255)
     private String password;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_group_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "student_group_id", nullable = false)
     private StudentGroupData studentGroup;
 
     public StudentData(){}

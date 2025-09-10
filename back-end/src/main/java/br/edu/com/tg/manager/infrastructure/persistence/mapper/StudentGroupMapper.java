@@ -3,52 +3,38 @@ package br.edu.com.tg.manager.infrastructure.persistence.mapper;
 import br.edu.com.tg.manager.core.entity.StudentGroup;
 import br.edu.com.tg.manager.infrastructure.persistence.model.StudentGroupData;
 
-/**
- * Mapper responsável por converter a entidade de domínio
- * StudentGroup para o modelo de dados StudentGroupData,  
- * e vice-versa.
- */
 public class StudentGroupMapper {
 
-    /*
-     * Construtor privado para que a classe não seja
-     * instanciada, pois conterá apenas métodos estáticos.
-     */
     private StudentGroupMapper(){}
     
-    /**
-     * Converte um modelo de dados (JPA) para uma entidade domínio.
-     * @param data O objeto vindo do banco de dados.
-     * @return A entidade de domínio pura.
-     */
     public static StudentGroup toDomain(StudentGroupData data) {
 
-        if(data == null) {
-
+        if (data == null) {
+            
             return null;
         }
 
-        var studentGroup = new StudentGroup(data.getCourseName());
+        var studentGroup = new StudentGroup();
         studentGroup.setId(data.getId());
+        studentGroup.setYear(data.getYear());
+        studentGroup.setSemester(data.getSemester());
+        studentGroup.setCourse(CourseMapper.toDomain(data.getCourse()));
         
         return studentGroup;
     }
 
-    /**
-     * Converte uma entidade de domínio para um modelo de dados (JPA).
-     * @param domain A entidade de domínio.
-     * @return O objeto de dados pronto para ser salvo no banco.
-     */
     public static StudentGroupData toData(StudentGroup domain) {
 
-        if(domain == null) {
-
+        if (domain == null) {
+        
             return null;
         }
 
         var studentGroupData = new StudentGroupData();
         studentGroupData.setId(domain.getId());
-        studentGroupData.setCourseName(domain.getCourseName());
+        studentGroupData.setYear(domain.getYear());
+        studentGroupData.setSemester(domain.getSemester());
+        studentGroupData.setCourse(CourseMapper.toData(domain.getCourse()));
         
         return studentGroupData;
     }

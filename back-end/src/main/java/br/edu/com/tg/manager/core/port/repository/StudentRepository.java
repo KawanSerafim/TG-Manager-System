@@ -10,17 +10,16 @@ import java.util.Optional;
 public interface StudentRepository {
 
     /**
-     * Salva uma instância de Student no banco de dados.
+     * Salva uma instância do aluno no banco de dados.
      * @param student Objeto do aluno.
-     * @return A entidade Student salva.
+     * @return O objeto do aluno salvo.
      */
     Student save(Student student);
 
     /**
-     * Busca um Student pela sua matrícula (RA).
-     * Optional serve para indicar que um grupo com aquele nome pode não existir.
-     * @param registration A matrícula a ser buscada.
-     * @return Um Optional contendo o Student se encontrado, ou um Optional vazio.
+     * Busca um aluno pelo seu RA.
+     * @param registration RA do aluno.
+     * @return Um null ou o objeto do aluno.
      */
     Optional<Student> findByRegistration(String registration);
 }

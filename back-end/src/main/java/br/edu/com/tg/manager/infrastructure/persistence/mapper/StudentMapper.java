@@ -18,9 +18,11 @@ public class StudentMapper {
             return null;
         }
 
-        var student = new Student(data.getName(), 
-        data.getRegistration());
+        var student = new Student();
         student.setId(data.getId());
+        student.setName(data.getName());
+        student.setRegistration(data.getRegistration());
+        student.setEmail(data.getEmail());
         student.setPassword(data.getPassword());
 
         student.setStudentGroup(StudentGroupMapper

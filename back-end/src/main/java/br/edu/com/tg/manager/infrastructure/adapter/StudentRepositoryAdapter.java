@@ -30,6 +30,6 @@ public class StudentRepositoryAdapter implements StudentRepository {
     public Optional<Student> findByRegistration(String registration) {
         
         return jpaRepository.findByRegistration(registration)
-        .map(StudentMapper::toDomain);
+            .map(StudentMapper::toDomain);
     }
 }

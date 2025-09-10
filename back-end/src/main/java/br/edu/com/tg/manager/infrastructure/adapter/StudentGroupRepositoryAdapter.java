@@ -1,11 +1,13 @@
 package br.edu.com.tg.manager.infrastructure.adapter;
 
+import br.edu.com.tg.manager.core.entity.Course;
 import br.edu.com.tg.manager.core.entity.StudentGroup;
 import br.edu.com.tg.manager.core.port.repository.StudentGroupRepository;
+import br.edu.com.tg.manager.infrastructure.persistence.mapper.CourseMapper;
 import br.edu.com.tg.manager.infrastructure.persistence.mapper.StudentGroupMapper;
 import br.edu.com.tg.manager.infrastructure.persistence.repository.StudentGroupJpaRepository;
-import java.util.Optional;
 import org.springframework.stereotype.Component;
+import java.util.Optional;
 
 @Component
 public class StudentGroupRepositoryAdapter implements StudentGroupRepository {
@@ -27,9 +29,11 @@ public class StudentGroupRepositoryAdapter implements StudentGroupRepository {
     }
 
     @Override
-    public Optional<StudentGroup> findByCourseName(String courseName) {
-
-        return jpaRepository.findByCourseName(courseName)
-        .map(StudentGroupMapper::toDomain);
-    }
+    public Optional<StudentGroup> findByCourseAndYearAndSemester(Course course, Integer year, Integer semester) {
+        
+        var courseData = CourseMapper.toData(course);
+        
+        return jpaRepository.findByCourseAndYearAndSemester(courseData, year, semester)
+            .map(StudentGroupMapper::toDomain);
+    }   
 }

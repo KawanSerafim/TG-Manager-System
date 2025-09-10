@@ -28,7 +28,9 @@ public class StudentController {
     @PostMapping("/upload-csv")
     public ResponseEntity<?> uploadStudentsCsv(
         @RequestParam("file") MultipartFile file,
-        @RequestParam("courseName") String courseName) {
+        @RequestParam("courseName") String courseName,
+        @RequestParam("year") Integer year,
+        @RequestParam("semester") Integer semester) {
         
         if (file.isEmpty()) {
 
@@ -42,7 +44,7 @@ public class StudentController {
 
         try {
             
-            importStudentsFromCsvUseCase.importFromCsv(file.getInputStream(), courseName);
+            importStudentsFromCsvUseCase.importFromCsv(file.getInputStream(), courseName, year, semester);
             
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {

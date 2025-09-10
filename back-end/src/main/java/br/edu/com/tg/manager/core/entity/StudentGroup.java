@@ -9,7 +9,9 @@ import br.edu.com.tg.manager.core.exception.DomainException;
 public class StudentGroup {
 
     private Long id;
-    private String courseName;
+    private Integer year;
+    private Integer semester;
+    private Course course;
 
     /**
      * Construtor vazio.
@@ -18,16 +20,30 @@ public class StudentGroup {
 
     /**
      * Construtor para criar uma nova turma.
-     * @param courseName Nome do curso da turma.
+     * @param course instância do curso.
+     * @param year ano da turma.
+     * @param semester semestre da turma.
      */
-    public StudentGroup(String courseName) {
+    public StudentGroup(Course course, Integer year, Integer semester) {
 
-        if(courseName == null || courseName.trim().isEmpty()) {
+        if(course == null) {
 
-            throw new DomainException("O nome do grupo não pode ser vazio.");
+            throw new DomainException("A turma deve estar associada a um curso.");
         }
 
-        this.courseName = courseName;
+        if(year == null || year < 2025) {
+
+            throw new DomainException("Ano da turma inválido.");
+        }
+
+        if(semester == null || (semester != 1 && semester != 2)) {
+
+            throw new DomainException("Semestre da turma inválido.");
+        }
+
+        this.course = course;
+        this.year = year;
+        this.semester = semester;
     }
 
     public Long getId() {
@@ -40,13 +56,48 @@ public class StudentGroup {
         this.id = id;
     }
 
-    public String getCourseName() {
-
-        return this.courseName;   
+    public Integer getYear() {
+     
+        return year;
     }
 
-    public void setCourseName(String courseName) {
+    public void setYear(Integer year) {
+        
+        if(year == null || year < 2025) {
 
-        this.courseName = courseName;
+            throw new DomainException("Ano da turma inválido.");
+        }
+
+        this.year = year;
     }
+
+    public Integer getSemester() {
+        
+        if(semester == null || (semester != 1 && semester != 2)) {
+
+            throw new DomainException("Semestre da turma inválido.");
+        }
+
+        return semester;
+    }
+
+    public void setSemester(Integer semester) {
+     
+        this.semester = semester;
+    }
+
+    public Course getCourse() {
+     
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        
+        if(course == null) {
+
+            throw new DomainException("A turma deve estar associada a um curso.");
+        }
+
+        this.course = course;
+    }   
 }

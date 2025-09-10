@@ -16,5 +16,5 @@ public interface ImportStudentsFromCsvUseCase {
      * @param targetClass A classe que representa os dados a serem extraídos.
      * @return Uma lista com os objetos extraídos do arquivo.
      */
-    void importFromCsv(InputStream inputStream, String courseName);
+    void importFromCsv(InputStream inputStream, String courseName, Integer year, Integer semester);
 }

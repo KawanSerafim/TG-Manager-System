@@ -1,32 +1,35 @@
 package br.edu.com.tg.manager.infrastructure.persistence.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.List;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "student_groups")
+@Table(name = "student_groups", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"course_id", "year", "semester"})
+})
 public class StudentGroupData {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String courseName;
+    @Column(nullable = false)
+    private Integer year;
 
-    @OneToMany(
-        
-        mappedBy = "studentGroup", 
-        cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-    )
-    private List<StudentData> students;
+    @Column(nullable = false)
+    private Integer semester;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "course_id", nullable = false)
+    private CourseData course;
 
     public StudentGroupData(){}
 
@@ -40,23 +43,33 @@ public class StudentGroupData {
         this.id = id;
     }
 
-    public String getCourseName() {
+    public Integer getYear() {
      
-        return courseName;
+        return year;
     }
 
-    public void setCourseName(String courseName) {
+    public void setYear(Integer year) {
      
-        this.courseName = courseName;
+        this.year = year;
     }
 
-    public List<StudentData> getStudents() {
+    public Integer getSemester() {
      
-        return students;
+        return semester;
     }
 
-    public void setStudents(List<StudentData> students) {
+    public void setSemester(Integer semester) {
      
-        this.students = students;
+        this.semester = semester;
     }
+
+    public CourseData getCourse() {
+     
+        return course;
+    }
+
+    public void setCourse(CourseData course) {
+     
+        this.course = course;
+    }   
 }
