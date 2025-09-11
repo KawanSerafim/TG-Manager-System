@@ -1,14 +1,57 @@
+//Inicia a bilbioteca de icones
+lucide.createIcons()
+//Função para preencher o combo box de cursos, chamada ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
 
-//Função para preencher o combo box de cursos
-function handleCourses(){
   courses = [ 'ADS', 'DSM', 'LOG', 'CME']
-  const select = document.getElementById('coursesSelect');
+  const options = document.getElementById('options');
+  const viewButton = document.getElementById('options-view-button');
+  let htmlContent = ''
   for (const course of courses) {
-    select.innerHTML += `<option value='${course}'>${course}</option>`
+    htmlContent += `
+    <li class="option">
+      <input
+            type="radio"
+            name="course"
+            value="${course}"
+            data-label="${course}"
+      >
 
+            <i data-lucide="graduation-cap"></i>
+            <span class="label">${course}</span>
+            <i data-lucide="check"></i>
+    </li>
+    `;
   }
-}
-addEventListener("DOMContentLoaded", handleCourses)
+   //Adiciona os cursos ao html
+  options.innerHTML = htmlContent;
+  //Chama a biblioteca de icons novamente para garantir a renderização com innerhmtl
+  lucide.createIcons();
+  
+  //toggle do select de cursos
+  viewButton.addEventListener('click', () =>{
+    options.classList.toggle("open")
+  })
+
+  let select = document.querySelector('.select'),
+selectedValue = document.getElementById('selected-value'),
+optionsViewButton = document.getElementById('options-view-button'),
+inputsOptions = document.querySelectorAll('.option input')
+
+inputsOptions.forEach(input => {
+  input.addEventListener('click', event => {
+    selectedValue.textContent = input.dataset.label
+
+    const isMouseOrTouch =
+    event.pointerType == 'mouse' ||
+    event.pointerType == 'touch'
+
+    isMouseOrTouch && optionsViewButton.click()
+  })
+})
+})
+
+
 
 
 //Capturar o csv do form
@@ -21,10 +64,18 @@ const statusMensagem = document.getElementById('status-mensagem');
 btn.addEventListener('click', async () => {
   //pega o csv enviado
   const file = document.getElementById("btn-file").files[0];
+  const select = document.getElementById('coursesSelect').value;
 
   // verificação caso o input de file não tiver sido enviado nada
   if (!file) {
     statusMensagem.textContent = "Por favor selecione um arquivo CSV"
+    statusMensagem.style.color = "red";
+    return;
+  }
+
+  // verificação caso o input de curso não tiver sido selecionado
+  if (!select) {
+    statusMensagem.textContent = "Por favor selecione um curso"
     statusMensagem.style.color = "red";
     return;
   }

@@ -1,77 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  font-family: "Ubuntu", sans-serif;
+  background-color: #f4f4f4;
+  
+}
+
 body{
   font-family: "Ubuntu", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
 }
 
 main {
   margin-top: 5rem;
   padding: 3.5rem;
-  background: white;
+  background: hsla(240, 5%, 15%, 0.937);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(29, 28, 28, 0.879);
   text-align: center;
 }
 
 h1 {
+  color: #ccc;
   font-weight: 500;
 }
 
-.custom-select {
-  position: relative;
-  font-family: Arial, sans-serif;
-  display: inline-block; /* Garante que a largura seja respeitada */
-  margin-bottom: 2rem;
+.select {
+  color:#AFABB6;
+  padding: 1rem;
 }
 
-.custom-select select {
+#course-select label {
+
+  font-size: 1.7em;
+  letter-spacing: 0.0225rem;
+}
+
+#select-button {
+  margin-top: .5rem;
+  display: flex;
+  padding: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: .375rem;
+  border: 1px solid #252529;
+  background-color: #17171A;
+}
+
+#select-value{
+  color:#AFABB6;
+  font-size: 0.875rem;
+  letter-spacing: 0.02625rem;
+}
+
+#chevrons svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+#chevrons{
+  color: #AFABB6;
+}
+
+#chevrons [data-lucide="chevron-up"] {
+  display: none;
+}
+
+#options-view-button:focus + #select-button,
+#options-view-button:checked + #selected-button {
+  outline: 1px solid #A881E6;
+}
+
+#course-select:has(#options-view-button:checked) label,
+#options-view-button:checked + #select-button #chevrons {
+  color:#A881E6;
+}
+
+#options-view-button:checked + #select-button #chevrons[data-lucide="chevron-down"] {
+  display: none;
+}
+
+#options-view-button:checked + #select-button #chevrons[data-lucide="chevron-up"] {
   display: block;
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+}
+
+#course-select{
+  position: relative;
+}
+
+#options-view-button{
+  all: unset;
+
+  position: absolute;
+  inset: 0;
+
   cursor: pointer;
+  z-index: 3;
 
-  /* Remove a aparência padrão do select */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  /* Remove a seta padrão no Internet Explorer */
-  &::-ms-expand {
-    display: none;
-  }
 }
 
-.custom-select::after {
-  content: "▼"; /* Você pode usar um caractere de seta ou uma imagem */
-  font-size: 14px;
-  color: #333;
+#options {
+  margin-top: .25rem;
+
+  border-radius: .375rem;
+  border: 1px solid #252529;
+  background-color: #17171A;
+  display: none;
+}
+
+.option{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem;
+
+  border-bottom: 1px solid #252529;
+  
+  position: relative;
+}
+
+.option .label {
+  color: #fbf9fe;
+}
+
+.option svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.option svg:last-child {
+  margin-left: auto;
+  color: #A881E6;
+}
+
+.option:has(input:checked),
+.option:hover {
+  border-bottom: 1px solid #252529;
+  background-color: #252529;
+}
+
+.option.option:has(input:focus){
+  outline: 1px solid #A881E6;
+}
+
+.option [data-lucide="check"] {
+  display: none;
+}
+
+.option.option:has(input:checked) [data-lucide="check"] {
+  display: block;
+}
+
+.option input[type="radio"] {
+  /*Some com todas as propriedades*/
+  all: unset;
+  /*Fica absoluto sobre o elemento acima (option)*/
   position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  pointer-events: none; /* Impede que a seta seja clicável */
+  inset: 0;
+
+  cursor: pointer;
 }
 
-.custom-select::after {
-  content: "▼"; /* Você pode usar um caractere de seta ou uma imagem */
-  font-size: 14px;
-  color: #333;
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  pointer-events: none; /* Impede que a seta seja clicável */
+/*Busca cada elemento filho, caso tenha mais cursos é preciso adicionar manualmente a cor deles*/
+.option:nth-child(1) {
+  color: #BB9F3A;
 }
 
+.option:nth-child(2) {
+  color: #8CAD51;
+}
+
+.option:nth-child(3) {
+  color: #DB5BBF;
+}
+
+.option:nth-child(4) {
+  color: #E07B67;
+}
+
+
+#options.open{
+  display: block;
+}
+/* #course-select:has(#options-view-button:checked) + #options {
+  display: block;
+} */
+
+.select:has(.option input:checked) #course-select label {
+  color: #A881E6;
+}
+
+.select:has(.option input:checked) #selected-value {
+  color: #fbf9fe;
+}
 
 .container{
   display: flex;
@@ -100,7 +229,7 @@ input[type="file"] {
   animation: 5s ease-in-out;
 }
 
-button {
+#btn-upload {
   padding: 0.25rem 1rem;
   cursor: pointer;
   border: none;
@@ -113,7 +242,7 @@ button {
   font-style: normal;
 }
 
-button:hover{
+#btn-upload:hover{
   transform: scale(1.05);
   animation: ease 5s;
 }

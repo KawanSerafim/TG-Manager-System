@@ -13,16 +13,38 @@
 <body>
   <main>
     <h1>Envio de planilha de alunos</h1>
+    
+    <div class="select">
+      <div id="course-select">
+        <label for="options-view-button">Cursos</label>
+        <input type="checkbox" id="options-view-button">
+        
+        <div id="select-button">
+          <div id="selected-value">Selecione seu curso</div>
+          <!--Icones do Lucide para o select de curso-->
+          <div id="chevrons">
+            <i data-lucide="chevron-down"></i>
+            <i data-lucide="chevron-up"></i>
+          </div>
+        </div>
+      </div>
+      <ul id="options">
+        <!--Opções viram do JS-->
+        
+      </ul>
+    </div>
     <div class="container">
       <label for="btn-file" class="lb-file">
         Clique aqui para enviar arquivo (apenas .csv)
       </label>
 
-      <div class="custom-select" style="width:200px;">
+
+
+      <!-- <div class="custom-select" style="width:200px;">
         <select id="coursesSelect">
- 
+          <option value="">Selecione o curso</option>
         </select>
-      </div>
+      </div> -->
 
       <input type="file" name="file" id="btn-file">
       
@@ -31,6 +53,7 @@
       <div id="status-mensagem"></div>
     </div>
   </main>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script src="./script.js"></script>
 </body>
 </html>
