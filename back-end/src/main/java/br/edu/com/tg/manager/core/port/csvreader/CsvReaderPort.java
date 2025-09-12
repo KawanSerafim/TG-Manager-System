@@ -1,4 +1,4 @@
-package br.edu.com.tg.manager.core.port;
+package br.edu.com.tg.manager.core.port.csvreader;
 
 import java.io.InputStream;
 import java.util.List;

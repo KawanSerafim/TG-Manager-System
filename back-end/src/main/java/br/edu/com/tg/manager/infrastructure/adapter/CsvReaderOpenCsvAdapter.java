@@ -1,7 +1,8 @@
 package br.edu.com.tg.manager.infrastructure.adapter;
 
 import br.edu.com.tg.manager.core.exception.CsvParsingException;
-import br.edu.com.tg.manager.core.port.CsvReaderPort;
+import br.edu.com.tg.manager.core.port.csvreader.CsvReaderPort;
+
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
