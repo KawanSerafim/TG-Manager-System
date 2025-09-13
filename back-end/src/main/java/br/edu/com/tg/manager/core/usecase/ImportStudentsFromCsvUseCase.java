@@ -4,14 +4,13 @@ import java.io.InputStream;
 
 /**
  * Porta de entrada.
- * Define o contrato para o caso de uso de importar 
- * dados a partir de um arquivo CSV.
+ * Contrato referente ao caso de uso de importar
+ * alunos vindo de um CSV.
  */
-
 public interface ImportStudentsFromCsvUseCase {
 
     /**
-     * Executa o caso de uso de importação.
+     * Determina o método de execução do caso de uso.
      * @param inputStream O fluxo do arquivo CSV a ser importado.
      * @param targetClass A classe que representa os dados a serem extraídos.
      * @return Uma lista com os objetos extraídos do arquivo.
