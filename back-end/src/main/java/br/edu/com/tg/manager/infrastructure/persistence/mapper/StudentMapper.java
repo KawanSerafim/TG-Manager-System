@@ -33,24 +33,19 @@ public class StudentMapper {
 
         /* Chama o construtor da entidade de domínio
          * do aluno, colocando no valor do nome,
-         * matrícula (RA), email e senha, os mesmos 
-         * que estão no modelo de dados.
+         * matrícula (RA), email, senha e turma, os 
+         * mesmos que estão no modelo de dados.
          */
         var student = new Student(
             data.getName(),
             data.getRegistration(),
             data.getEmail(),
-            data.getPassword()
+            data.getPassword(),
+            StudentGroupMapper.toDomain(data.getStudentGroup())
         );
 
-        /* 
-         * Por estar fora do construtor, o ID e a turma
-         * são via Set. 
-         */
+        /* Por estar fora do construtor, o ID é via Set. */
         student.setId(data.getId());
-
-        student.setStudentGroup(StudentGroupMapper
-        .toDomain(data.getStudentGroup()));
 
         return student;
     }

@@ -27,13 +27,15 @@ public class Student {
      * do aluno (RA).
      * @param email A variável que representa o email do aluno.
      * @param password A variável que representa a senha do aluno.
+     * @param studentGroup O objeto que representa uma turma.
      */
-    public Student(String name, String registration, String email, String password) {
+    public Student(String name, String registration, String email, String password, StudentGroup studentGroup) {
 
         this.setName(name);
         this.setRegistration(registration);
         this.setEmail(email);
         this.setPassword(password);
+        this.setStudentGroup(studentGroup);
     }
 
     /* Getters e Setters */
