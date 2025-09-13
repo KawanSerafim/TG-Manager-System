@@ -22,14 +22,18 @@ public class Student {
 
     /**
      * Construtor para construir um aluno.
-     * @param name A varíavel que representa o nome do aluno.
-     * @param registration A varíavel que representa a matrícula
+     * @param name A variável que representa o nome do aluno.
+     * @param registration A variável que representa a matrícula
      * do aluno (RA).
+     * @param email A variável que representa o email do aluno.
+     * @param password A variável que representa a senha do aluno.
      */
-    public Student(String name, String registration) {
+    public Student(String name, String registration, String email, String password) {
 
         this.setName(name);
         this.setRegistration(registration);
+        this.setEmail(email);
+        this.setPassword(password);
     }
 
     /* Getters e Setters */
