@@ -14,13 +14,13 @@ import java.util.Optional;
  * 
  * Anotação @Component: indica ao framework para agir como
  * o 'contêiner' desta classe, pois será injetado em um
- * construtor que pede o contrato do repositório da
- * turma.
+ * construtor que pede o contrato do repositório do
+ * aluno.
  */
 @Component
 public class StudentRepositoryAdapter implements StudentRepository {
 
-    /* A interface do Spring Data JPA da turma que executa as 
+    /* A interface do Spring Data JPA da aluno que executa as 
      * operações no banco.
      */
     private final StudentJpaRepository jpaRepository;

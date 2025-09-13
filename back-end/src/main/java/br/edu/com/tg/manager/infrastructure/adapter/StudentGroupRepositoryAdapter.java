@@ -53,13 +53,13 @@ public class StudentGroupRepositoryAdapter implements StudentGroupRepository {
          * modelo de dados, com o ID atualizado pelo
          * IDENTITY.
          */
-        var savadData = jpaRepository.save(studentGroupData);
+        var savedData = jpaRepository.save(studentGroupData);
         
         /* Retorna uma entidade de domínio baseada no
          * novo modelo de dados, para que o ID não seja
          * nulo.
          */
-        return StudentGroupMapper.toDomain(savadData);
+        return StudentGroupMapper.toDomain(savedData);
     }
 
     /**
