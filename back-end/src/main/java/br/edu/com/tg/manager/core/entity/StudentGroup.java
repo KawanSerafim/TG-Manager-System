@@ -3,9 +3,11 @@ package br.edu.com.tg.manager.core.entity;
 import br.edu.com.tg.manager.core.exception.DomainException;
 
 /**
- * Entidade de domínio que representa a turma.
+ * Entidade de domínio.
+ * Representa uma classe de domínio que representa a turma
+ * da FATEC.
+ * A classe, por fazer parte do core, é pura.
  */
-
 public class StudentGroup {
 
     private Long id;
@@ -13,37 +15,24 @@ public class StudentGroup {
     private Integer semester;
     private Course course;
 
-    /**
-     * Construtor vazio.
-     */
+    /* Construtor vazio. Necessário para os Mappers. */
     public StudentGroup(){}
 
     /**
-     * Construtor para criar uma nova turma.
-     * @param course instância do curso.
-     * @param year ano da turma.
-     * @param semester semestre da turma.
+     * Construtor para construir uma turma.
+     * @param course O objeto que representa um curso.
+     * @param year A variável que representa o ano da turma.
+     * @param semester A variável que representa o semestre da turma.
      */
     public StudentGroup(Course course, Integer year, Integer semester) {
 
-        if(course == null) {
-
-            throw new DomainException("A turma deve estar associada a um curso.");
-        }
-
-        if(year == null || year < 2025) {
-
-            throw new DomainException("Ano da turma inválido.");
-        }
-
-        if(semester == null || (semester != 1 && semester != 2)) {
-
-            throw new DomainException("Semestre da turma inválido.");
-        }
-
-        this.course = course;
-        this.year = year;
-        this.semester = semester;
+        /* Delega a inserção do objeto 'course' e das
+         * variáveis 'year' e 'semester' aos sets
+         * responsáveis.
+         */
+        this.setCourse(course);
+        this.setYear(year);
+        this.setSemester(semester);
     }
 
     public Long getId() {
@@ -63,6 +52,9 @@ public class StudentGroup {
 
     public void setYear(Integer year) {
         
+        /* Regra de negócio: o ano da turma não pode ser vazio
+         * e não pode ser anterior à 2025.
+         */
         if(year == null || year < 2025) {
 
             throw new DomainException("Ano da turma inválido.");
@@ -72,17 +64,20 @@ public class StudentGroup {
     }
 
     public Integer getSemester() {
-        
-        if(semester == null || (semester != 1 && semester != 2)) {
-
-            throw new DomainException("Semestre da turma inválido.");
-        }
 
         return semester;
     }
 
     public void setSemester(Integer semester) {
-     
+        
+        /* Regra de negócio: o semestre da turma não pode ser nada
+         * além de '1' ou '2'.
+         */
+        if(semester == null || (semester != 1 && semester != 2)) {
+
+            throw new DomainException("Semestre da turma inválido.");
+        }
+
         this.semester = semester;
     }
 
@@ -90,9 +85,12 @@ public class StudentGroup {
      
         return course;
     }
-
+    
     public void setCourse(Course course) {
         
+        /* Regra de negócio: o curso não pode ser nulo. A turma necessita
+         * estar associada a um curso.
+         */
         if(course == null) {
 
             throw new DomainException("A turma deve estar associada a um curso.");
