@@ -51,7 +51,9 @@ public class StudentController {
     /* Injeção de dependência para quem for implementar o caso de uso
      * inserido no construtor.
      */
-    public StudentController(ImportStudentsFromFileUseCase importStudentsFromCsvUseCase) {
+    public StudentController(
+        ImportStudentsFromFileUseCase importStudentsFromCsvUseCase
+    ) {
      
         this.importStudentsFromCsvUseCase = importStudentsFromCsvUseCase;
     }
