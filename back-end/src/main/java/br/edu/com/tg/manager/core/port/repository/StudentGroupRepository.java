@@ -6,8 +6,8 @@ import java.util.Optional;
 
 /**
  * Porta de saída.
- * Define um contrato para a persistência de dados da 
- * entidade de domínio que representa a turma.
+ * Define um contrato para a persistência de dados da entidade de domínio
+ * que representa a turma.
  */
 public interface StudentGroupRepository {
 

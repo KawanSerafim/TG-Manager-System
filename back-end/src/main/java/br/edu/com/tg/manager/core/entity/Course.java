@@ -4,15 +4,15 @@ import br.edu.com.tg.manager.core.exception.DomainException;
 
 /**
  * Entidade de domínio.
- * Representa uma classe de domínio que representa o curso
- * da FATEC.
+ * Representa uma classe de domínio que representa o curso da FATEC.
  * A classe, por fazer parte do core, é pura.
  */
 public class Course {
 
     private Long id;
     private String name;
-
+    
+    /* Construtor vazio. Necessário para os Mappers. */
     public Course(){}
 
     /**
@@ -21,9 +21,6 @@ public class Course {
      */
     public Course(String name) {
         
-        /* Delega a inserção da varíavel 'name' ao set
-         * responsável.
-         */
         this.setName(name);
     }
 
@@ -49,7 +46,8 @@ public class Course {
         /* Regra de negócio: nome de curso não pode estar vazio. */
         if(name == null || name.trim().isEmpty()) {
 
-            throw new DomainException("O nome do curso não pode estar vazio.");
+            throw new DomainException("O nome do curso não " + 
+            "pode estar vazio.");
         }
 
         this.name = name;
