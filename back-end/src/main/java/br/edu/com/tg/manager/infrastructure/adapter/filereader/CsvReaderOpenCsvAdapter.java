@@ -1,15 +1,15 @@
-package br.edu.com.tg.manager.infrastructure.adapter;
+package br.edu.com.tg.manager.infrastructure.adapter.filereader;
 
 import br.edu.com.tg.manager.core.exception.FileParsingException;
 import br.edu.com.tg.manager.core.port.filereader.FileReaderPort;
 import com.opencsv.bean.CsvToBeanBuilder;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@Component
+//@Component
 public class CsvReaderOpenCsvAdapter implements FileReaderPort {
 
     @Override
