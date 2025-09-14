@@ -5,11 +5,11 @@ import br.edu.com.tg.manager.core.entity.Course;
 import br.edu.com.tg.manager.core.entity.Student;
 import br.edu.com.tg.manager.core.entity.StudentGroup;
 import br.edu.com.tg.manager.core.exception.DomainException;
-import br.edu.com.tg.manager.core.port.csvreader.CsvReaderPort;
+import br.edu.com.tg.manager.core.port.filereader.FileReaderPort;
 import br.edu.com.tg.manager.core.port.repository.CourseRepository;
 import br.edu.com.tg.manager.core.port.repository.StudentGroupRepository;
 import br.edu.com.tg.manager.core.port.repository.StudentRepository;
-import br.edu.com.tg.manager.core.usecase.ImportStudentsFromCsvUseCase;
+import br.edu.com.tg.manager.core.usecase.ImportStudentsFromFileUseCase;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.io.InputStream;
@@ -32,10 +32,10 @@ import java.util.Optional;
  */
 @Service
 public class ImportStudentsFromFileService implements
-ImportStudentsFromCsvUseCase {
+ImportStudentsFromFileUseCase {
     
     /* Instâncias das portas de saída. */
-    private final CsvReaderPort csvReaderPort;
+    private final FileReaderPort fileReaderPort;
     private final StudentRepository studentRepository;
     private final StudentGroupRepository studentGroupRepository;
     private final CourseRepository courseRepository;
@@ -43,19 +43,19 @@ ImportStudentsFromCsvUseCase {
     /**
      * Construtor para injeção de dependência de todas as portas de
      * saída, tanto repositórios quanto a referente ao caso de uso.
-     * @param csvReaderPort
+     * @param fileReaderPort
      * @param studentRepository
      * @param studentGroupRepository
      * @param courseRepository
      */
     public ImportStudentsFromFileService(
-        CsvReaderPort csvReaderPort, 
+        FileReaderPort fileReaderPort, 
         StudentRepository studentRepository, 
         StudentGroupRepository studentGroupRepository, 
         CourseRepository courseRepository
     ) {
 
-        this.csvReaderPort = csvReaderPort;
+        this.fileReaderPort = fileReaderPort;
         this.studentRepository = studentRepository;
         this.studentGroupRepository = studentGroupRepository;
         this.courseRepository = courseRepository;
@@ -66,7 +66,7 @@ ImportStudentsFromCsvUseCase {
      */
     @Override
     @Transactional
-    public void importFromCsv(
+    public void importFromFile(
         InputStream inputStream, 
         String courseName, 
         Integer year, 
@@ -88,7 +88,7 @@ ImportStudentsFromCsvUseCase {
         /* Delega a leitura do arquivo para o adapter, via injeção de
          * dependência.
          */
-        List<StudentFileDTO> studentDTOs = csvReaderPort.parse(
+        List<StudentFileDTO> studentDTOs = fileReaderPort.parse(
             inputStream, 
             StudentFileDTO.class
         );

@@ -4,8 +4,7 @@ import br.edu.com.tg.manager.core.exception.DomainException;
 
 /**
  * Entidade de domínio.
- * Representa uma classe de domínio que representa a turma
- * da FATEC.
+ * Representa uma classe de domínio que representa a turma da FATEC.
  * A classe, por fazer parte do core, é pura.
  */
 public class StudentGroup {
@@ -26,10 +25,6 @@ public class StudentGroup {
      */
     public StudentGroup(Course course, Integer year, Integer semester) {
 
-        /* Delega a inserção do objeto 'course' e das
-         * variáveis 'year' e 'semester' aos sets
-         * responsáveis.
-         */
         this.setCourse(course);
         this.setYear(year);
         this.setSemester(semester);
@@ -93,7 +88,8 @@ public class StudentGroup {
          */
         if(course == null) {
 
-            throw new DomainException("A turma deve estar associada a um curso.");
+            throw new DomainException("A turma deve estar " +
+            "associada a um curso.");
         }
 
         this.course = course;

@@ -1,6 +1,6 @@
 package br.edu.com.tg.manager.infrastructure.controller;
 
-import br.edu.com.tg.manager.core.usecase.ImportStudentsFromCsvUseCase;
+import br.edu.com.tg.manager.core.usecase.ImportStudentsFromFileUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,12 +46,14 @@ public class StudentController {
     /* Instância do contrato do caso de uso para importar alunos de um
      * aqui.
      */
-    private final ImportStudentsFromCsvUseCase importStudentsFromCsvUseCase;
+    private final ImportStudentsFromFileUseCase importStudentsFromCsvUseCase;
 
     /* Injeção de dependência para quem for implementar o caso de uso
      * inserido no construtor.
      */
-    public StudentController(ImportStudentsFromCsvUseCase importStudentsFromCsvUseCase) {
+    public StudentController(
+        ImportStudentsFromFileUseCase importStudentsFromCsvUseCase
+    ) {
      
         this.importStudentsFromCsvUseCase = importStudentsFromCsvUseCase;
     }
@@ -118,7 +120,7 @@ public class StudentController {
             /* Delega a execução para a camada de aplicação através da injeção
              * de dependência, passando os dados extraídos.
             */
-            importStudentsFromCsvUseCase.importFromCsv(
+            importStudentsFromCsvUseCase.importFromFile(
                 file.getInputStream(), 
                 courseName, 
                 year, 
