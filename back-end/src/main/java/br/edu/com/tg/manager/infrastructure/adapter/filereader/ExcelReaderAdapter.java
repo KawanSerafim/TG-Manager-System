@@ -63,8 +63,7 @@ public class ExcelReaderAdapter implements FileReaderPort {
              */
             Iterator<Row> rowIterator = sheet.iterator();
             
-            /* Pula as duas primeiras linhas. */
-            if(rowIterator.hasNext()) rowIterator.next();
+            /* Pula a primeira linha. */
             if(rowIterator.hasNext()) rowIterator.next();
 
             /* Iteração que flui até o final da planilha. */
