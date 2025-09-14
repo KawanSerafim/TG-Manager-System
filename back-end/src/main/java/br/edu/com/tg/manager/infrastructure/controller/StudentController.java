@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.time.Year;
 
 /**
  * Pontos de entrada da API REST.
@@ -24,7 +25,10 @@ import java.io.IOException;
  * para todos os endpoints nesta classe. Dentro do parênteses, estará o
  * prefixo da URL.
  * 
- * Anotação @CrossOrigin:
+ * Anotação @CrossOrigin: indica ao framework uma exceção à um domínio para ter
+ * acesso a realizar requisições para esta API. O valor inserido ao 'origins'
+ * indicará qual o domínio irá poder ter esse privilégio, enquanto '*' quer
+ * dizer que qualquer um pode acessar.
  * 
  * Anotação @PostMapping: indica ao framework qual é o endpoint do método. A
  * URL irá completar o prefixo com o endpoint, formando o link para a requisição
@@ -68,7 +72,7 @@ public class StudentController {
      * ou um status de erro (400 ou 500) em caso de falha.
      */
     @PostMapping("/upload-csv")
-    public ResponseEntity<?> uploadStudentsCsv(
+    public ResponseEntity<?> uploadStudentsFile(
         @RequestParam("file") MultipartFile file,
         @RequestParam("courseName") String courseName,
         @RequestParam("year") Integer year,
@@ -87,13 +91,15 @@ public class StudentController {
         }
 
         /* Validação de fronteira: o ano não pode ser vazio e nem pode ser
-         * menor que 2025.
+         * menor que o ano atual.
          */
-        if(year == null || year < 2025) {
+        int currentYear = Year.now().getValue();
+
+        if(year == null || year < currentYear) {
 
             return badRequest(
                 "O ano fornecido é inválido. Deve ser um número " +
-                "a partir de 2025."
+                "a partir do ano atual."
             );
         }
 
