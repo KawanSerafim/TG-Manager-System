@@ -1,9 +1,12 @@
 package br.edu.com.tg.manager.core.entity;
 
 import br.edu.com.tg.manager.core.exception.DomainException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Teste unitário para a entidade de domínio StudentGroup.
