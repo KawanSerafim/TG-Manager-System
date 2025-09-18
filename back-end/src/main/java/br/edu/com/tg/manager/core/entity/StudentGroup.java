@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.core.entity;
 
+import java.time.Year;
 import br.edu.com.tg.manager.core.exception.DomainException;
 
 /**
@@ -47,12 +48,17 @@ public class StudentGroup {
 
     public void setYear(Integer year) {
         
+        int currentYear = Year.now().getValue();
+
         /* Regra de negócio: o ano da turma não pode ser vazio
          * e não pode ser anterior à 2025.
          */
-        if(year == null || year < 2025) {
+        if(year == null || year < currentYear) {
 
-            throw new DomainException("Ano da turma inválido.");
+            throw new DomainException(
+                "O ano fornecido é inválido. Deve ser um número " +
+                "a partir do ano atual."    
+            );
         }
 
         this.year = year;
@@ -70,7 +76,9 @@ public class StudentGroup {
          */
         if(semester == null || (semester != 1 && semester != 2)) {
 
-            throw new DomainException("Semestre da turma inválido.");
+            throw new DomainException(
+                "O semestre fornecido é inválido. Deve ser 1 ou 2."
+            );
         }
 
         this.semester = semester;
