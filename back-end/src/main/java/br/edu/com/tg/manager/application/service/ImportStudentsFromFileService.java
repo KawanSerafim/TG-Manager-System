@@ -66,7 +66,8 @@ ImportStudentsFromFileUseCase {
      */
     @Override
     @Transactional
-    public void importFromFile(
+    public void execute(
+        
         InputStream inputStream, 
         String courseName, 
         Integer year, 
