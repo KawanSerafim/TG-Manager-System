@@ -114,7 +114,14 @@ public class Student {
     }
 
     public void setStudentGroup(StudentGroup studentGroup) {
-     
+        
+        if(studentGroup == null) {
+
+            throw new DomainException(
+                "O aluno deve pertencer a uma turma."
+            );
+        }
+
         this.studentGroup = studentGroup;
     }   
 }
