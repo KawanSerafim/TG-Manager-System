@@ -120,7 +120,8 @@ public class StudentController {
             /* Delega a execução para a camada de aplicação através da injeção
              * de dependência, passando os dados extraídos.
             */
-            importStudentsFromCsvUseCase.importFromFile(
+            importStudentsFromCsvUseCase.execute(
+                
                 file.getInputStream(), 
                 courseName, 
                 year, 

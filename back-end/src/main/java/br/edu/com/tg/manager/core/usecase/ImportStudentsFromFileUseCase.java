@@ -14,7 +14,8 @@ public interface ImportStudentsFromFileUseCase {
      * @param targetClass A classe que representa os dados a serem extraídos.
      * @return Uma lista com os objetos extraídos do arquivo.
      */
-    void importFromFile(
+    void execute(
+
         InputStream inputStream,
         String courseName,
         Integer year,
