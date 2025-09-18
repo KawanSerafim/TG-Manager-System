@@ -26,7 +26,7 @@ public class StudentGroupTest {
         var year = 2025;
         var semester = 1;
 
-        /* Act - Execução da lógica que queremos testar. */
+        /* Act - Execução da lógica que vai ser testada. */
         var studentGroup = new StudentGroup(course, year, semester);
 
         /* Assert - Verificação do resultado. 
@@ -53,7 +53,7 @@ public class StudentGroupTest {
         var year = 2025;
         var invalidSemester = 3;
 
-        /* Act - Execução da lógica que queremos testar.
+        /* Act - Execução da lógica que vai ser testada.
          * 
          * assertThrows(): Garante que a execução do lambda lance uma exceção
          * do tipo esperado.
@@ -68,8 +68,10 @@ public class StudentGroupTest {
          *
          * assertEquals(): Compara o dado no objeto com o da variável.
          */
-        assertEquals("Semestre da turma inválido.", 
-        exception.getMessage());
+        assertEquals(
+            "Semestre da turma inválido.", 
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -85,7 +87,7 @@ public class StudentGroupTest {
         var year = 2024;
         var invalidSemester = 2;
 
-        /* Act - Execução da lógica que queremos testar.
+        /* Act - Execução da lógica que vai ser testada.
          * 
          * assertThrows(): Garante que a execução do lambda lance uma exceção
          * do tipo esperado.
@@ -100,8 +102,10 @@ public class StudentGroupTest {
          *
          * assertEquals(): Compara dois parâmetros se são iguais.
          */
-        assertEquals("Ano da turma inválido.", 
-        exception.getMessage());
+        assertEquals(
+            "Ano da turma inválido.", 
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -115,7 +119,7 @@ public class StudentGroupTest {
         var year = 2024;
         var invalidSemester = 2;
 
-        /* Act - Execução da lógica que queremos testar.
+        /* Act - Execução da lógica que vai ser testada.
          * 
          * assertThrows(): Garante que a execução do lambda lance uma exceção
          * do tipo esperado.
@@ -130,7 +134,9 @@ public class StudentGroupTest {
          *
          * assertEquals(): Compara dois parâmetros se são iguais.
          */
-        assertEquals("A turma deve estar associada a um curso.", 
-        exception.getMessage());
+        assertEquals(
+            "A turma deve estar associada a um curso.", 
+            exception.getMessage()
+        );
     }
 }
