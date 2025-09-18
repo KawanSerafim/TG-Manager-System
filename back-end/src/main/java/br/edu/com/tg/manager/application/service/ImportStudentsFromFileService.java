@@ -102,10 +102,11 @@ ImportStudentsFromFileUseCase {
             /* Apenas insere o aluno se ele não existir no banco de dados. */
             if(existingStudent.isEmpty()) {
 
-                Student newStudent = new Student();
-                newStudent.setName(dto.getName());
-                newStudent.setRegistration(dto.getRegistration());
-                newStudent.setStudentGroup(studentGroup);
+                Student newStudent = new Student(
+                    dto.getName(),
+                    dto.getRegistration(),
+                    studentGroup
+                );
                 
                 studentRepository.save(newStudent);
             }

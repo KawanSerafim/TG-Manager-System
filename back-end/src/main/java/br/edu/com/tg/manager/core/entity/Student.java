@@ -20,6 +20,24 @@ public class Student {
     public Student(){}
 
     /**
+     * Construtor para construir um pré-aluno.
+     * @param name A variável que representa o nome do aluno.
+     * @param registration A variável que representa a matrícula
+     * do aluno (RA).
+     * @param studentGroup O objeto que representa uma turma.
+     */
+    public Student(
+        String name,
+        String registration,
+        StudentGroup studentGroup
+    ) {
+
+        this.setName(name);
+        this.setRegistration(registration);
+        this.setStudentGroup(studentGroup);
+    }
+
+    /**
      * Construtor para construir um aluno.
      * @param name A variável que representa o nome do aluno.
      * @param registration A variável que representa a matrícula
