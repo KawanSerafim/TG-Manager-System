@@ -68,8 +68,10 @@ public class StudentGroupTest {
          *
          * assertEquals(): Compara o dado no objeto com o da variável.
          */
-        assertEquals("Semestre da turma inválido.", 
-        exception.getMessage());
+        assertEquals(
+            "O semestre fornecido é inválido. Deve ser 1 ou 2.", 
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -100,8 +102,11 @@ public class StudentGroupTest {
          *
          * assertEquals(): Compara dois parâmetros se são iguais.
          */
-        assertEquals("Ano da turma inválido.", 
-        exception.getMessage());
+        assertEquals(
+            "O ano fornecido é inválido. Deve ser um número " +
+            "a partir do ano atual.", 
+            exception.getMessage()
+        );
     }
 
     @Test
