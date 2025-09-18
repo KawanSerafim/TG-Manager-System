@@ -46,8 +46,9 @@ public class Course {
         /* Regra de negócio: nome de curso não pode estar vazio. */
         if(name == null || name.trim().isEmpty()) {
 
-            throw new DomainException("O nome do curso não " + 
-            "pode estar vazio.");
+            throw new DomainException(
+                "O nome do curso não pode estar vazio."
+            );
         }
 
         this.name = name;
