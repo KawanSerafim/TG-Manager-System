@@ -28,7 +28,8 @@ public class Student {
      * @param password A variável que representa a senha do aluno.
      * @param studentGroup O objeto que representa uma turma.
      */
-    public Student(String name,
+    public Student(
+        String name,
         String registration,
         String email,
         String password,
@@ -64,8 +65,10 @@ public class Student {
         /* Regra de negócio: o nome do aluno não pode estar vazio. */
         if(name == null || name.trim().isEmpty()) {
 
-            throw new DomainException("O nome de, pelo menos " +
-            "um aluno, está vazio. Verifique sua fonte de dados.");
+            throw new DomainException(
+                "O nome de, pelo menos um aluno, está vazio. Verifique " + 
+                "sua fonte de dados."
+            );
         }
 
         this.name = name;
@@ -81,8 +84,10 @@ public class Student {
         /* Regra de negócio: a matrícula (RA) do aluno não estar vazia. */
         if(registration == null || registration.trim().isEmpty()) {
 
-            throw new DomainException("A matrícula (RA) de, pelo " +
-            "menos um aluno, está vazia. Verifique sua fonte de dados.");
+            throw new DomainException(
+                "A matrícula (RA) de, pelo menos um aluno, está vazia. " +
+                "Verifique sua fonte de dados."
+            );
         }
 
         this.registration = registration;

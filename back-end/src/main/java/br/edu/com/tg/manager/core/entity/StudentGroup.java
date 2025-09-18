@@ -96,8 +96,9 @@ public class StudentGroup {
          */
         if(course == null) {
 
-            throw new DomainException("A turma deve estar " +
-            "associada a um curso.");
+            throw new DomainException(
+                "A turma deve estar associada a um curso."
+            );
         }
 
         this.course = course;
