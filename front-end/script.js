@@ -3,7 +3,17 @@ lucide.createIcons()
 //Função para preencher o combo box de cursos, chamada ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
 
-  courses = [ 'ADS', 'DSM', 'LOG', 'CME']
+  courses = [ 'AMS - Análise e Desenvolvimento de Sistemas', 
+              'ADS - Análise e Desenvolvimento de Sistemas', 
+              'Comércio Exterior', 
+              'Desenvolvimento de Produtos Plásticos', 
+              'Desenvolvimento de Software Multiplataforma', 
+              'Gestão de Recursos Humanos', 
+              'Gestão Empresarial', 
+              'Logística', 
+              'Polímeros'
+            ]
+
   const options = document.getElementById('options');
   const viewButton = document.getElementById('options-view-button');
   let htmlContent = ''
@@ -33,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     options.classList.toggle("open")
   })
 
-  let select = document.querySelector('.select'),
+let select = document.querySelector('.select'),
 selectedValue = document.getElementById('selected-value'),
 optionsViewButton = document.getElementById('options-view-button'),
 inputsOptions = document.querySelectorAll('.option input')
@@ -53,8 +63,7 @@ inputsOptions.forEach(input => {
 
 
 
-
-//Capturar o csv do form
+//Capturar o xls do form
 //botão de envio
 const btn = document.getElementById("btn-upload");
 //div de mensagem
@@ -64,11 +73,12 @@ const statusMensagem = document.getElementById('status-mensagem');
 btn.addEventListener('click', async () => {
   //pega o csv enviado
   const file = document.getElementById("btn-file").files[0];
-  const select = document.getElementById('coursesSelect').value;
+  const select = document.getElementById('selected-value').textContent;
+  //TODO: Pegar o input selecionado
 
   // verificação caso o input de file não tiver sido enviado nada
   if (!file) {
-    statusMensagem.textContent = "Por favor selecione um arquivo CSV"
+    statusMensagem.textContent = "Por favor selecione um arquivo XLS/XLSX"
     statusMensagem.style.color = "red";
     return;
   }
@@ -79,10 +89,17 @@ btn.addEventListener('click', async () => {
     statusMensagem.style.color = "red";
     return;
   }
+  console.log(select)
 
   //Cria o objeto para ser enviado na requisição
   const formData = new FormData();
+  //append.('nome do parametro', parametro)
   formData.append('file', file);
+  formData.append('courseName', select)
+  const year = new Date().getFullYear();
+  formData.append('year', year)
+  //TODO: função para gerar semestre ou fazer o usuario selecionar no html
+  formData.append('semester', '3')
 
   // Limpa a mensagem de status anterior
   statusMensagem.textContent = 'Enviando...';
@@ -99,16 +116,13 @@ btn.addEventListener('click', async () => {
     })
     //informar no front que deu certo
     if(response.ok){
-      const result = await response.json();
-      statusMensagem.style.color = 'green';
-      //name, registration
-      statusMensagem.innerHTML = 'Alunos cadastrados: <br>'
-      for(let i = 0; i < result.length; i++) {
-        statusMensagem.innerHTML += `Nome: ${result[i].name} | RA: ${result[i].registration}`;
-        statusMensagem.innerHTML += `<br>`;
+      console.log(response.status)
+      if (response.status === 204){
+        statusMensagem.style.color = 'green';
+        statusMensagem.textContent = 'Alunos pré-cadastrados com sucesso!'
       }
     } else {
-      const erro = response.text();
+      const erro = await response.text();
       //Informar no front se deu errado
       statusMensagem.textContent = `Erro ${erro}`;
       statusMensagem.style.color = 'red';
