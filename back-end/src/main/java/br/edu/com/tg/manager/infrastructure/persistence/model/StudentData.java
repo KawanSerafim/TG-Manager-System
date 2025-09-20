@@ -10,6 +10,37 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Modelo de dados.
+ * Um espelho da entidade de domínio que representa o curso, e que será
+ * manipulado pelo JPA.
+ * A classe, por fazer parte da infrastructure, adota as anotações do
+ * JPA do Spring Boot.
+ *
+ * Anotação @Entity: indica ao framework que esta classe é uma entidade.
+ * Anotação @Table: indica ao framework que esta classe é uma tabela do banco
+ * de dados. Dentro do parênteses, o valor atruído a variável 'name' será o
+ * nome da tabela.
+ * 
+ * Anotação @Id: indica ao framework que esta variável determina o ID da tabela.
+ *
+ * Anotação @GeneratedValue: indica ao framework como o valor da variável
+ * será gerada.
+ * 
+ * Anotação @Column: indica ao framework que esta variável será uma coluna da
+ * tabela. Dentro do parênteses, o valor booleano a variável 'nullable' 
+ * determina se a coluna poderá conter valores nulos ou não. E na
+ * 'unique', determina se o valor da coluna não pode se repetir.
+ * 
+ * Anotação @ManyToOne: indica ao framework que esta classe faz parte de uma
+ * relação de muitos para um, onde a variável representa o um, e essa classe o
+ * muitos. Dentro do parênteses, o 'fetch' determina ao hibernate o método de
+ * busca aos dados. E o optional indica se a relação é ou não obrigatória.
+ * 
+ * Anotação @JoinColumn: indica ao framework aonde alocar o ID da outra tabela
+ * relacionada. A variável 'name' determina o nomeda coluna em que o ID
+ * será salvo. 
+ */
 @Entity
 @Table(name = "students")
 public class StudentData {
@@ -34,7 +65,10 @@ public class StudentData {
     @JoinColumn(name = "student_group_id", nullable = false)
     private StudentGroupData studentGroup;
 
+    /* Construtor vazio, necessário para o JPA. */
     public StudentData(){}
+
+    /* Getters e Setters. */
 
     public Long getId() {
      

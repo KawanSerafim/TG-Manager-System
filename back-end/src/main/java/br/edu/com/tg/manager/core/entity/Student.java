@@ -2,6 +2,11 @@ package br.edu.com.tg.manager.core.entity;
 
 import br.edu.com.tg.manager.core.exception.DomainException;
 
+/**
+ * Entidade de domínio.
+ * Representa uma classe de domínio que representa o aluno da FATEC.
+ * A classe, por fazer parte do core, é pura.
+ */
 public class Student {
 
     private Long id;
@@ -11,31 +16,52 @@ public class Student {
     private String password;
     private StudentGroup studentGroup;
 
-    /**
-     * Construtor vazio.
-     */
+    /* Construtor vazio. Necessário para os Mappers. */
     public Student(){}
 
     /**
-     * Construtor para criar um aluno.
-     * @param name Nome do aluno.
-     * @param registration Valor do RA.
+     * Construtor para construir um pré-aluno.
+     * @param name A variável que representa o nome do aluno.
+     * @param registration A variável que representa a matrícula
+     * do aluno (RA).
+     * @param studentGroup O objeto que representa uma turma.
      */
-    public Student(String name, String registration) {
+    public Student(
+        String name,
+        String registration,
+        StudentGroup studentGroup
+    ) {
 
-        if(name == null || name.trim().isEmpty()) {
-
-            throw new DomainException("O nome de, pelo menos um aluno, está vazio. Verifique sua fonte de dados.");
-        }
-
-        if(registration == null || registration.trim().isEmpty()) {
-
-            throw new DomainException("A matrícula (RA) de, pelo menos um aluno, está vazia. Verifique sua fonte de dados.");
-        }
-
-        this.name = name;
-        this.registration = registration;
+        this.setName(name);
+        this.setRegistration(registration);
+        this.setStudentGroup(studentGroup);
     }
+
+    /**
+     * Construtor para construir um aluno.
+     * @param name A variável que representa o nome do aluno.
+     * @param registration A variável que representa a matrícula
+     * do aluno (RA).
+     * @param email A variável que representa o email do aluno.
+     * @param password A variável que representa a senha do aluno.
+     * @param studentGroup O objeto que representa uma turma.
+     */
+    public Student(
+        String name,
+        String registration,
+        String email,
+        String password,
+        StudentGroup studentGroup
+    ) {
+
+        this.setName(name);
+        this.setRegistration(registration);
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setStudentGroup(studentGroup);
+    }
+
+    /* Getters e Setters */
 
     public Long getId() {
      
@@ -53,10 +79,14 @@ public class Student {
     }
 
     public void setName(String name) {
-     
+        
+        /* Regra de negócio: o nome do aluno não pode estar vazio. */
         if(name == null || name.trim().isEmpty()) {
 
-            throw new DomainException("O nome de, pelo menos um aluno, está vazio. Verifique sua fonte de dados.");
+            throw new DomainException(
+                "O nome de, pelo menos um aluno, está vazio. Verifique " + 
+                "sua fonte de dados."
+            );
         }
 
         this.name = name;
@@ -69,9 +99,13 @@ public class Student {
 
     public void setRegistration(String registration) {
         
+        /* Regra de negócio: a matrícula (RA) do aluno não estar vazia. */
         if(registration == null || registration.trim().isEmpty()) {
 
-            throw new DomainException("A matrícula (RA) de, pelo menos um aluno, está vazia. Verifique sua fonte de dados.");
+            throw new DomainException(
+                "A matrícula (RA) de, pelo menos um aluno, está vazia. " +
+                "Verifique sua fonte de dados."
+            );
         }
 
         this.registration = registration;
@@ -103,7 +137,14 @@ public class Student {
     }
 
     public void setStudentGroup(StudentGroup studentGroup) {
-     
+        
+        if(studentGroup == null) {
+
+            throw new DomainException(
+                "O aluno deve pertencer a uma turma."
+            );
+        }
+
         this.studentGroup = studentGroup;
     }   
 }
