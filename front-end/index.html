@@ -36,19 +36,21 @@
   
     <div class="container">
       <label for="btn-file" class="lb-file">
-        Clique aqui para enviar arquivo (apenas .xls ou xlsx)
+        Clique aqui para enviar a planilha de alunos (apenas .xlsx)
       </label>
 
       <input type="file" name="file" id="btn-file">
 
-      <!-- TODO: ADICIONAR CAMPO DE SEMESTRE E ANO -->
-      
-      <button id="btn-upload">Enviar</button>
+      <div class="year-semester">
+      <!-- Ano e semestre serão setados pelo JS -->
+      </div>
+     
+      <button id="btn-upload">Gerar Senha</button>
 
       <div id="status-mensagem"></div>
     </div>
   </main>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="./script.js"></script>
+  <script type="module" src="./scripts/script.js"></script>
 </body>
 </html>

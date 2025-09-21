@@ -183,9 +183,28 @@ h1 {
 }
 
 .option:nth-child(4) {
-  color: #E07B67;
+  color: #9de067;
 }
 
+.option:nth-child(5) {
+  color: #e63612;
+}
+
+.option:nth-child(6) {
+  color: #05d20c;
+}
+
+.option:nth-child(7) {
+  color: #773ff8;
+}
+
+.option:nth-child(8) {
+  color: cyan;
+}
+
+.option:nth-child(9) {
+  color: #1454ea;
+}
 
 #options.open{
   display: block;
@@ -219,7 +238,6 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  margin-bottom: 1rem;
   background-color: antiquewhite;
   border-radius: 10px;
 }
@@ -227,6 +245,23 @@ input[type="file"] {
 .lb-file:hover{
   transform: scale(1.05);
   animation: 5s ease-in-out;
+}
+
+.year-semester {
+  margin: 1rem;
+  display: flex;
+  padding: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: .375rem;
+  border: 1px solid #252529;
+  background-color: #17171A;
+  
+  justify-content: center;
+}
+
+.year-semester span{
+  color:#AFABB6;
 }
 
 #btn-upload {

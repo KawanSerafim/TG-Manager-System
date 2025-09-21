@@ -1,9 +1,11 @@
+import { getSemester } from "./utils.js";
+
 //Inicia a bilbioteca de icones
 lucide.createIcons()
 //Função para preencher o combo box de cursos, chamada ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
 
-  courses = [ 'AMS - Análise e Desenvolvimento de Sistemas', 
+let courses = [ 'AMS - Análise e Desenvolvimento de Sistemas', 
               'ADS - Análise e Desenvolvimento de Sistemas', 
               'Comércio Exterior', 
               'Desenvolvimento de Produtos Plásticos', 
@@ -59,9 +61,21 @@ inputsOptions.forEach(input => {
     isMouseOrTouch && optionsViewButton.click()
   })
 })
+//Setar ano e semestre atual
+const yearSemesterDiv = document.querySelector('.year-semester');
+const currentYear = new Date().getFullYear();
+const currentSemester = getSemester();
+yearSemesterDiv.innerHTML += `<span>Ano: ${currentYear} - Semestre: ${currentSemester}</span>`;
 })
 
-
+//exibir nome do arquivo ao selecionar um:
+const file = document.getElementById("btn-file");
+file.addEventListener('change', (event) => {
+  if (file.files[0]){
+    const label = document.querySelector('.lb-file');
+    label.textContent = file.files[0].name;
+  }
+})
 
 //Capturar o xls do form
 //botão de envio
@@ -73,12 +87,14 @@ const statusMensagem = document.getElementById('status-mensagem');
 btn.addEventListener('click', async () => {
   //pega o csv enviado
   const file = document.getElementById("btn-file").files[0];
+  //Pega o nome do curso do input selecionado
   const select = document.getElementById('selected-value').textContent;
-  //TODO: Pegar o input selecionado
-
-  // verificação caso o input de file não tiver sido enviado nada
-  if (!file) {
-    statusMensagem.textContent = "Por favor selecione um arquivo XLS/XLSX"
+  const year = new Date().getFullYear();
+  const semester = getSemester();
+  
+  // verificação caso o input de file não tiver sido enviado nada ou arquvo não for xlsx
+  if (!file || !file.name.endsWith('xlsx') ) {
+    statusMensagem.textContent = "Por favor selecione um arquivo .XLSX"
     statusMensagem.style.color = "red";
     return;
   }
@@ -96,10 +112,9 @@ btn.addEventListener('click', async () => {
   //append.('nome do parametro', parametro)
   formData.append('file', file);
   formData.append('courseName', select)
-  const year = new Date().getFullYear();
   formData.append('year', year)
-  //TODO: função para gerar semestre ou fazer o usuario selecionar no html
-  formData.append('semester', '3')
+  //função para verificar qual o  semestre atual
+  formData.append('semester', semester)
 
   // Limpa a mensagem de status anterior
   statusMensagem.textContent = 'Enviando...';
