@@ -1,6 +1,8 @@
 package br.edu.com.tg.manager.core.ports.repositories;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
+import br.edu.com.tg.manager.core.domain.entities.CourseShift;
+
 import java.util.Optional;
 
 /**
@@ -21,5 +23,5 @@ public interface CourseRepository {
      * @param name Nome.
      * @return Optional vazio ou Course.
      */
-    Optional<Course> findByName(String name);
+    Optional<Course> findByNameAndShift(String name, CourseShift shift);
 }
