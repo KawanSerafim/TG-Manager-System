@@ -25,19 +25,25 @@ package br.edu.com.tg.manager.core.exceptions;
  * 
  * - Relação obrigatória:
  * 
- * ['Entidade A' deve estar associado(a) a um(a) 'Entidade B'.]
+ * [O(A) 'Entidade A' deve estar associado(a) a um(a) 'Entidade B'.]
  * 
  * -------------------
  * 
  * - Não encontrado:
  *
- * ['Entidade' com 'campo' = 'valor' não foi encontrado(a).]
+ * [O(A) 'Entidade' com 'campo' = 'valor' não foi encontrado(a).]
  * 
  * -------------------
  * 
  * - Sem permissão:
  * 
- * ['Entidade' não tem permissão de 'Nível ou Cargo'.]
+ * [O(A) 'Entidade' não tem permissão de 'Nível ou Cargo'.]
+ * 
+ * -------------------
+ * 
+ * - Estado inválido.
+ * 
+ * [O(A) 'Entidade' não tem o estado válido para a ação.]
  */
 public class DomainException extends RuntimeException {
 
