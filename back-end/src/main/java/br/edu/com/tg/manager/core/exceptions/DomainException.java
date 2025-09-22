@@ -32,6 +32,12 @@ package br.edu.com.tg.manager.core.exceptions;
  * - Não encontrado:
  *
  * ['Entidade' com 'campo' = 'valor' não foi encontrado(a).]
+ * 
+ * -------------------
+ * 
+ * - Sem permissão:
+ * 
+ * ['Entidade' não tem permissão de 'Nível ou Cargo'.]
  */
 public class DomainException extends RuntimeException {
 
