@@ -1,6 +1,6 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
-import br.edu.com.tg.manager.core.domain.entities.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**

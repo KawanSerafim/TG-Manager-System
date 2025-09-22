@@ -3,7 +3,7 @@ package br.edu.com.tg.manager.core.ports.gateways;
 import java.io.InputStream;
 import java.util.List;
 
-import br.edu.com.tg.manager.core.domain.entities.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 
 /**
  * Portão de acesso.
