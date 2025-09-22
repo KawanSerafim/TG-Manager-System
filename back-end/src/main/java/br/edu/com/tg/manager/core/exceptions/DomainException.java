@@ -41,7 +41,7 @@ package br.edu.com.tg.manager.core.exceptions;
  * 
  * -------------------
  * 
- * - Estado inválido.
+ * - Estado inválido:
  * 
  * [O(A) 'Entidade' não tem o estado válido para a ação.]
  */
