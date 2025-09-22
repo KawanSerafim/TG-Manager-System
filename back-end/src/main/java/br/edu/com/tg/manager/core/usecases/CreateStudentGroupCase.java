@@ -12,14 +12,14 @@ public interface CreateStudentGroupCase {
     /**
      * Porta-dados.
      * Carrega os dados enviados pelo coordenador de TG, que são:
-     * - nome do curso (na aplicação troca para o ID).
+     * - nome do curso.
      * - disciplina.
      * - arquivo Excel.
      * - senha temporária.
      */
     record Input(
 
-        Long courseId,
+        String courseName,
         Discipline discipline,
         InputStream file,
         String temporaryPassword
