@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
+import br.edu.com.tg.manager.core.domain.entities.enums.StudentStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**

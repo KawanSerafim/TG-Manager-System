@@ -1,7 +1,7 @@
 package br.edu.com.tg.manager.core.ports.repositories;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
-import br.edu.com.tg.manager.core.domain.entities.CourseShift;
+import br.edu.com.tg.manager.core.domain.entities.enums.CourseShift;
 
 import java.util.Optional;
 
