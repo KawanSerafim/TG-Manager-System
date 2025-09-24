@@ -31,7 +31,7 @@ public class ProfessorTest {
     LoggerFactory.getLogger(ProfessorTest.class);
 
     @Test
-    @DisplayName("Deve criar um professor com sucesso com dados válidos.")
+    @DisplayName("Deve criar um orientador com sucesso com dados válidos.")
     void shouldCreateAdvisorSucessfullyWithValidData() {
 
         logger.info(">>>>>> ARRANGE - Organizando os dados de entrada.");
@@ -63,7 +63,116 @@ public class ProfessorTest {
         logger.info(">>>>>> ASSERT - Verificando os resultados.");
 
         assertNotNull(professor);
-        logger.info(">>>>>> Pré-aluno salvo com sucesso.");
+        logger.info(">>>>>> Orientador salvo com sucesso.");
+
+        assertEquals(name, professor.getName());
+        logger.info(">>>>>> Integridade do nome garantida.");
+
+        assertEquals(registration, professor.getRegistration());
+        logger.info(">>>>>> Integridade da matrícula garantida.");
+
+        assertEquals(email, professor.getEmail());
+        logger.info(">>>>>> Integridade do email garantida.");
+
+        assertEquals(hashedPassword, professor.getHashedPassword());
+        logger.info(">>>>>> Integridade da senha garantida.");
+
+        assertEquals(role, professor.getRole());
+        logger.info(">>>>>> Integridade do cargo garantida.");
+    }
+
+    @Test
+    @DisplayName(
+        
+        "Deve criar um coordenador de TG com sucesso com dados válidos."
+    )
+    void shouldCreateTgCoordinatorSucessfullyWithValidData() {
+
+        logger.info(">>>>>> ARRANGE - Organizando os dados de entrada.");
+
+        String name = "Fulano";
+        String registration = "111111";
+        String email = "teste@gmail.com";
+        String hashedPassword = "senha criptografada.";
+        ProfessorRole role = ProfessorRole.TG_COORDINATOR;
+
+        /* ----------------------------------------------------------------- */
+
+        logger.info(
+            
+            ">>>>>> ACT - Criando um coordenador de TG com dados válidos."
+        );
+
+        var professor = new Professor(
+
+            name,
+            registration,
+            email,
+            hashedPassword,
+            role
+        );
+        
+        /* ----------------------------------------------------------------- */
+
+        logger.info(">>>>>> ASSERT - Verificando os resultados.");
+
+        assertNotNull(professor);
+        logger.info(">>>>>> Coordenador de TG salvo com sucesso.");
+
+        assertEquals(name, professor.getName());
+        logger.info(">>>>>> Integridade do nome garantida.");
+
+        assertEquals(registration, professor.getRegistration());
+        logger.info(">>>>>> Integridade da matrícula garantida.");
+
+        assertEquals(email, professor.getEmail());
+        logger.info(">>>>>> Integridade do email garantida.");
+
+        assertEquals(hashedPassword, professor.getHashedPassword());
+        logger.info(">>>>>> Integridade da senha garantida.");
+
+        assertEquals(role, professor.getRole());
+        logger.info(">>>>>> Integridade do cargo garantida.");
+    }
+
+    @Test
+    @DisplayName(
+        
+        "Deve criar um coordenador de TG com sucesso com dados válidos."
+    )
+    void shouldCreateCourseCoordinatorSucessfullyWithValidData() {
+
+        logger.info(">>>>>> ARRANGE - Organizando os dados de entrada.");
+
+        String name = "Fulano";
+        String registration = "111111";
+        String email = "teste@gmail.com";
+        String hashedPassword = "senha criptografada.";
+        ProfessorRole role = ProfessorRole.COURSE_COORDINATOR;
+
+        /* ----------------------------------------------------------------- */
+
+        logger.info(
+            
+            ">>>>>> ACT - Criando um coordenador de curso com " +
+            "dados válidos."
+        );
+
+        var professor = new Professor(
+
+            name,
+            registration,
+            email,
+            hashedPassword,
+            role
+        );
+        
+        /* ----------------------------------------------------------------- */
+
+        logger.info(">>>>>> ASSERT - Verificando os resultados.");
+
+        assertNotNull(professor);
+        logger.info(">>>>>> Coordenador de curso salvo com sucesso.");
 
         assertEquals(name, professor.getName());
         logger.info(">>>>>> Integridade do nome garantida.");
