@@ -1,17 +1,15 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
+import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
+import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
-import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**
  * Teste unitário de domínio.
