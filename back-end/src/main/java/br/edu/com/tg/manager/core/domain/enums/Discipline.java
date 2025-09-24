@@ -1,4 +1,4 @@
-package br.edu.com.tg.manager.core.domain.entities;
+package br.edu.com.tg.manager.core.domain.enums;
 
 /**
  * Enumeração de domínio.

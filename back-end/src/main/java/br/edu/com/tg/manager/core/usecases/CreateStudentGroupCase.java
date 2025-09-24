@@ -1,7 +1,8 @@
 package br.edu.com.tg.manager.core.usecases;
 
-import br.edu.com.tg.manager.core.domain.entities.Discipline;
 import java.io.InputStream;
+
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
 
 /**
  * Caso de uso de domínio.

@@ -2,6 +2,7 @@ package br.edu.com.tg.manager.core.domain.entities;
 
 import java.time.Year;
 
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**
