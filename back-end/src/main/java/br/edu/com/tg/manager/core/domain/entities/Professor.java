@@ -107,7 +107,7 @@ public class Professor {
     public void setEmail(String email) {
         
         /* Regra de negócio: professor não pode conter email vazio ou nulo. */
-        if(email == null ) {
+        if(email == null || email.trim().isEmpty()) {
 
             throw new DomainException(
 
