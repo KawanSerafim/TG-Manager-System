@@ -112,7 +112,7 @@ public class StudentGroup {
 
             throw new DomainException(
 
-                "O valor do campo ano é obrigatório."
+                "O ano não pode ser diferente do atual."
             );
         }
 
@@ -140,7 +140,7 @@ public class StudentGroup {
 
             throw new DomainException(
 
-                "O valor do campo semestre é obrigatório."
+                "O semestre foge do padrão: 1 ou 2."
             );
         }
 
