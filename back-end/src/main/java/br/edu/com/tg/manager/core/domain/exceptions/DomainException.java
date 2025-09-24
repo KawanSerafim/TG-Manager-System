@@ -44,6 +44,12 @@ package br.edu.com.tg.manager.core.domain.exceptions;
  * - Estado inválido:
  * 
  * [O(A) 'Entidade' não tem o estado válido para a ação.]
+ * 
+ * -------------------
+ * 
+ * - Tempo atual:
+ * 
+ * [O 'tempo' não pode ser diferente do atual.]
  */
 public class DomainException extends RuntimeException {
 
