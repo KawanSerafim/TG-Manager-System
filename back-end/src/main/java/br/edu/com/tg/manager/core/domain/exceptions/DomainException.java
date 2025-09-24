@@ -47,9 +47,15 @@ package br.edu.com.tg.manager.core.domain.exceptions;
  * 
  * -------------------
  * 
- * - Tempo atual:
+ * - Diferente do tempo atual:
  * 
  * [O 'tempo' não pode ser diferente do atual.]
+ * 
+ * -------------------
+ * 
+ * - Diferente do padrão:
+ * 
+ * [O 'campo' foge do padrão: 'padrão'.]
  */
 public class DomainException extends RuntimeException {
 
