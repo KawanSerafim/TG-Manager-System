@@ -66,18 +66,36 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
             "O curso com nome = " + input.courseName() + ", turno = " +
             fileData.shift() + " não foi encontrado."
         ));
+        
+        StudentGroup studentGroup;
+        
+        Optional<StudentGroup> optionalGroup = studentGroupRepository
+            .findByCourseAndYearAndSemester(
+                course,
+                fileData.year(),
+                fileData.semester()
+            );
 
-        /* Cria um objeto de turma com os dados capturados. */
-        var studentGroup = new StudentGroup(
+        if(optionalGroup.isPresent()) {
 
-            course,
-            input.discipline(),
-            fileData.year(),
-            fileData.semester(),
-            input.temporaryPassword()
-        );
+            /* Se já existe aquela turma, cria um objeto para
+             * poder atualizá-la
+            */
+            studentGroup = optionalGroup.get();
+        } else {
 
-        studentGroupRepository.save(studentGroup);
+            /* Cria um objeto de turma com os dados capturados. */
+            studentGroup = new StudentGroup(
+
+                course,
+                input.discipline(),
+                fileData.year(),
+                fileData.semester(),
+                input.temporaryPassword()
+            );
+
+            studentGroupRepository.save(studentGroup);
+        }
 
         for(var students : fileData.students()) {
 
