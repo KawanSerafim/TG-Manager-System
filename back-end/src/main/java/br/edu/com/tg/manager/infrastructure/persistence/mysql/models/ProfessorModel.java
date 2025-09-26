@@ -37,7 +37,7 @@ import jakarta.persistence.Table;
  * determina se a coluna poderá conter valores nulos ou não. E na
  * 'unique', determina se o valor da coluna não pode se repetir.
  * 
- * Anotação @Enumerated: indica ao JPA que o campo é do tipo Enum e deve
+ * - Anotação @Enumerated: indica ao JPA que o campo é do tipo Enum e deve
  * ser persistido no banco de dados. Porém, por padrão, ele é organizado através
  * de uma enumeração numérica, o que gera um risco em potencial caso os números
  * sejam alterados futuramente. Logo, o tipo (EnumType) deve ser determinado
