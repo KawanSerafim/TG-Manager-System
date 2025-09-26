@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Mapeador.
  * Estabelece uma ponte entre a entidade de domínio Professor com o modelo de
- * dados ProfessorData.
+ * dados ProfessorModel.
  * 
  * Anotação @Component: indica ao Spring que essa classe deve ser gerenciada,
  * permitindo que ela possa ser injetada.
