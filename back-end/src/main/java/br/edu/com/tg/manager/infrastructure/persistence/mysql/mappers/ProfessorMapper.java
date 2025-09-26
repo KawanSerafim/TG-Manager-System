@@ -1,7 +1,8 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers;
 
 import br.edu.com.tg.manager.core.domain.entities.Professor;
-import br.edu.com.tg.manager.infrastructure.persistence.mysql.models.ProfessorModel;
+import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
+.ProfessorModel;
 import org.springframework.stereotype.Component;
 
 /**
