@@ -19,8 +19,9 @@ public interface CourseRepository {
     void save(Course course);
 
     /**
-     * Busca um curso pelo seu nome.
+     * Busca um curso pelo seu nome e seu turno.
      * @param name Nome.
+     * @param shift Turno.
      * @return Optional vazio ou Course.
      */
     Optional<Course> findByNameAndShift(String name, CourseShift shift);
