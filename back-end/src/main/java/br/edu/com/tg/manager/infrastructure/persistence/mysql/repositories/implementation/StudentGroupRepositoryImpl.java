@@ -1,4 +1,5 @@
-package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories.implementation;
+package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
+.implementation;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.core.domain.entities.StudentGroup;
