@@ -13,6 +13,11 @@ import br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Implementação de repositório.
+ * Implementa o repositório de domínio, executando os métodos do contrato
+ * com o repositório Spring JPA.
+ */
 @Repository
 public class CourseRepositoryImpl implements CourseRepository {
 
