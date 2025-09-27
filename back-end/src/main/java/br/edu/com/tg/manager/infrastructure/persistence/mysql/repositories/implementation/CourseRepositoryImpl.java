@@ -1,10 +1,5 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
-/**
-     * Mapeia a entidade de domínio StudentGroup para o modelo de dados
-     * StudentGroupModel.
-     * @param domain Entidade de domínio StudentGroup.
-     * @return Modelo de dados StudentGroupModel.
-     */.implementation;
+.implementation;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.core.domain.enums.CourseShift;
