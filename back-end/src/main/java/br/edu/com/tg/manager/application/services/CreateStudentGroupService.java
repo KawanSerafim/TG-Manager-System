@@ -87,7 +87,7 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
         } else {
 
             /* Cria um objeto de turma com os dados capturados. */
-            studentGroup = new StudentGroup(
+            var newStudentGroup = new StudentGroup(
 
                 course,
                 input.discipline(),
@@ -96,7 +96,7 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
                 input.temporaryPassword()
             );
 
-            studentGroupRepository.save(studentGroup);
+            studentGroup = studentGroupRepository.save(newStudentGroup);
         }
 
         for(var students : fileData.students()) {
