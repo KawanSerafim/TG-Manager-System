@@ -10,7 +10,9 @@ import br.edu.com.tg.manager.core.ports.repositories.StudentGroupRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateStudentGroupService implements CreateStudentGroupCase {
 
     private final CourseRepository courseRepository;
