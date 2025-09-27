@@ -60,7 +60,7 @@ public class ProfessorModel {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "hashed_password", nullable = false)
     private String hashedPassword;
 
     @Enumerated(EnumType.STRING)
