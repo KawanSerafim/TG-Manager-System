@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/student-group/api")
 public class StudentGroupController {
 
+    private static final Logger logger = LoggerFactory
+        .getLogger(StudentGroupController.class);
     private final CreateStudentGroupCase usecase;
 
     public StudentGroupController(CreateStudentGroupCase usecase) {
@@ -50,6 +54,8 @@ public class StudentGroupController {
             
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
+
+            logger.error("Ocorreu um erro inesperado no servidor.", e);
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
