@@ -48,9 +48,9 @@ import jakarta.persistence.Table;
  * - Anotação @OneToOne: indica ao JPA que esta classe faz parte de uma
  * relação de um para um.
  * 
- * - Anotação @JoinColumn: indica ao JPA aonde alocar o ID na outra tabela 
- * relacionada. A variável 'name' determina o nome da coluna em que o ID
- * será salvo.
+ * - Anotação @JoinColumn: indica ao JPA o nome da coluna de chave estrangeira 
+ * nesta tabela. A variável 'name' determina o nome da coluna em que o ID será 
+ * salvo.
  */
 @Entity
 @Table(name = "courses")

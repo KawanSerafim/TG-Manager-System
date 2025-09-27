@@ -50,9 +50,9 @@ import jakarta.persistence.Table;
  * relação de muitos para um, onde a classe é o muitos da relação, e a
  * instância o um.
  * 
- * - Anotação @JoinColumn: indica ao JPA aonde alocar o ID na outra tabela 
- * relacionada. A variável 'name' determina o nome da coluna em que o ID
- * será salvo.
+ * - Anotação @JoinColumn: indica ao JPA o nome da coluna de chave estrangeira 
+ * nesta tabela. A variável 'name' determina o nome da coluna em que o ID será 
+ * salvo.
  */
 @Entity
 @Table(name = "student_groups")
