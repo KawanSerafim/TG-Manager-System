@@ -13,9 +13,10 @@ public interface StudentGroupRepository {
 
     /**
      * Persiste o objeto de uma turma no banco de dados.
-     * @param studentGroup
+     * @param studentGroup StudentGroup.
+     * @return StudentGroup.
      */
-    void save(StudentGroup studentGroup);
+    StudentGroup save(StudentGroup studentGroup);
 
     /**
      * Busca uma turma pelo seu curso, seu ano e seu semestre.

@@ -39,12 +39,15 @@ public class StudentGroupRepositoryImpl implements StudentGroupRepository {
 
     /**
      * {@inheritDoc}
+     * @return 
      */
     @Override
-    public void save(StudentGroup studentGroup) {
+    public StudentGroup save(StudentGroup studentGroup) {
         
         var studentGroupModel = studentGroupMapper.toModel(studentGroup);
         springRepository.save(studentGroupModel);
+
+        return studentGroupMapper.toDomain(studentGroupModel);
     }
 
     /**
