@@ -26,7 +26,7 @@ public class Course {
 
     /**
      * Construtor de negócio:
-     * Cria um novo objeto de Course e Garante que o objeto seja criado num
+     * Cria um novo objeto de Course e garante que o objeto seja criado num
      * estado válido.
      * @param name Nome do curso.
      * @param shift Turno do curso.
@@ -173,7 +173,7 @@ public class Course {
      * @param courseCoordinator Coordenador de curso fornecido.
      */
     public void setCourseCoordinator(Professor courseCoordinator) {
-        
+
         // Regra de negócio: curso não pode conter coordenador de curso nulo.
         if(courseCoordinator == null) {
 
