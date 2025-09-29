@@ -1,7 +1,7 @@
 package br.edu.com.tg.manager.core.domain.enums;
 
 /**
- * Enumeração de domínio.
+ * Enumeração de domínio:
  * Representa as disciplinas de TG.
  */
 public enum Discipline {
