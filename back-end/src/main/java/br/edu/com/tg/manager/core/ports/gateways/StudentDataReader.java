@@ -8,6 +8,9 @@ import java.util.List;
  * Portão de acesso de domínio:
  * Define um contrato para a ação de ler dados de alunos e demais informações
  * de turma, todos vindos de um arquivo.
+ * Por pertencer ao núcleo (core) da aplicação, esta classe é independente de
+ * frameworks ou bibliotecas externas, sendo, portanto, considerada uma classe
+ * pura.
  */
 public interface StudentDataReader {
 
