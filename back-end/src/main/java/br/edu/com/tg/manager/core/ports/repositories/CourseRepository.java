@@ -8,6 +8,9 @@ import java.util.Optional;
  * Repositório de domínio:
  * Define um contrato abstrato para a camada de infraestrutura implementar
  * a persistência de dados da entidade de domínio Course.
+ * Por pertencer ao núcleo (core) da aplicação, esta interface é independente de
+ * frameworks ou bibliotecas externas, sendo, portanto, considerada uma
+ * interface pura.
  */
 public interface CourseRepository {
 
