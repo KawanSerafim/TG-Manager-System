@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Portão de acesso:
+ * Portão de acesso de domínio:
  * Define um contrato para a ação de ler dados de alunos e demais informações
  * de turma, todos vindos de um arquivo.
  */
