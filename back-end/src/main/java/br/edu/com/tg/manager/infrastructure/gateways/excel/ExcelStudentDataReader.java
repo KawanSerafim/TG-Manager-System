@@ -111,7 +111,7 @@ public class ExcelStudentDataReader implements StudentDataReader {
     }
 
     /**
-     * Método de negócio:
+     * Método de aplicação:
      * Retorna um turno abstraído de uma célula da planilha.
      * @param shiftCell Célula da planilha.
      * @return CourseShift.
@@ -140,7 +140,7 @@ public class ExcelStudentDataReader implements StudentDataReader {
     }
 
     /**
-     * Método de negócio:
+     * Método de aplicação:
      * Lê o valor de uma célula de forma segura, evitando erros de comparação
      * com texto e número.
      * @param cell Célula da planilha.
