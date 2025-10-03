@@ -147,7 +147,7 @@ public class ProfessorModel {
 
     /**
      * Método Get.
-     * @return Senha criptografada salvo no modelo de dados do professor.
+     * @return Senha criptografada salva no modelo de dados do professor.
      */
     public String getHashedPassword() {
      
