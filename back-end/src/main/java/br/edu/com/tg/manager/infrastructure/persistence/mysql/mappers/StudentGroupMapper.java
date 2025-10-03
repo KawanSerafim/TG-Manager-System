@@ -2,7 +2,7 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers;
 
 import br.edu.com.tg.manager.core.domain.entities.StudentGroup;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
-.StudentGroupModel;
+        .StudentGroupModel;
 import org.springframework.stereotype.Component;
 
 /*

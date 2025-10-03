@@ -3,7 +3,7 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers;
 import br.edu.com.tg.manager.core.domain.entities.Student;
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
-.StudentModel;
+        .StudentModel;
 import org.springframework.stereotype.Component;
 
 /*

@@ -2,7 +2,7 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
-.CourseModel;
+        .CourseModel;
 import org.springframework.stereotype.Component;
 
 /*
