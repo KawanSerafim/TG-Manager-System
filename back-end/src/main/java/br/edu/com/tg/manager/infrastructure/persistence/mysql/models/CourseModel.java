@@ -42,7 +42,7 @@ import jakarta.persistence.Table;
  * 
  * - Anotação @JoinColumn: indica ao Spring JPA o nome da coluna de chave
  * estrangeira nesta tabela. A variável 'name' determina o nome da coluna em que
- *  o ID será salvo.
+ * o ID será salvo.
  */
 
 /**
