@@ -14,6 +14,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
+/*
+ * Anotação @Component: indica ao Spring que esta classe deve ser gerenciada
+ * pelo framework.
+ */
+
 /**
  * Implementador de portão de acesso:
  * Implementa o funcionamento da leitura de dados vindo de um arquivo em Excel.
