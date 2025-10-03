@@ -16,6 +16,7 @@ public interface SpringCourseRepository extends
 JpaRepository<CourseModel, Long> {
     
     /**
+     * Método de contrato de fronteira:
      * Busca um curso pelo seu nome e o seu turno.
      * @param name Nome do curso.
      * @param shift Turno do curso.
