@@ -15,6 +15,7 @@ public interface SpringProfessorRepository extends
 JpaRepository<ProfessorModel, Long> {
 
     /**
+     * Método de contrato de fronteira:
      * Busca um professor pela sua matrícula.
      * @param registration Matrícula do professor.
      * @return Optional vazio ou ProfessorModel.
