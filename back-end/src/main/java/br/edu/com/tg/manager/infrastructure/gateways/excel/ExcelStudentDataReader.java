@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * Implementa o funcionamento da leitura de dados vindo de um arquivo em Excel.
  * Por pertencer à infraestrutura da aplicação, esta classe utiliza da anotação
  * Component do SpringBoot, permitindo que o framework gerencie a classe, e a
- * biblioeteca do Apache POI, que porta as ferramentas para ler e coletar dados
+ * biblioteca do Apache POI, que porta as ferramentas para ler e coletar dados
  * de um Excel.
  */
 @Component
