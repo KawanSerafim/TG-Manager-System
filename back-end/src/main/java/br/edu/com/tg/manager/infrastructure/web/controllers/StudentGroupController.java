@@ -5,11 +5,7 @@ import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 @RestController
 @RequestMapping("/student-group/api")
+@CrossOrigin(origins = "http://127.0.0.1:5501")
 public class StudentGroupController {
 
     private static final Logger logger = LoggerFactory
