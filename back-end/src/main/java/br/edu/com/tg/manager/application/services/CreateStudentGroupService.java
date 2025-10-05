@@ -31,7 +31,9 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
     /**
      * Construtor de injeção de dependência:
      * Realiza, através do Spring Boot, a injeção de dependência dos
-     * repositórios de domínio.
+     * repositórios de domínio e injeta a dependência que, quando
+     * CreateStudentGroupCase é instanciado por outra classe, a implementação da
+     * interface é assumida por esta classe aqui.
      * @param courseRepository Repositório de domínio do curso.
      * @param studentGroupRepository Repositório de domínio da turma.
      * @param studentRepository Repositório de domínio do aluno.
