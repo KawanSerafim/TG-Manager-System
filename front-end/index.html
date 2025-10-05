@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de planilha de alunos</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Imports de fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <h1>Envio de planilha de alunos</h1>
+    
+    <div class="select">
+      <div id="course-select">
+        <label for="options-view-button">Cursos</label>
+        <input type="checkbox" id="options-view-button">
+        
+        <div id="select-button">
+          <div id="selected-value">Selecione seu curso</div>
+          <!--Icones do Lucide para o select de curso-->
+          <div id="chevrons">
+            <i data-lucide="chevron-down"></i>
+            <i data-lucide="chevron-up"></i>
+          </div>
+        </div>
+      </div>
+      <ul id="options">
+        <!--Opções de cursos viram do JS-->
+        
+      </ul>
+    </div>
+  
+    <div class="container">
+      <label for="btn-file" class="lb-file">
+        Clique aqui para enviar a planilha de alunos (apenas .xlsx)
+      </label>
+
+      <input type="file" name="file" id="btn-file">
+
+      <div class="year-semester">
+      <!-- Ano e semestre serão setados pelo JS -->
+      </div>
+      <!-- Disciplina, TG1 ou TG2 -->
+      <div class="discipline">
+        <fieldset>
+          <legend>Seleciona a qual disciplina pertence o arquivo:</legend>
+          <div class="discipline-options">
+            <!-- TG1 -->
+            <input type="radio" name="discipline" id="discipline1" value="TG1">
+            <label for="discipline1">TG1</label>
+             <!-- TG2 -->
+            <input type="radio" name="discipline" id="discipline2" value="TG2">
+            <label for="discipline2">TG2</label>
+          </div>
+        </fieldset>
+      </div>
+     
+      <button id="btn-upload">Gerar Senha</button>
+
+      <div id="status-mensagem"></div>
+    </div>
+  </main>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./scripts/script.js"></script>
+</body>
+</html>
