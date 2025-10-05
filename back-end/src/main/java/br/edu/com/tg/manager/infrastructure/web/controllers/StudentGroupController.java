@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  */
 @RestController
 @RequestMapping("/student-group/api")
-@CrossOrigin(origins = "http://127.0.0.1:5501")
+@CrossOrigin(origins = "*")
 public class StudentGroupController {
 
     private static final Logger logger = LoggerFactory
