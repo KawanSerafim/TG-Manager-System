@@ -1,19 +1,27 @@
 package br.edu.com.tg.manager.core.domain.enums;
 
 /**
- * Enumeração de domínio.
- * Representa os cargos dos professores, também determinando hierarquia de
+ * Enumeração de domínio:
+ * Representa os cargos dos professores e determina a hierarquia de
  * permissões.
+ * Por pertencer ao núcleo (core) da aplicação, este enum é independente de
+ * frameworks ou bibliotecas externas, sendo, portanto, considerada um enum
+ * puro.
  */
 public enum ProfessorRole {
 
+    // Orientador.
     ADVISOR,
+
+    // Coordenador de TG.
     TG_COORDINATOR,
+
+    // Coordenador de curso.
     COURSE_COORDINATOR;
 
     /**
+     * Método de negócio:
      * Verifica se o professor tem permissões de orientador.
-     * Como todos possuem, tem apenas um tipo de retorno.
      * @return Verdadeiro.
      */
     public boolean hasAdvisorPermissions() {
@@ -22,9 +30,8 @@ public enum ProfessorRole {
     }
 
     /**
+     * Método de negócio:
      * Verifica se o professor tem permissões de coordenador de TG.
-     * Vai pegar o cargo do professor (this) e vai comparar (==) com o cargo
-     * determinado (TG_COORDINATOR).
      * @return Verdadeiro ou Falso.
      */
     public boolean hasTgCoordinatorPermissions() {
@@ -33,9 +40,8 @@ public enum ProfessorRole {
     }
 
     /**
+     * Método de negócio:
      * Verifica se o professor tem permissões de coordenador de curso.
-     * Vai pegar o cargo do professor (this) e vai comparar (==) com o cargo
-     * determinado (COURSE_COORDINATOR).
      * @return Verdadeiro ou Falso.
      */
     public boolean hasCourseCoordinatorPermissions() {

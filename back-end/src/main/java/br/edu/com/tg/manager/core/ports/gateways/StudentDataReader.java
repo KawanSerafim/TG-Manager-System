@@ -1,22 +1,22 @@
 package br.edu.com.tg.manager.core.ports.gateways;
 
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import java.io.InputStream;
 import java.util.List;
 
-import br.edu.com.tg.manager.core.domain.enums.CourseShift;
-
 /**
- * Portão de acesso.
+ * Portão de acesso de domínio:
  * Define um contrato para a ação de ler dados de alunos e demais informações
- * de turma, vindos de um arquivo.
+ * de turma, todos vindos de um arquivo.
+ * Por pertencer ao núcleo (core) da aplicação, esta classe é independente de
+ * frameworks ou bibliotecas externas, sendo, portanto, considerada uma classe
+ * pura.
  */
 public interface StudentDataReader {
 
     /**
-     * Porta-dados.
-     * Carrega os dados dos alunos que estão dentro de um arquivo, que são:
-     * - nome do aluno.
-     * - RA do aluno.
+     * Porta-dados:
+     * Carrega os dados dos alunos que estão num arquivo.
      */
     record StudentData(
 
@@ -25,12 +25,9 @@ public interface StudentDataReader {
     ) {}
 
     /**
-     * Porta-dados.
-     * Carrega os demais dados da turma no arquivo, que são:
-     * - ano.
-     * - semestre.
-     * - turno.
-     * Além disso, instancia uma lista de records de alunos.
+     * Porta-dados:
+     * Carrega os demais dados da turma que estão num arquivo. Além disso,
+     * instancia uma lista de records de alunos.
      */
     record FileData(
 
@@ -41,6 +38,7 @@ public interface StudentDataReader {
     ) {}
 
     /**
+     * Método de contrato de domínio:
      * Lê um fluxo de dados de um arquivo e o converte em FileData.
      * @param fileStream Fluxo de dados do arquivo.
      * @return FileData.
