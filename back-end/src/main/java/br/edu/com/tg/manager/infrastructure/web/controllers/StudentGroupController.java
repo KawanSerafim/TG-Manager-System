@@ -24,6 +24,11 @@ import org.slf4j.LoggerFactory;
  * São dois níveis, o de classe que define o prefixo da URL, e o de método que
  * define o endpoint.
  *
+ * Anotação @CrossOrigin: indica ao Spring Boot qual a URL que está permitida
+ * acessar os recursos do API REST. Como o RequestMapping, essa anotação possui
+ * nível de classe, que permite a URL acessar todos os endpoints, e o nível de
+ * método, que só permite acessar aquele endpoint escolhido.
+ *
  * Anotação @RequestParam: indica ao Spring Boot o parâmetro que deve ser
  * buscado na requisição, podendo extraí-los à uma variável.
  *
