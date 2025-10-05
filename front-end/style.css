@@ -28,12 +28,12 @@ main {
 }
 
 h1 {
-  color: #ccc;
+  color: #fbf9fe;
   font-weight: 500;
 }
 
 .select {
-  color:#AFABB6;
+  color:#fbf9fe;
   padding: 1rem;
 }
 
@@ -261,9 +261,86 @@ input[type="file"] {
 }
 
 .year-semester span{
-  color:#AFABB6;
+  color:#fbf9fe;
 }
 
+/*Inputs de escolha de disciplina*/
+.discipline fieldset {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 1.3rem;
+}
+ .discipline legend {
+  padding: 0 10px;
+  font-weight: bold;
+  color: #fbf9fe;
+}
+.discipline-options {
+  display: flex;
+  gap: 20px; /* Espaçamento entre as opções */
+}
+
+
+/* 1. Esconde o input de rádio original */
+.discipline-options input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+/* 2. Estiliza o label para ser clicável e ter espaço para o nosso círculo */
+.discipline-options label {
+    position: relative; /* Essencial para posicionar os pseudo-elementos */
+    padding-left: 30px; /* Espaço para o "falso" radio button */
+    cursor: pointer;
+    font-size: 18px;
+    color: #fbf9fe;
+}
+
+  /* 3. Cria o círculo externo (o "falso" radio button) */
+.discipline-options label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%); /* Centraliza verticalmente */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: border-color 0.2s ease-in-out; /* Animação suave */ 
+}
+
+/* 4. Cria o círculo interno (o ponto que aparece quando selecionado) */
+.discipline-options label::after {
+  content: '';
+  position: absolute;
+  left: 5px; /* (Largura do ::before - Largura do ::after) / 2 + borda */
+  top: 50%;
+  transform: translateY(-50%) scale(0); /* Começa escondido */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #007bff;
+  transition: transform 0.2s ease-in-out; /* Animação suave */
+}
+ /* 5. Quando o input estiver :checked, muda o estilo do label */
+.discipline-options input[type="radio"]:checked + label::before {
+    border-color: #007bff; /* Muda a cor da borda */
+}
+
+.discipline-options input[type="radio"]:checked + label::after {
+    transform: translateY(-50%) scale(1); /* Mostra o círculo interno */
+}
+
+/* Efeito de foco para acessibilidade */
+.discipline-options input[type="radio"]:focus-visible + label::before {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+
+/*Botão de envio do formulario*/
 #btn-upload {
   padding: 0.25rem 1rem;
   cursor: pointer;
@@ -286,5 +363,11 @@ input[type="file"] {
     margin-top: 1rem;
     font-weight: bold;
     font-size: 1.5em;
+}
+
+.password-text{
+  color: #dff1e0;
+  font-weight: 500;
+  margin-top: 1rem;
 }
 
