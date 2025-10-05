@@ -29,9 +29,8 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     /**
      * Construtor de injeção de dependência:
-     * Injeta, através do SpringBoot, a dependência que, quando CourseRepository
-     * é instanciado por outra classe, a implementação da interface é assumida
-     * por esta classe aqui.
+     * Injeta a dependência que, quando CourseRepository é instanciado por outra
+     * classe, a implementação da interface é assumida por esta classe aqui.
      * @param springRepository Repositório Spring JPA do curso.
      * @param courseMapper Mapeador do curso.
      */

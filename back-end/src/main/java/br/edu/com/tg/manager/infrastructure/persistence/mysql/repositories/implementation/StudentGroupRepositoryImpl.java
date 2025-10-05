@@ -32,9 +32,9 @@ public class StudentGroupRepositoryImpl implements StudentGroupRepository {
 
     /**
      * Construtor de injeção de dependência:
-     * Injeta, através do SpringBoot, a dependência que, quando
-     * StudentGroupRepository é instanciado por outra classe, a implementação da
-     * interface é assumida por esta classe aqui.
+     * Injeta a dependência que, quando StudentGroupRepository é instanciado por
+     * outra classe, a implementação da interface é assumida por esta classe
+     * aqui.
      * @param springRepository Repositório Spring JPA da turma.
      * @param studentGroupMapper Mapeador da turma.
      * @param courseMapper Mapeador do curso.
