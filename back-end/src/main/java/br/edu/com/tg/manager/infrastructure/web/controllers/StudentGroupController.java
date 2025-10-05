@@ -49,7 +49,8 @@ public class StudentGroupController {
 
     /**
      * Construtor de injeção de dependência:
-     *
+     * Realiza, através do Spring Boot, a injeção de dependência do caso de uso
+     * para criação de turmas.
      * @param useCase Caso de uso de criar turma.
      */
     public StudentGroupController(CreateStudentGroupCase useCase) {
