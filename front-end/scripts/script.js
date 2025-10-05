@@ -1,4 +1,4 @@
-import { getSemester } from "./utils.js";
+import { generatedPassword, getSemester } from "./utils.js";
 
 //Inicia a bilbioteca de icones
 lucide.createIcons()
@@ -83,15 +83,32 @@ const btn = document.getElementById("btn-upload");
 //div de mensagem
 const statusMensagem = document.getElementById('status-mensagem');
 
+
+
 //listener acionado ao clicar no botão de envio
 btn.addEventListener('click', async () => {
   //pega o csv enviado
   const file = document.getElementById("btn-file").files[0];
   //Pega o nome do curso do input selecionado
   const select = document.getElementById('selected-value').textContent;
-  const year = new Date().getFullYear();
-  const semester = getSemester();
+  //Pega o input de disciplina selecionado
+  const discipline1 = document.getElementById('discipline1')
+  const discipline2 = document.getElementById('discipline2')
+  let selectedDiscipline = ""
+  if (discipline1.checked == true){
+    selectedDiscipline = discipline1.value
+  } else if(discipline2.checked == true) {
+    selectedDiscipline = discipline2.value
+  }
+  const password = generatedPassword(6,{uppers:true, lowers:true, numbers:true})
   
+  //Verifica se a disciplina foi selecionada
+  if (selectedDiscipline === ""){
+      statusMensagem.textContent = "Por favor selecione a qual discipline, TG1 ou TG2, esse arquivo pertence";
+      statusMensagem.style.color = "red"
+      return;
+  }
+
   // verificação caso o input de file não tiver sido enviado nada ou arquvo não for xlsx
   if (!file || !file.name.endsWith('xlsx') ) {
     statusMensagem.textContent = "Por favor selecione um arquivo .XLSX"
@@ -112,9 +129,9 @@ btn.addEventListener('click', async () => {
   //append.('nome do parametro', parametro)
   formData.append('file', file);
   formData.append('courseName', select)
-  formData.append('year', year)
-  //função para verificar qual o  semestre atual
-  formData.append('semester', semester)
+  formData.append('discipline', selectedDiscipline)
+  formData.append('temporaryPassword', password)
+  
 
   // Limpa a mensagem de status anterior
   statusMensagem.textContent = 'Enviando...';
@@ -122,7 +139,7 @@ btn.addEventListener('click', async () => {
 
   //Fazer requisição para o backend
   //enviar para o backend o csv
-  const API_URL = "http://localhost:8080/api/students/upload-csv"
+  const API_URL = "http://localhost:8080/student-group/api"
   try{
     const response = await fetch(API_URL, {
       method: "POST",
@@ -132,9 +149,11 @@ btn.addEventListener('click', async () => {
     //informar no front que deu certo
     if(response.ok){
       console.log(response.status)
-      if (response.status === 204){
+      if (response.status === 201){
+        const sucessMsg = await response.text()
         statusMensagem.style.color = 'green';
-        statusMensagem.textContent = 'Alunos pré-cadastrados com sucesso!'
+        statusMensagem.textContent = `${sucessMsg}`;
+        statusMensagem.innerHTML += `<br><h3 class="password-text">Sua senha é: ${password}</h3>`;
       }
     } else {
       const erro = await response.text();
