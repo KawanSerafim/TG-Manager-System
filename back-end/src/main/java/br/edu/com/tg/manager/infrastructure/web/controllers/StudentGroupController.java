@@ -70,8 +70,7 @@ public class StudentGroupController {
 
         @RequestParam("courseName") String courseName,
         @RequestParam("discipline") Discipline discipline,
-        @RequestPart("file") MultipartFile file,
-        @RequestParam("temporaryPassword") String temporaryPassword
+        @RequestPart("file") MultipartFile file
     ) {
 
         try {
@@ -84,8 +83,7 @@ public class StudentGroupController {
 
                 courseName,
                 discipline,
-                file.getInputStream(),
-                temporaryPassword
+                file.getInputStream()
             );
 
             /*

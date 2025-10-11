@@ -55,8 +55,7 @@ public class StudentGroupTest {
             course,
             discipline,
             year,
-            semester,
-            temporaryPassword
+            semester
         );
 
         /* ----------------------------------------------------------------- */
