@@ -109,8 +109,7 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
                 course,
                 input.discipline(),
                 fileData.year(),
-                fileData.semester(),
-                input.temporaryPassword()
+                fileData.semester()
             );
 
             studentGroup = studentGroupRepository.save(newStudentGroup);

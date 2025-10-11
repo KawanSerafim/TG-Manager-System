@@ -21,8 +21,7 @@ public interface CreateStudentGroupCase {
 
         String courseName,
         Discipline discipline,
-        InputStream file,
-        String temporaryPassword
+        InputStream file
     ) {}
 
     /**
