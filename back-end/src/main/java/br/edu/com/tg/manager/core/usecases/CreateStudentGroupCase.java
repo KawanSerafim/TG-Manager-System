@@ -1,7 +1,7 @@
 package br.edu.com.tg.manager.core.usecases;
 
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
-import java.io.InputStream;
+import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 
 /**
  * Caso de uso de domínio:
@@ -21,7 +21,7 @@ public interface CreateStudentGroupCase {
 
         String courseName,
         Discipline discipline,
-        InputStream file
+        StudentDataReader.FileData fileData
     ) {}
 
     /**
