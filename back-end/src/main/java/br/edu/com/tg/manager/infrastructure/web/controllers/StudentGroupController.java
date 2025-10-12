@@ -2,7 +2,10 @@ package br.edu.com.tg.manager.infrastructure.web.controllers;
 
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
+import br.edu.com.tg.manager.infrastructure.web.dtos.StudentGroupResponse;
+import br.edu.com.tg.manager.infrastructure.web.dtos.StudentResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /*
  * Anotações da web.bind:
@@ -53,20 +58,36 @@ public class StudentGroupController {
     private static final Logger logger = LoggerFactory
         .getLogger(StudentGroupController.class);
     private final CreateStudentGroupCase useCase;
+    private final StudentDataReader studentDataReader;
 
     /**
      * Construtor de injeção de dependência:
      * Realiza, através do Spring Boot, a injeção de dependência do caso de uso
      * para criação de turmas.
      * @param useCase Caso de uso de criar turma.
+     * @param studentDataReader Portão de acesso de domínio dos dados dos alunos
+     * e demais informações da turma.
      */
-    public StudentGroupController(CreateStudentGroupCase useCase) {
+    public StudentGroupController(
+
+        CreateStudentGroupCase useCase,
+        StudentDataReader studentDataReader
+    ) {
 
         this.useCase = useCase;
+        this.studentDataReader = studentDataReader;
     }
 
+    /**
+     * Método de infra estrutura:
+     * Captura os dados da requisção POST para criar uma nova turma.
+     * @param courseName Nome do curso da turma.
+     * @param discipline Disciplina da turma.
+     * @param file Arquivo com o ano, semestre, turno e os alunos da turma.
+     * @return ResponseEntity do tipo String com a resposta condizente.
+     */
     @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<String> create(
+    public ResponseEntity<?> create(
 
         @RequestParam("courseName") String courseName,
         @RequestParam("discipline") Discipline discipline,
@@ -76,6 +97,12 @@ public class StudentGroupController {
         try {
 
             /*
+             * Salva numa instância um record que traduz os dados vindo
+             * do arquivo.
+             */
+            var fileData = studentDataReader.read(file.getInputStream());
+
+            /*
              * Atribuindo ao porta-dados do caso de uso, os dados recolhidos da
              * requisição POST.
              */
@@ -83,18 +110,40 @@ public class StudentGroupController {
 
                 courseName,
                 discipline,
-                file.getInputStream()
+                fileData
             );
 
             /*
              * Executando o caso de uso. Por injeção de dependência, quem irá
              * aplicar a lógica será o service responsável pelo caso de uso.
              */
-            useCase.execute(input);
+            var restult = useCase.execute(input);
 
-            // Retorna ao cliente um body informando o sucesso da execução.
+            // Converte a lista de alunos para um DTO.
+            List<StudentResponse> studentDTOs = restult.students().stream()
+                    .map(student ->
+
+                        new StudentResponse(
+
+                            student.getName(),
+                            student.getRegistration()
+                        )
+                    ).toList();
+
+            // Monta um DTO de resposta com todos os dados
+            var responseBody = new StudentGroupResponse(
+
+                restult.courseName(),
+                restult.courseShift(),
+                restult.discipline(),
+                restult.year(),
+                restult.semester(),
+                studentDTOs
+            );
+
+            // Retorna ao cliente o response body montado.
             return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Turma e alunos pré-cadastrados com sucesso!");
+                .body(responseBody);
         } catch (DomainException e) {
 
             /*

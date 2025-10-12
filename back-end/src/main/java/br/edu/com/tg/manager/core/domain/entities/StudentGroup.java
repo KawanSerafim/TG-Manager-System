@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import java.time.Year;
@@ -74,6 +75,24 @@ public class StudentGroup {
     public Course getCourse() {
        
         return course;
+    }
+
+    /**
+     * Método Get.
+     * @return Nome do curso da turma.
+     */
+    public String getCourseName() {
+
+        return course.getName();
+    }
+
+    /**
+     * Método Get.
+     * @return Turno do curso da turma.
+     */
+    public CourseShift getCourseShift() {
+
+        return course.getShift();
     }
 
     /**
