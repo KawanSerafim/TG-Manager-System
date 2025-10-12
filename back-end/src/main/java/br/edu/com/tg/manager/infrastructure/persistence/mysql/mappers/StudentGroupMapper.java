@@ -57,7 +57,6 @@ public class StudentGroupMapper {
         studentGroupModel.setDiscipline(domain.getDiscipline());
         studentGroupModel.setYear(domain.getYear());
         studentGroupModel.setSemester(domain.getSemester());
-        studentGroupModel.setTemporaryPassword(domain.getTemporaryPassword());
 
         // Retorno do modelo de dados.
         return studentGroupModel;
@@ -84,8 +83,7 @@ public class StudentGroupMapper {
             courseMapper.toDomain(model.getCourse()),
             model.getDiscipline(),
             model.getYear(),
-            model.getSemester(),
-            model.getTemporaryPassword()
+            model.getSemester()
         );
 
         studentGroup.setId(model.getId());

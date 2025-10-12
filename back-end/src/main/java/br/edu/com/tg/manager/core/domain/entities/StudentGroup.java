@@ -1,9 +1,9 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
-import java.time.Year;
-
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import java.time.Year;
 
 /**
  * Entidade de domínio:
@@ -19,7 +19,6 @@ public class StudentGroup {
     private Discipline discipline;
     private Integer year;
     private Integer semester;
-    private String temporaryPassword;
 
     /**
      * Construtor vazio:
@@ -35,15 +34,13 @@ public class StudentGroup {
      * @param discipline Disciplina de TG da turma.
      * @param year Ano da turma.
      * @param semester Semestre da turma.
-     * @param temporaryPassword Senha temporária da turma.
      */
     public StudentGroup(
 
         Course course,
         Discipline discipline,
         Integer year,
-        Integer semester,
-        String temporaryPassword
+        Integer semester
     ) {
 
         // Delega as validações dos parâmetros aos seus devidos métodos Set.
@@ -51,7 +48,6 @@ public class StudentGroup {
         this.setDiscipline(discipline);
         this.setYear(year);
         this.setSemester(semester);
-        this.setTemporaryPassword(temporaryPassword);
     }
 
     /**
@@ -79,6 +75,24 @@ public class StudentGroup {
     public Course getCourse() {
        
         return course;
+    }
+
+    /**
+     * Método Get.
+     * @return Nome do curso da turma.
+     */
+    public String getCourseName() {
+
+        return course.getName();
+    }
+
+    /**
+     * Método Get.
+     * @return Turno do curso da turma.
+     */
+    public CourseShift getCourseShift() {
+
+        return course.getShift();
     }
 
     /**
@@ -198,35 +212,5 @@ public class StudentGroup {
         }
 
         this.semester = semester;
-    }
-
-    /**
-     * Método Get.
-     * @return Senha temporária da turma.
-     */
-    public String getTemporaryPassword() {
-     
-        return temporaryPassword;
-    }
-
-    /**
-     * Método Set.
-     * @param temporaryPassword Senha fornecida.
-     */
-    public void setTemporaryPassword(String temporaryPassword) {
-        
-        /*
-         * Regra de negócio: turma não pode conter senha temporária vazia ou
-         * nula.
-         */
-        if(temporaryPassword == null || temporaryPassword.trim().isEmpty()) {
-
-            throw new DomainException(
-
-                "O campo senha temporária é obrigatório."
-            );
-        }
-
-        this.temporaryPassword = temporaryPassword;
     }
 }
