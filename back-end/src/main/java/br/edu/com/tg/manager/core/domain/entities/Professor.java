@@ -128,7 +128,7 @@ public class Professor {
 
     /**
      * Método Set.
-     * @param userAccount Conta de usuário do Professor.
+     * @param userAccount Conta de usuário fornecida.
      */
     public void setUserAccount(UserAccount userAccount) {
 
