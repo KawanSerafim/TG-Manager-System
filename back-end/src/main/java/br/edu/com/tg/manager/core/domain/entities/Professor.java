@@ -175,7 +175,7 @@ public class Professor {
      * Método Set.
      * @param password Senha fornecida.
      */
-    public void setHashedPassword(String password) {
+    public void setPassword(String password) {
 
         this.userAccount.setPassword(password);
     }
