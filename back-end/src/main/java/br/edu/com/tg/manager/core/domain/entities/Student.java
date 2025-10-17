@@ -15,8 +15,7 @@ public class Student {
     private Long id;
     private String name;
     private String registration;
-    private String email;
-    private String hashedPassword;
+    private UserAccount userAccount;
     private StudentStatus status;
     private StudentGroup studentGroup;
 
@@ -52,10 +51,9 @@ public class Student {
      * Método de negócio:
      * Finaliza o cadastro do aluno no sistema, garantindo que o objeto dele
      * esteja em um estado válido para tornar a conta ativa.
-     * @param email Email fornecido.
-     * @param hashedPassword Senha fornecida.
+     * @param userAccount Conta de usuário do Aluno.
      */
-    public void finalizeRegistration(String email, String hashedPassword) {
+    public void finalizeRegistration(UserAccount userAccount) {
 
         /*
          * Regra de negócio: o aluno deve estar pré-cadastrado para poder
@@ -69,8 +67,8 @@ public class Student {
             );
         }
 
-        this.setEmail(email);
-        this.setHashedPassword(hashedPassword);
+        // Delega as validações dos parâmetros aos seus devidos métodos Set.
+        this.setUserAccount(userAccount);
         this.setStatus(StudentStatus.ACTIVE);
     }
 
@@ -148,11 +146,29 @@ public class Student {
 
     /**
      * Método Get.
+     * @return Conta de usuário do aluno.
+     */
+    public UserAccount getUserAccount() {
+
+        return userAccount;
+    }
+
+    /**
+     * Método Set.
+     * @param userAccount Conta de usuário fornecida.
+     */
+    public void setUserAccount(UserAccount userAccount) {
+
+        this.userAccount = userAccount;
+    }
+
+    /**
+     * Método Get.
      * @return Email da conta do aluno.
      */
     public String getEmail() {
      
-        return email;
+        return userAccount.getEmail();
     }
 
     /**
@@ -160,44 +176,26 @@ public class Student {
      * @param email Email fornecido.
      */
     public void setEmail(String email) {
-        
-        // Regra de negócio: aluno não pode conter email vazio ou nulo.
-        if(email == null || email.trim().isEmpty()) {
 
-            throw new DomainException(
-
-                "O campo email é obrigatório."
-            );
-        }
-
-        // Regra de negócio: aluno não pode conter email inválido.
-        if(!(email.contains("@"))) {
-
-            throw new DomainException(
-
-                "O formato do campo email é inválido."
-            );
-        }
-
-        this.email = email;
+        this.userAccount.setEmail(email);
     }
 
     /**
      * Método Get.
      * @return Senha criptografada da conta do aluno.
      */
-    public String getHashedPassword() {
+    public String getPassword() {
      
-        return hashedPassword;
+        return userAccount.getPassword();
     }
 
     /**
      * Método Set.
-     * @param hashedPassword Senha fornecida.
+     * @param password Senha fornecida.
      */
-    public void setHashedPassword(String hashedPassword) {
+    public void setPassword(String password) {
      
-        this.hashedPassword = hashedPassword;
+        this.userAccount.setPassword(password);
     }
 
     /**
