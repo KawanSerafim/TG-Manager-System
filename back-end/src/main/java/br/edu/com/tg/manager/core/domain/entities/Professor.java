@@ -18,8 +18,7 @@ public class Professor {
     private Long id;
     private String name;
     private String registration;
-    private String email;
-    private String hashedPassword;
+    private UserAccount userAccount;
     private ProfessorRole role;
 
     /**
@@ -34,24 +33,21 @@ public class Professor {
      * estado válido.
      * @param name Nome do professor.
      * @param registration Matrícula do professor.
-     * @param email Email da conta do professor.
-     * @param hashedPassword Senha criptografada da conta do professor.
+     * @param userAccount Conta de usuário do professor.
      * @param role Cargo do professor.
      */
     public Professor(
 
         String name,
         String registration,
-        String email,
-        String hashedPassword,
+        UserAccount userAccount,
         ProfessorRole role
     ) {
 
         // Delega as validações dos parâmetros aos seus devidos métodos Set.
         this.setName(name);
         this.setRegistration(registration);
-        this.setEmail(email);
-        this.setHashedPassword(hashedPassword);
+        this.setUserAccount(userAccount);
         this.setRole(role);
     }
 
@@ -131,12 +127,21 @@ public class Professor {
     }
 
     /**
+     * Método Set.
+     * @param userAccount Conta de usuário do Professor.
+     */
+    public void setUserAccount(UserAccount userAccount) {
+
+        this.userAccount = userAccount;
+    }
+
+    /**
      * Método Get.
-     * @return Email da conta do professor.
+     * @return Email da conta de usuário do professor.
      */
     public String getEmail() {
      
-        return email;
+        return userAccount.getEmail();
     }
 
     /**
@@ -144,44 +149,26 @@ public class Professor {
      * @param email Email fornecido.
      */
     public void setEmail(String email) {
-        
-        // Regra de negócio: professor não pode conter email vazio ou nulo.
-        if(email == null || email.trim().isEmpty()) {
 
-            throw new DomainException(
-
-                "O campo email é obrigatório."
-            );
-        }
-
-        // Regra de negócio: professor não pode conter email inváldio.
-        if(!(email.contains("@"))) {
-
-            throw new DomainException(
-
-                "O formato do campo email é inválido."
-            );
-        }
-
-        this.email = email;
+        this.userAccount.setEmail(email);
     }
 
     /**
      * Método Get.
-     * @return Senha criptografada da conta do professor.
+     * @return Senha da conta de usuário do professor.
      */
-    public String getHashedPassword() {
+    public String getPassword() {
      
-        return hashedPassword;
+        return userAccount.getPassword();
     }
 
     /**
      * Método Set.
-     * @param hashedPassword Senha fornecida.
+     * @param password Senha fornecida.
      */
-    public void setHashedPassword(String hashedPassword) {
-     
-        this.hashedPassword = hashedPassword;
+    public void setHashedPassword(String password) {
+
+        this.userAccount.setPassword(password);
     }
 
     /**
