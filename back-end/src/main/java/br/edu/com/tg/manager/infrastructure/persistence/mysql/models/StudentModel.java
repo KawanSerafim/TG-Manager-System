@@ -1,17 +1,7 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /*
  * Anotações do JPA:
@@ -31,6 +21,12 @@ import jakarta.persistence.Table;
  * tabela. Dentro dos parênteses, o valor booleano 'nullable' determina se a
  * coluna poderá conter valores nulos ou não. E na 'unique', determina se o
  * valor da coluna pode ou não se repetir.
+ *
+ * Anotação @Embedded:
+ * Indica ao Spring JPA que os campos de uma classe embutível (@Embeddable)
+ * devem ser incluídos como colunas na tabela desta entidade. Em vez de criar
+ * uma tabela separada para o objeto embutido, os seus campos são "achatados" e
+ * persistidos diretamente na tabela da entidade principal.
  *
  * - Anotação @Enumerated: indica ao Spring JPA que o campo é do tipo Enum e
  * deve ser persistido no banco de dados. Porém, por padrão, ele é organizado
@@ -67,11 +63,8 @@ public class StudentModel {
     @Column(nullable = false, unique = true)
     private String registration;
 
-    @Column(nullable = true, unique = true)
-    private String email;
-
-    @Column(nullable = true)
-    private String hashedPassword;
+    @Embedded
+    private UserAccountModel userAccount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -152,8 +145,8 @@ public class StudentModel {
      * @return Email salvo no modelo de dados do aluno.
      */
     public String getEmail() {
-     
-        return email;
+
+        return userAccount.getEmail();
     }
 
     /**
@@ -161,26 +154,26 @@ public class StudentModel {
      * @param email Email fornecido.
      */
     public void setEmail(String email) {
-     
-        this.email = email;
+
+        this.userAccount.setEmail(email);
     }
 
     /**
      * Método Get.
-     * @return Senha criptografada salva no modelo de dados do aluno.
+     * @return Senha salva no modelo de dados do aluno.
      */
-    public String getHashedPassword() {
+    public String getPassword() {
      
-        return hashedPassword;
+        return userAccount.getPassword();
     }
 
     /**
      * Método Set.
-     * @param hashedPassword Senha fornecida.
+     * @param password Senha fornecida.
      */
-    public void setHashedPassword(String hashedPassword) {
+    public void setPassword(String password) {
      
-        this.hashedPassword = hashedPassword;
+        this.userAccount.setPassword(password);
     }
 
     /**

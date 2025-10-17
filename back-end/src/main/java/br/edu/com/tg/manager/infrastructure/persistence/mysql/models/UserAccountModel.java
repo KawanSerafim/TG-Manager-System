@@ -30,13 +30,13 @@ public class UserAccountModel {
      * nullable = true: Porque um aluno em pré-cadastro ainda não tem email/senha.
      * unique = true: Garante que não existam duas contas com o mesmo email.
      */
-    @Column(name = "email", nullable = true, unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     /*
      * nullable = true: Pelo mesmo motivo do email.
      */
-    @Column(name = "password", nullable = true)
+    @Column(name = "password")
     private String password;
 
     /**
