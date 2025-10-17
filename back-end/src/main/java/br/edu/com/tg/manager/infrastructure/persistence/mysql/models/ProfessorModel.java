@@ -137,38 +137,20 @@ public class ProfessorModel {
 
     /**
      * Método Get.
-     * @return Email salvo no modelo de dados do professor.
+     * @return Conta de usuário salva no modelo de dados do professor.
      */
-    public String getEmail() {
-     
-        return userAccount.getEmail();
+    public UserAccountModel getUserAccount() {
+
+        return userAccount;
     }
 
     /**
      * Método Set.
-     * @param email Email fornecido.
+     * @param userAccount Conta de usuário fornecida.
      */
-    public void setEmail(String email) {
-     
-        this.userAccount.setEmail(email);
-    }
+    public void setUserAccount(UserAccountModel userAccount) {
 
-    /**
-     * Método Get.
-     * @return Senha salva no modelo de dados do professor.
-     */
-    public String getPassword() {
-     
-        return userAccount.getPassword();
-    }
-
-    /**
-     * Método Set.
-     * @param password Senha fornecida.
-     */
-    public void setPassword(String password) {
-     
-        this.userAccount.setPassword(password);
+        this.userAccount = userAccount;
     }
 
     /**
@@ -176,7 +158,7 @@ public class ProfessorModel {
      * @return Cargo salvo no modelo de dados do professor.
      */
     public ProfessorRole getRole() {
-     
+
         return role;
     }
 

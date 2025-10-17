@@ -6,8 +6,8 @@ import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
 import org.springframework.stereotype.Component;
 
 /*
- * Anotação @Component: indica ao Spring que esta classe deve ser gerenciada
- * pelo framework.
+ * Anotação @Component:
+ * Indica ao Spring que esta classe deve ser gerenciada pelo framework.
  */
 
 /**
@@ -17,6 +17,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ProfessorMapper {
+
+    private final UserAccountMapper userAccountMapper;
+
+    /**
+     * Construtor de injeção de dependência:
+     * Injeta diretamente a dependência de que, ao criar ProfessorMapper,
+     * UserAccountMapper também é criado.
+     * @param userAccountMapper Mapeador de conta de usuário.
+     */
+    public ProfessorMapper(UserAccountMapper userAccountMapper) {
+
+        this.userAccountMapper = userAccountMapper;
+    }
     
     /**
      * Método de aplicação:
@@ -39,8 +52,10 @@ public class ProfessorMapper {
         professorModel.setId(domain.getId());
         professorModel.setName(domain.getName());
         professorModel.setRegistration(domain.getRegistration());
-        professorModel.setEmail(domain.getEmail());
-        professorModel.setHashedPassword(domain.getPassword());
+        professorModel.setUserAccount(
+
+            userAccountMapper.toModel(domain.getUserAccount())
+        );
         professorModel.setRole(domain.getRole());
 
         // Retorno do modelo de dados.
@@ -67,8 +82,7 @@ public class ProfessorMapper {
 
             model.getName(),
             model.getRegistration(),
-            model.getEmail(),
-            model.getHashedPassword(),
+            userAccountMapper.toDomain(model.getUserAccount()),
             model.getRole()
         );
 

@@ -127,6 +127,15 @@ public class Professor {
     }
 
     /**
+     * Método Get.
+     * @return Conta de usuário do professor.
+     */
+    public UserAccount getUserAccount() {
+
+        return userAccount;
+    }
+
+    /**
      * Método Set.
      * @param userAccount Conta de usuário fornecida.
      */

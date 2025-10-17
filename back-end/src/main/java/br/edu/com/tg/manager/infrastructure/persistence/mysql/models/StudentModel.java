@@ -142,38 +142,20 @@ public class StudentModel {
 
     /**
      * Método Get.
-     * @return Email salvo no modelo de dados do aluno.
+     * @return Conta de usuário salva no modelo de dados do aluno.
      */
-    public String getEmail() {
+    public UserAccountModel getUserAccount() {
 
-        return userAccount.getEmail();
+        return userAccount;
     }
 
     /**
      * Método Set.
-     * @param email Email fornecido.
+     * @param userAccount Conta de usuário fornecida.
      */
-    public void setEmail(String email) {
+    public void setUserAccount(UserAccountModel userAccount) {
 
-        this.userAccount.setEmail(email);
-    }
-
-    /**
-     * Método Get.
-     * @return Senha salva no modelo de dados do aluno.
-     */
-    public String getPassword() {
-     
-        return userAccount.getPassword();
-    }
-
-    /**
-     * Método Set.
-     * @param password Senha fornecida.
-     */
-    public void setPassword(String password) {
-     
-        this.userAccount.setPassword(password);
+        this.userAccount = userAccount;
     }
 
     /**

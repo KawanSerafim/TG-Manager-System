@@ -145,6 +145,15 @@ public class Student {
     }
 
     /**
+     * Método Get.
+     * @return Conta de usuário do aluno.
+     */
+    public UserAccount getUserAccount() {
+
+        return userAccount;
+    }
+
+    /**
      * Método Set.
      * @param userAccount Conta de usuário fornecida.
      */
