@@ -3,14 +3,25 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-/**
- * Modelo de dados embutível:
- * Representa os dados da conta de um usuário (email e senha).
- *
+/*
  * Anotação @Embeddable:
  * Marca esta classe como um componente que pode ser embutido em outras
  * entidades. Esta classe NÃO terá uma tabela própria no banco de dados.
  * Seus campos serão adicionados como colunas na tabela da entidade que a usar.
+ *
+ * Anotação @Column:
+ * Indica ao Spring JPA que esta variável será uma coluna da tabela. Dentro dos
+ * parênteses, o valor booleano 'nullable' determina se a coluna poderá conter
+ * valores nulos ou não. E na 'unique', determina se o valor da coluna pode ou
+ * não se repetir.
+ */
+
+/**
+ * Modelo de dados embutível:
+ * Determina um modelo da entidade de domínio UserAccount, que será manipulado
+ * pelo Spring JPA. Por pertencer à infraestrutura da aplicação, esta classe
+ * utiliza das anotações persistence, as quais permitem ao framework manipular
+ * os dados no SGBD.
  */
 @Embeddable
 public class UserAccountModel {
