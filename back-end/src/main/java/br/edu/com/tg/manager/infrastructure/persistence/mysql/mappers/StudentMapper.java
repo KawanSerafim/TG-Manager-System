@@ -19,16 +19,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
+    private final UserAccountMapper userAccountMapper;
     private final StudentGroupMapper studentGroupMapper;
 
     /**
      * Construtor de injeção de dependência:
      * Injeta diretamente a dependência de que, ao criar StudentMapper,
-     * StudentGroupMapper também é criado.
+     * UserAccountMapper e StudentGroupMapper também são criados.
+     * @param userAccountMapper Mapeador de conta de usuário.
      * @param studentGroupMapper Mapeador de turma.
      */
-    public StudentMapper(StudentGroupMapper studentGroupMapper) {
+    public StudentMapper(
 
+        UserAccountMapper userAccountMapper,
+        StudentGroupMapper studentGroupMapper
+    ) {
+
+        this.userAccountMapper = userAccountMapper;
         this.studentGroupMapper = studentGroupMapper;
     }
 
@@ -52,8 +59,10 @@ public class StudentMapper {
         studentModel.setId(domain.getId());
         studentModel.setName(domain.getName());
         studentModel.setRegistration(domain.getRegistration());
-        studentModel.setEmail(domain.getEmail());
-        studentModel.setHashedPassword(domain.getHashedPassword());
+        studentModel.setUserAccount(
+
+            userAccountMapper.toModel(domain.getUserAccount())
+        );
         studentModel.setStatus(domain.getStatus());
         studentModel.setStudentGroup(
 
@@ -88,8 +97,10 @@ public class StudentMapper {
 
         if(model.getStatus() == StudentStatus.ACTIVE) {
 
-            student.setEmail(model.getEmail());
-            student.setHashedPassword(model.getHashedPassword());
+            student.setUserAccount(
+
+                userAccountMapper.toDomain(model.getUserAccount())
+            );
         }
 
         student.setId(model.getId());

@@ -2,6 +2,7 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
 import br.edu.com.tg.manager.core.domain.enums.ProfessorRole;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,23 +14,33 @@ import jakarta.persistence.Table;
 /*
  * Anotações do JPA:
  *
- * - Anotação @Entity: indica ao Spring JPA que esta classe é uma entidade.
+ * - Anotação @Entity:
+ * Indica ao Spring JPA que esta classe é uma entidade.
  *
- * - Anotação @Table: indica ao Spring JPA que esta classe é uma tabela do banco
- * de dados. Dentro dos parênteses, o valor atribuído a variável 'name' será o
- * nome da tabela.
+ * - Anotação @Table:
+ * Indica ao Spring JPA que esta classe é uma tabela do banco de dados. Dentro
+ * dos parênteses, o valor atribuído a variável 'name' será o nome da tabela.
  *
- * - Anotação @Id: indica ao Spring JPA que a variável determina o ID da tabela.
+ * - Anotação @Id:
+ * Indica ao Spring JPA que a variável determina o ID da tabela.
  *
- * - Anotação @GeneratedValue: indica ao Spring JPA como o valor da variável
- * será gerada.
+ * - Anotação @GeneratedValue:
+ * Indica ao Spring JPA como o valor da variável será gerada.
  *
- * - Anotação @Column: indica ao Spring JPA que esta variável será uma coluna da
+ * - Anotação @Column:
+ * Indica ao Spring JPA que esta variável será uma coluna da
  * tabela. Dentro dos parênteses, o valor booleano 'nullable' determina se a
  * coluna poderá conter valores nulos ou não. E na 'unique', determina se o
  * valor da coluna pode ou não se repetir.
  *
- * - Anotação @Enumerated: indica ao Spring JPA que o campo é do tipo Enum e
+ * Anotação @Embedded:
+ * Indica ao Spring JPA que os campos de uma classe embutível (@Embeddable)
+ * devem ser incluídos como colunas na tabela desta entidade. Em vez de criar
+ * uma tabela separada para o objeto embutido, os seus campos são "achatados" e
+ * persistidos diretamente na tabela da entidade principal.
+ *
+ * - Anotação @Enumerated:
+ * Indica ao Spring JPA que o campo é do tipo Enum e
  * deve ser persistido no banco de dados. Porém, por padrão, ele é organizado
  * mediante uma enumeração numérica, o que gera um risco em potencial caso os
  * números sejam alterados futuramente. Logo, o tipo (EnumType) deve ser
@@ -56,12 +67,9 @@ public class ProfessorModel {
     
     @Column(nullable = false, unique = true)
     private String registration;
-    
-    @Column(nullable = false, unique = true)
-    private String email;
 
-    @Column(name = "hashed_password", nullable = false)
-    private String hashedPassword;
+    @Embedded
+    private UserAccountModel userAccount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -129,38 +137,20 @@ public class ProfessorModel {
 
     /**
      * Método Get.
-     * @return Email salvo no modelo de dados do professor.
+     * @return Conta de usuário salva no modelo de dados do professor.
      */
-    public String getEmail() {
-     
-        return email;
+    public UserAccountModel getUserAccount() {
+
+        return userAccount;
     }
 
     /**
      * Método Set.
-     * @param email Email fornecido.
+     * @param userAccount Conta de usuário fornecida.
      */
-    public void setEmail(String email) {
-     
-        this.email = email;
-    }
+    public void setUserAccount(UserAccountModel userAccount) {
 
-    /**
-     * Método Get.
-     * @return Senha criptografada salva no modelo de dados do professor.
-     */
-    public String getHashedPassword() {
-     
-        return hashedPassword;
-    }
-
-    /**
-     * Método Set.
-     * @param hashedPassword Senha fornecida.
-     */
-    public void setHashedPassword(String hashedPassword) {
-     
-        this.hashedPassword = hashedPassword;
+        this.userAccount = userAccount;
     }
 
     /**
@@ -168,7 +158,7 @@ public class ProfessorModel {
      * @return Cargo salvo no modelo de dados do professor.
      */
     public ProfessorRole getRole() {
-     
+
         return role;
     }
 
