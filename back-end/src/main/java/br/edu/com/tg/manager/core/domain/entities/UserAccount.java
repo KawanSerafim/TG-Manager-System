@@ -27,7 +27,7 @@ public class UserAccount {
      * @param email Email do usuário.
      * @param password Senha do usuário.
      */
-    public  UserAccount(String email, String password) {
+    public UserAccount(String email, String password) {
 
         // Delega as validações dos parâmetros aos seus devidos métodos Set.
         this.setEmail(email);

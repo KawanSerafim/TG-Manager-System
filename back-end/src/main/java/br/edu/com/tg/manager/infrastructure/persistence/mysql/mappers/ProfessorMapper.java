@@ -40,7 +40,7 @@ public class ProfessorMapper {
         professorModel.setName(domain.getName());
         professorModel.setRegistration(domain.getRegistration());
         professorModel.setEmail(domain.getEmail());
-        professorModel.setHashedPassword(domain.getHashedPassword());
+        professorModel.setHashedPassword(domain.getPassword());
         professorModel.setRole(domain.getRole());
 
         // Retorno do modelo de dados.
