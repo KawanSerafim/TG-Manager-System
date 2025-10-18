@@ -54,7 +54,7 @@ public class UserAccount {
 
             throw new DomainException(
 
-                    "O campo email é obrigatório."
+                "O campo email é obrigatório."
             );
         }
 
@@ -63,7 +63,7 @@ public class UserAccount {
 
             throw new DomainException(
 
-                    "O formato do campo email é inválido."
+                "O formato do campo email é inválido."
             );
         }
 
