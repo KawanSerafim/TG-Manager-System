@@ -159,6 +159,14 @@ public class Student {
      */
     public void setUserAccount(UserAccount userAccount) {
 
+        if(userAccount == null) {
+
+            throw new DomainException(
+
+                "O campo conta de usuário é obrigatório."
+            );
+        }
+
         this.userAccount = userAccount;
     }
 
