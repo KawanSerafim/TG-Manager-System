@@ -15,9 +15,12 @@ public enum StudentStatus {
     // Verificação de email pendente.
     PENDING_VERIFICATION,
 
-    // Ativo.
+    // Email confirmado.
+    EMAIL_CONFIRMED,
+
+    // Coordenador de TG confirma acesso ao aluno.
     ACTIVE,
 
-    // Inativo.
+    // Conta inativo.
     INACTIVE
 }

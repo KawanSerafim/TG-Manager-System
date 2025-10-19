@@ -81,9 +81,6 @@ public class StudentGroupModel {
     @Column(nullable = false)
     private Integer semester;
 
-    @Column(name = "temporary_password", nullable = false)
-    private String temporaryPassword;
-
     /**
      * Construtor vazio:
      * Necessário para frameworks de persistência.
@@ -178,23 +175,5 @@ public class StudentGroupModel {
     public void setSemester(Integer semester) {
      
         this.semester = semester;
-    }
-
-    /**
-     * Método Get.
-     * @return Senha temporária salva no modelo de dados da turma.
-     */
-    public String getTemporaryPassword() {
-     
-        return temporaryPassword;
-    }
-
-    /**
-     * Método Set.
-     * @param temporaryPassword Senha fornecida.
-     */
-    public void setTemporaryPassword(String temporaryPassword) {
-     
-        this.temporaryPassword = temporaryPassword;
     }
 }

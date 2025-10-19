@@ -4,11 +4,13 @@ import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.core.domain.entities.Student;
 import br.edu.com.tg.manager.core.domain.entities.StudentGroup;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
-import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentGroupRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,6 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
     private final CourseRepository courseRepository;
     private final StudentGroupRepository studentGroupRepository;
     private final StudentRepository studentRepository;
-    private final StudentDataReader studentDataReader;
 
     /**
      * Construtor de injeção de dependência:
@@ -37,34 +38,24 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
      * @param courseRepository Repositório de domínio do curso.
      * @param studentGroupRepository Repositório de domínio da turma.
      * @param studentRepository Repositório de domínio do aluno.
-     * @param studentDataReader Portão de acesso de domínio dos dados dos alunos
-     * e demais informações da turma.
      */
     public CreateStudentGroupService(
 
         CourseRepository courseRepository,
         StudentGroupRepository studentGroupRepository,
-        StudentRepository studentRepository,
-        StudentDataReader studentDataReader
+        StudentRepository studentRepository
     ) {
 
         this.courseRepository = courseRepository;
         this.studentGroupRepository = studentGroupRepository;
         this.studentRepository = studentRepository;
-        this.studentDataReader = studentDataReader;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void execute(Input input) {
-
-        /*
-         * Salva numa instância um record que traduz os dados vindo
-         * do arquivo.
-         */
-        var fileData = studentDataReader.read(input.file());
+    public CreateStudentGroupResult execute(Input input) {
 
         /*
          * Salva numa instância o curso que achar com o nome e o turno
@@ -74,11 +65,11 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
         Course course = courseRepository.findByNameAndShift(
 
             input.courseName(),
-            fileData.shift()
+            input.shift()
         ).orElseThrow(() -> new DomainException(
 
             "O curso com nome = " + input.courseName() + ", turno = " +
-            fileData.shift() + " não foi encontrado."
+            input.shift() + " não foi encontrado."
         ));
         
         StudentGroup studentGroup;
@@ -87,8 +78,8 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
         Optional<StudentGroup> optionalGroup = studentGroupRepository
             .findByCourseAndYearAndSemester(
                 course,
-                fileData.year(),
-                fileData.semester()
+                input.year(),
+                input.semester()
             );
 
         /*
@@ -108,20 +99,20 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
 
                 course,
                 input.discipline(),
-                fileData.year(),
-                fileData.semester(),
-                input.temporaryPassword()
+                input.year(),
+                input.semester()
             );
 
             studentGroup = studentGroupRepository.save(newStudentGroup);
         }
 
-        for(var students : fileData.students()) {
+        List<Student> students = new ArrayList<>();
 
+        for(var studentData : input.students()) {
 
             // Insere num Optional, o aluno que será buscado pelo repositório.
             Optional<Student> optionalStudent = studentRepository
-            .findByRegistration(students.registration());
+            .findByRegistration(studentData.registration());
 
             /*
              * Se o Optional for vazio, um novo aluno é criado e salvo no banco
@@ -131,13 +122,16 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
 
                 var student = new Student(
 
-                    students.name(),
-                    students.registration(),
+                    studentData.name(),
+                    studentData.registration(),
                     studentGroup
                 );
 
                 studentRepository.save(student);
+                students.add(student);
             }
         }
+
+        return new CreateStudentGroupResult(studentGroup, students);
     }
 }
