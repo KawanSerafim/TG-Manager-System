@@ -12,34 +12,32 @@ export function getSemester(){
   }
 }
 
-//Função para gerar a senha que o professor vai mandar para os alunos
-export function generatedPassword(size = 6, options={}){
-  const baseModel = {
-    uppers: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    lowers: 'abcdefghijklmnopqrstuvwxyz',
-    numbers: '0123456789'
-  };
+/**
+ * Função responsável por preencher a tabela e exibir a seção de resultados.
+ * @param {Array} students - A lista de objetos de aluno.
+ * @param {HTMLElement} tableBody - O elemento <tbody> da tabela a ser preenchido.
+ * @param {HTMLElement} resultsContainer - O contêiner que envolve a tabela.
+ */
+export function displayResults(students, tableBody, resultsContainer) {
+    // Limpa qualquer conteúdo anterior da tabela
+    tableBody.innerHTML = '';
 
-  const settings = {...options}
-  let allCharacters = "";
+    if (students.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="2">Nenhum aluno retornado no processamento, verifique se o arquivo ja foi enviado anteriormente.</td></tr>';
+    } else {
+        //Verifica se a linha contem o nome e RA de aluno valido
+        students = students.filter((student) => student.name != 'RA' && student.registration != 'ALUNO')
+        // Cria uma linha (tr) para cada aluno
+        students.forEach(student => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.registration}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
 
-  if (settings.uppers === true) allCharacters += baseModel.uppers
-  if (settings.lowers === true) allCharacters += baseModel.lowers
-  if (settings.numbers === true) allCharacters += baseModel.numbers
-
-  if (allCharacters.length === 0) {
-    throw new Error("Pelo menos um tipo de caractere deve ser selecionado.")
-  }
-
-  const randomArray = new Uint32Array(size);
-  window.crypto.getRandomValues(randomArray);
-
-  let password = "";
-  for (let i = 0; i < size; i++){
-    password += allCharacters[randomArray[i] % allCharacters.length];
-  }
-
-  return password;
-
-
+    //torna o contêiner de resultados visível!
+    resultsContainer.style.display = 'block';
 }

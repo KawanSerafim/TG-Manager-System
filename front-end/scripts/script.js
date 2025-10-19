@@ -1,4 +1,4 @@
-import { generatedPassword, getSemester } from "./utils.js";
+import { getSemester, displayResults } from "./utils.js";
 
 //Inicia a bilbioteca de icones
 lucide.createIcons()
@@ -45,8 +45,7 @@ let courses = [ 'AMS - Análise e Desenvolvimento de Sistemas',
     options.classList.toggle("open")
   })
 
-let select = document.querySelector('.select'),
-selectedValue = document.getElementById('selected-value'),
+let selectedValue = document.getElementById('selected-value'),
 optionsViewButton = document.getElementById('options-view-button'),
 inputsOptions = document.querySelectorAll('.option input')
 
@@ -82,7 +81,9 @@ file.addEventListener('change', (event) => {
 const btn = document.getElementById("btn-upload");
 //div de mensagem
 const statusMensagem = document.getElementById('status-mensagem');
-
+// --- SELEÇÃO DOS ELEMENTOS DE RESULTADO ---
+const resultsContainer = document.getElementById('results-container');
+const tableBody = document.getElementById('student-table-body');
 
 
 //listener acionado ao clicar no botão de envio
@@ -100,7 +101,7 @@ btn.addEventListener('click', async () => {
   } else if(discipline2.checked == true) {
     selectedDiscipline = discipline2.value
   }
-  const password = generatedPassword(6,{uppers:true, lowers:true, numbers:true})
+  
   
   //Verifica se a disciplina foi selecionada
   if (selectedDiscipline === ""){
@@ -130,7 +131,6 @@ btn.addEventListener('click', async () => {
   formData.append('file', file);
   formData.append('courseName', select)
   formData.append('discipline', selectedDiscipline)
-  formData.append('temporaryPassword', password)
   
 
   // Limpa a mensagem de status anterior
@@ -150,11 +150,13 @@ btn.addEventListener('click', async () => {
     if(response.ok){
       console.log(response.status)
       if (response.status === 201){
-        const sucessMsg = await response.text()
+        const data = await response.json();
+        statusMensagem.textContent = 'Planilha processada com sucesso!';
         statusMensagem.style.color = 'green';
-        statusMensagem.textContent = `${sucessMsg}`;
-        statusMensagem.innerHTML += `<br><h3 class="password-text">Sua senha é: ${password}</h3>`;
-      }
+        console.info(data.students)
+        // Chama a função para popular e exibir a tabela com os dados recebidos
+        displayResults(data.students, tableBody, resultsContainer);
+    }         
     } else {
       const erro = await response.text();
       //Informar no front se deu errado
