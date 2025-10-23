@@ -48,7 +48,7 @@ public class StudentGroupController {
      * @return ResponseEntity do record montado para exibição, ResponseEntity do
      * tipo texto para DomainException ou Exception genérica.
      */
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "multipart/form-data", path = "create")
     public ResponseEntity<StudentGroupResponse> create(
 
         StudentGroupRequest request,
