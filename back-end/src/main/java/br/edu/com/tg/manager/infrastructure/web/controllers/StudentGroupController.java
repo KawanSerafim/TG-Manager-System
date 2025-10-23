@@ -1,62 +1,25 @@
 package br.edu.com.tg.manager.infrastructure.web.controllers;
 
-import br.edu.com.tg.manager.core.domain.enums.Discipline;
-import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
-import br.edu.com.tg.manager.infrastructure.web.dtos.StudentGroupResponse;
-import br.edu.com.tg.manager.infrastructure.web.dtos.StudentResponse;
+import br.edu.com.tg.manager.infrastructure.web.dtos.requests
+        .StudentGroupRequest;
+import br.edu.com.tg.manager.infrastructure.web.dtos.responses
+        .StudentGroupResponse;
+import br.edu.com.tg.manager.infrastructure.web.dtos.responses.StudentResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 
-/*
- * Anotações da web.bind:
- *
- * Anotação @PostMapping: forma encurtada de um RequestMapping para método POST.
- *
- * Anotação @RequestMapping: indica ao Spring Boot o mapeamento das requisições.
- * São dois níveis, o de classe que define o prefixo da URL, e o de método que
- * define o endpoint.
- *
- * Anotação @CrossOrigin: indica ao Spring Boot qual a URL que está permitida
- * acessar os recursos do API REST. Como o RequestMapping, essa anotação possui
- * nível de classe, que permite a URL acessar todos os endpoints, e o nível de
- * método, que só permite acessar aquele endpoint escolhido.
- *
- * Anotação @RequestParam: indica ao Spring Boot o parâmetro que deve ser
- * buscado na requisição, podendo extraí-los à uma variável.
- *
- * Anotação @RequestPart: indica ao Spring Boot o parâmetro que deve ser
- * buscado na requisição, onde o parâmetro é um upload de arquivo.
- *
- * Anotação @RestController: indica ao Spring Boot que esta classe irá receber
- * requisições web e que seus retornos serão sem modelo - geralmente, JSONs.
- */
-
-/**
- * Controlador de fronteira:
- * Estabelece a comunicação com a página HTTP que envia os dados da turma. Por
- * pertencer à infraestrutura da aplicação, esta classe utiliza das anotações
- * web.bind do Spring Boot.
- */
 @RestController
 @RequestMapping("/student-group/api")
 @CrossOrigin(origins = "*")
 public class StudentGroupController {
 
-    private static final Logger logger = LoggerFactory
-        .getLogger(StudentGroupController.class);
     private final CreateStudentGroupCase useCase;
     private final StudentDataReader studentDataReader;
 
@@ -80,89 +43,65 @@ public class StudentGroupController {
 
     /**
      * Método de infra estrutura:
-     * Captura os dados da requisção POST para criar uma nova turma.
-     * @param courseName Nome do curso da turma.
-     * @param discipline Disciplina da turma.
-     * @param file Arquivo com o ano, semestre, turno e os alunos da turma.
-     * @return ResponseEntity do tipo String com a resposta condizente.
+     * Captura os dados da requisição POST para criar uma nova turma.
+     * @param request Porta-dados das informações requisitadas.
+     * @return ResponseEntity do record montado para exibição, ResponseEntity do
+     * tipo texto para DomainException ou Exception genérica.
      */
-    @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<?> create(
+    @PostMapping(consumes = "multipart/form-data", path = "create")
+    public ResponseEntity<StudentGroupResponse> create(
 
-        @RequestParam("courseName") String courseName,
-        @RequestParam("discipline") Discipline discipline,
+        StudentGroupRequest request,
         @RequestPart("file") MultipartFile file
-    ) {
+    ) throws IOException {
 
-        try {
+        /*
+         * Salva numa instância um record que traduz os dados vindo
+         * do arquivo.
+         */
+        var fileData = studentDataReader.read(file.getInputStream());
 
-            /*
-             * Salva numa instância um record que traduz os dados vindo
-             * do arquivo.
-             */
-            var fileData = studentDataReader.read(file.getInputStream());
+        /*
+         * Atribuindo ao porta-dados do caso de uso, os dados recolhidos da
+         * requisição POST.
+         */
+        var input = new CreateStudentGroupCase.Input(
 
-            /*
-             * Atribuindo ao porta-dados do caso de uso, os dados recolhidos da
-             * requisição POST.
-             */
-            var input = new CreateStudentGroupCase.Input(
+            request.courseName(),
+            request.discipline(),
+            fileData
+        );
 
-                courseName,
-                discipline,
-                fileData
-            );
+        /*
+         * Executando o caso de uso. Por injeção de dependência, quem irá
+         * aplicar a lógica será o service responsável pelo caso de uso.
+         */
+        var result = useCase.execute(input);
 
-            /*
-             * Executando o caso de uso. Por injeção de dependência, quem irá
-             * aplicar a lógica será o service responsável pelo caso de uso.
-             */
-            var restult = useCase.execute(input);
+        // Converte a lista de alunos para um DTO.
+        List<StudentResponse> studentDTOs = result.students().stream()
+            .map(student ->
 
-            // Converte a lista de alunos para um DTO.
-            List<StudentResponse> studentDTOs = restult.students().stream()
-                    .map(student ->
+                new StudentResponse(
 
-                        new StudentResponse(
+                    student.getName(),
+                    student.getRegistration()
+                )
+            ).toList();
 
-                            student.getName(),
-                            student.getRegistration()
-                        )
-                    ).toList();
+        // Monta um DTO de resposta com todos os dados
+        var responseBody = new StudentGroupResponse(
 
-            // Monta um DTO de resposta com todos os dados
-            var responseBody = new StudentGroupResponse(
+            result.courseName(),
+            result.courseShift(),
+            result.discipline(),
+            result.year(),
+            result.semester(),
+            studentDTOs
+        );
 
-                restult.courseName(),
-                restult.courseShift(),
-                restult.discipline(),
-                restult.year(),
-                restult.semester(),
-                studentDTOs
-            );
-
-            // Retorna ao cliente o response body montado.
-            return ResponseEntity.status(HttpStatus.CREATED)
-                .body(responseBody);
-        } catch (DomainException e) {
-
-            /*
-             * Qualquer exceção de domínio lançado nas camadas internas, são
-             * tratadas aqui.
-             */
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-
-            // Logger para lançar o corpo da mensagem da exceção só no terminal.
-            logger.error("Ocorreu um erro inesperado no servidor.", e);
-
-            // Retorna ao cliente um body informando erro no servidor.
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(
-                    
-                    "Ocorreu um erro inesperado no servidor. Por favor, " +
-                    "tente novamente mais tarde."
-                );
-        }
+        // Retorna ao cliente o response body montado.
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(responseBody);
     }
 }

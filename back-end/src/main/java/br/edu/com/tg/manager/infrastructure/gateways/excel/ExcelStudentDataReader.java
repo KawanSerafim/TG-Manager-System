@@ -81,7 +81,7 @@ public class ExcelStudentDataReader implements StudentDataReader {
             List<StudentData> students = new ArrayList<>();
 
             // Itera a planilha, adicionando na lista os alunos encontrados.
-            for(int i = 1; i <= sheet.getLastRowNum(); i++) {
+            for(int i = 2; i <= sheet.getLastRowNum(); i++) {
 
                 // Pega a linha conforme o índice i.
                 Row row = sheet.getRow(i);
@@ -90,12 +90,12 @@ public class ExcelStudentDataReader implements StudentDataReader {
                 if(row == null) continue;
 
                 // Pega o conteúdo da linha i e coluna A, e insere no nome.
-                String name = getCellStringValue(row.getCell(0));
+                String name = getCellStringValue(row.getCell(1));
 
                 // Pega o conteúdo da linha i e coluna B, e insere na matrícula.
                 String registration = getCellStringValue(
                     
-                    row.getCell(1)
+                    row.getCell(0)
                 );
 
                 // Só adiciona na lista se nome e matrícula conterem valores.
