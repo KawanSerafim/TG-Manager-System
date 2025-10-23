@@ -21,4 +21,12 @@ JpaRepository<ProfessorModel, Long> {
      * @return Optional vazio ou ProfessorModel.
      */
     Optional<ProfessorModel> findByRegistration(String registration);
+
+    /**
+     * Método de contrato de fronteira:
+     * Busca um professor pelo seu email.
+     * @param email Email do professor.
+     * @return Optional vazio ou ProfessorModel.
+     */
+    Optional<ProfessorModel> findByUserAccountEmail(String email);
 }

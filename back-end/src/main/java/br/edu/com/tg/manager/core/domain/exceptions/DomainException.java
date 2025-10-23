@@ -71,4 +71,10 @@ public class DomainException extends RuntimeException {
  * - Diferente do padrão:
  *
  * [O 'campo' foge do padrão: 'padrão'.]
+ *
+ * -------------------
+ *
+ * - Campo já cadastrado.
+ *
+ * [O 'campo' já foi cadastrado no sistema.]
  */
