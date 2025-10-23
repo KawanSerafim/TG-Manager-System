@@ -1,9 +1,6 @@
 package br.edu.com.tg.manager.infrastructure.web.dtos.requests;
 
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Porta-dados de infraestrutura:
@@ -12,12 +9,5 @@ import java.io.InputStream;
 public record StudentGroupRequest(
 
     String courseName,
-    Discipline discipline,
-    MultipartFile file
-) {
-
-    public InputStream inputStream() throws IOException {
-
-        return this.file.getInputStream();
-    }
-}
+    Discipline discipline
+) {}

@@ -48,7 +48,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
      * {@inheritDoc}
      */
     @Override
-    public void save(Professor professor) {
+    public Professor save(Professor professor) {
 
         /*
          * Converte a entidade de domínio para um modelo de dados, para poder
@@ -56,6 +56,12 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
          */
         var professorModel = professorMapper.toModel(professor);
         springRepository.save(professorModel);
+
+        /*
+         * Ao salvar, retorna uma entidade de domínio utilizando do modelo de
+         * dados obtido, para que o ID seja retornado com o valor atualizado.
+         */
+        return professorMapper.toDomain(professorModel);
     }
 
     /**
@@ -66,12 +72,29 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 
         // Tenta encontrar um professor com a matrícula fornecida.
         Optional<ProfessorModel> optionalProfessorModel = springRepository
-        .findByRegistration(registration);
+            .findByRegistration(registration);
 
         /*
          * Se achar o professor, converte o modelo de dados para entidade de
          * domínio, para poder retornar o tipo certo.
          */
         return optionalProfessorModel.map(professorMapper::toDomain);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Professor> findByEmail(String email) {
+
+       // Tenta encontrar um professor com o email fornecido.
+       Optional<ProfessorModel> optionalProfessorModel =  springRepository
+           .findByUserAccountEmail(email);
+
+        /*
+         * Se achar o professor, converte o modelo de dados para entidade de
+         * domínio, para poder retornar o tipo certo.
+         */
+       return optionalProfessorModel.map(professorMapper::toDomain);
     }
 }

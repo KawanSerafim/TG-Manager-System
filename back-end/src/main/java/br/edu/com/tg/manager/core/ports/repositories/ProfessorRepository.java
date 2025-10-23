@@ -18,7 +18,7 @@ public interface ProfessorRepository {
      * Persiste o objeto de um professor no banco de dados.
      * @param professor Professor.
      */
-    void save(Professor professor);
+    Professor save(Professor professor);
 
     /**
      * Método de contrato de domínio:
@@ -27,4 +27,12 @@ public interface ProfessorRepository {
      * @return Optional vazio ou Professor.
      */
     Optional<Professor> findByRegistration(String registration);
+
+    /**
+     * Método de contrato de domínio:
+     * Busca um professor pelo seu email.
+     * @param email Email do professor.
+     * @return Optional vazio ou Professor.
+     */
+    Optional<Professor> findByEmail(String email);
 }

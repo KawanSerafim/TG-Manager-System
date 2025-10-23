@@ -10,6 +10,8 @@ import br.edu.com.tg.manager.infrastructure.web.dtos.responses.StudentResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -47,14 +49,17 @@ public class StudentGroupController {
      * tipo texto para DomainException ou Exception genérica.
      */
     @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<StudentGroupResponse>
-    create(@RequestBody StudentGroupRequest request) throws IOException {
+    public ResponseEntity<StudentGroupResponse> create(
+
+        StudentGroupRequest request,
+        @RequestPart("file") MultipartFile file
+    ) throws IOException {
 
         /*
          * Salva numa instância um record que traduz os dados vindo
          * do arquivo.
          */
-        var fileData = studentDataReader.read(request.inputStream());
+        var fileData = studentDataReader.read(file.getInputStream());
 
         /*
          * Atribuindo ao porta-dados do caso de uso, os dados recolhidos da

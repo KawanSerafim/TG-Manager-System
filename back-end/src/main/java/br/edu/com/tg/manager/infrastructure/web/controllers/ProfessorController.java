@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/professor/api")
+@RequestMapping("/professors/api")
 @CrossOrigin(origins = "*")
 public class ProfessorController {
 
@@ -26,7 +26,7 @@ public class ProfessorController {
      * @return ResponseEntity do record montado para exibição, ResponseEntity do
      * tipo texto para DomainException ou Exception genérica.
      */
-    @PostMapping("create-professor")
+    @PostMapping("create")
     public ResponseEntity<ProfessorResponse>
     create(@RequestBody ProfessorRequest request) {
 
