@@ -13,4 +13,13 @@ import java.util.Optional;
  * esta classe herda o JPARepository do Spring Boot.
  */
 public interface SpringAdministratorRepository extends
-JpaRepository<AdministratorModel, Long> {}
+JpaRepository<AdministratorModel, Long> {
+
+    /**
+     * Método de contrato de fronteira:
+     * Busca um administrador pelo seu email.
+     * @param email Email do administrador.
+     * @return Optional vazio ou AdministratorModel.
+     */
+    Optional<AdministratorModel> findByUserAccountEmail(String email);
+}

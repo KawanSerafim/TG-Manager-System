@@ -21,4 +21,12 @@ JpaRepository<StudentModel, Long> {
      * @return Optional vazio ou StudentModel.
      */
     Optional<StudentModel> findByRegistration(String registration);
+
+    /**
+     * Método de contrato de fronteira:
+     * Busca um aluno pelo email.
+     * @param email Email do aluno.
+     * @return Optional vazio ou StudentModel.
+     */
+    Optional<StudentModel> findByUserAccountEmail(String email);
 }

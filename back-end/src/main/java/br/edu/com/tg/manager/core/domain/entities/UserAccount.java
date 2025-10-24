@@ -44,17 +44,20 @@ public class UserAccount {
     }
 
     /**
-     * Método Set.
-     * @param email Email fornecido.
+     * Método de negócio:
+     * Valida o formato de um email.
+     * @param email Email do usuário.
+     * @throws DomainException Exceção de domínio.
      */
-    public void setEmail(String email) {
+    public static void validateEmailFormat(String email)
+    throws DomainException {
 
         // Regra de negócio: professor não pode conter email vazio ou nulo.
         if(email == null || email.trim().isEmpty()) {
 
             throw new DomainException(
 
-                    "O campo email é obrigatório."
+                "O campo email é obrigatório."
             );
         }
 
@@ -63,10 +66,18 @@ public class UserAccount {
 
             throw new DomainException(
 
-                    "O formato do campo email é inválido."
+                "O formato do campo email é inválido."
             );
         }
+    }
 
+    /**
+     * Método Set.
+     * @param email Email fornecido.
+     */
+    public void setEmail(String email) {
+
+        validateEmailFormat(email);
         this.email = email;
     }
 
