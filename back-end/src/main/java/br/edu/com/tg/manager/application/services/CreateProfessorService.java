@@ -34,6 +34,9 @@ public class CreateProfessorService implements CreateProfessorCase {
         this.professorRepository = professorRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Output execute(Input input) {
 
@@ -54,7 +57,7 @@ public class CreateProfessorService implements CreateProfessorCase {
      * Método de aplicação:
      * Tenta encontrar um professor com a matrícula fornecida, e se não achar,
      * insere num objeto Professor.
-     * @param input Porta-dados com as informações fornecidas pela requisição.
+     * @param input Porta-dados da requisição.
      * @return Professor.
      */
     private Professor getProfessor(Input input) {
