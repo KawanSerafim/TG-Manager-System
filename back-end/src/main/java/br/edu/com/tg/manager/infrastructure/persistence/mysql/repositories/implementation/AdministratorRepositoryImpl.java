@@ -72,7 +72,27 @@ public class AdministratorRepositoryImpl implements AdministratorRepository {
 
         // Tenta encontrar o administrador com o id fornecido.
         Optional<AdministratorModel> optionalAdministratorModel =
-                administratorRepository.findById(id);
+            administratorRepository.findById(id);
+
+        /*
+         * Se achar o administrador, converte o modelo de dados para entidade de
+         * domínio, para poder retornar o tipo certo.
+         */
+        return optionalAdministratorModel.map(
+
+            this.administratorMapper::toDomain
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Administrator> findByEmail(String email) {
+
+        // Tenta encontrar o administrador com o email fornecido.
+        Optional<AdministratorModel> optionalAdministratorModel =
+            administratorRepository.findByUserAccountEmail(email);
 
         /*
          * Se achar o administrador, converte o modelo de dados para entidade de

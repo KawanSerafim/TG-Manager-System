@@ -22,9 +22,17 @@ public interface StudentRepository {
 
     /**
      * Método de contrato de domínio:
-     * Busca um aluno pelo seu RA.
+     * Busca um aluno pela sua matrícula.
      * @param registration RA do aluno.
      * @return Optional vazio ou Student.
      */
     Optional<Student> findByRegistration(String registration);
+
+    /**
+     * Método de contrato de domínio:
+     * Busca um aluno pelo seu email.
+     * @param email Email do aluno.
+     * @return Optional vazio ou Student.
+     */
+    Optional<Student> findByEmail(String email);
 }
