@@ -74,4 +74,21 @@ public class StudentRepositoryImpl implements StudentRepository {
          */
         return optionalStudentModel.map(studentMapper::toDomain);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Student> findByEmail(String email) {
+
+        // Tenta encontrar o aluno com o email fornecido.
+        Optional<StudentModel> optionalStudentModel = springRepository
+            .findByUserAccountEmail(email);
+
+        /*
+         * Se achar o aluno, converte o modelo de dados para entidade de
+         * domínio, para poder retornar o tipo certo.
+         */
+        return optionalStudentModel.map(studentMapper::toDomain);
+    }
 }

@@ -27,4 +27,12 @@ public interface AdministratorRepository {
      * @return Optional vazio ou Administrator.
      */
     Optional<Administrator> findById(Long id);
+
+    /**
+     * Método de contrato de domínio:
+     * Busca um administrador pelo seu email.
+     * @param email Email do administrador.
+     * @return Optional vazio ou Administrator.
+     */
+    Optional<Administrator> findByEmail(String email);
 }
