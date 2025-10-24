@@ -19,7 +19,7 @@ public interface CourseRepository {
      * Persiste o objeto de um curso no banco de dados.
      * @param course Curso.
      */
-    void save(Course course);
+    Course save(Course course);
 
     /**
      * Método de contrato de domínio:

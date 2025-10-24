@@ -48,7 +48,7 @@ public class CourseRepositoryImpl implements CourseRepository {
      * {@inheritDoc}
      */
     @Override
-    public void save(Course course) {
+    public Course save(Course course) {
 
         /*
          * Converte a entidade de domínio para um modelo de dados, para poder
@@ -56,6 +56,12 @@ public class CourseRepositoryImpl implements CourseRepository {
          */
         var courseModel = courseMapper.toModel(course);
         springRepository.save(courseModel);
+
+        /*
+         * Ao salvar, retorna uma entidade de domínio utilizando do modelo de
+         * dados obtido, para que o ID seja retornado com o valor atualizado.
+         */
+        return courseMapper.toDomain(courseModel);
     }
 
     /**
