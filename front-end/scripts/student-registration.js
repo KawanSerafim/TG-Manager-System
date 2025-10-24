@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:8080/students/register";
 
-async function registerStudent(formData) {
+async function createProfessor(formData) {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
