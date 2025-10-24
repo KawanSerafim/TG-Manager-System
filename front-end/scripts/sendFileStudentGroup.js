@@ -139,7 +139,7 @@ btn.addEventListener('click', async () => {
 
   //Fazer requisição para o backend
   //enviar para o backend o csv
-  const API_URL = "http://localhost:8080/student-group/api"
+  const API_URL = "http://localhost:8080/student-group/api/create"
   try{
     const response = await fetch(API_URL, {
       method: "POST",
@@ -153,9 +153,9 @@ btn.addEventListener('click', async () => {
         const data = await response.json();
         statusMensagem.textContent = 'Planilha processada com sucesso!';
         statusMensagem.style.color = 'green';
-        console.info(data.students)
+        console.info(data)
         // Chama a função para popular e exibir a tabela com os dados recebidos
-        displayResults(data.students, tableBody, resultsContainer);
+        displayResults(data, tableBody, resultsContainer);
     }         
     } else {
       const erro = await response.text();

@@ -14,13 +14,15 @@ export function getSemester(){
 
 /**
  * Função responsável por preencher a tabela e exibir a seção de resultados.
- * @param {Array} students - A lista de objetos de aluno.
+ * @param {Object} data - A resposta do backend.
  * @param {HTMLElement} tableBody - O elemento <tbody> da tabela a ser preenchido.
  * @param {HTMLElement} resultsContainer - O contêiner que envolve a tabela.
  */
-export function displayResults(students, tableBody, resultsContainer) {
+export function displayResults(data, tableBody, resultsContainer) {
     // Limpa qualquer conteúdo anterior da tabela
     tableBody.innerHTML = '';
+
+    let students = data.students;
 
     if (students.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="2">Nenhum aluno retornado no processamento, verifique se o arquivo ja foi enviado anteriormente.</td></tr>';
@@ -33,6 +35,11 @@ export function displayResults(students, tableBody, resultsContainer) {
             row.innerHTML = `
                 <td>${student.name}</td>
                 <td>${student.registration}</td>
+                <td>${data.courseName}</td>
+                <td>${data.discipline}</td>
+                <td>${data.shift}</td>
+                <td>${data.year}</td>
+                <td>${data.semester}</td>
             `;
             tableBody.appendChild(row);
         });
