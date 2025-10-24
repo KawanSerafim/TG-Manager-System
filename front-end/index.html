@@ -34,7 +34,7 @@
       </ul>
     </div>
   
-    <div class="container">
+    <div class="container-main">
       <label for="btn-file" class="lb-file">
         Clique aqui para enviar a planilha de alunos (apenas .xlsx)
       </label>
@@ -59,12 +59,34 @@
         </fieldset>
       </div>
      
-      <button id="btn-upload">Gerar Senha</button>
+      <button id="btn-upload">Cadastrar Alunos</button>
 
       <div id="status-mensagem"></div>
     </div>
   </main>
+  <div id="results-container">
+    <div class="container">
+      <h1>Alunos Cadastrados na Turma</h1>
+      <div class="table-container">
+        <table class="student-table">
+          <thead>
+            <tr>
+              <th>RA (Matrícula)</th>
+              <th>Nome</th>
+              <th>Curso</th>
+              <th>Disciplina</th>
+              <th>Turno</th>
+              <th>Ano</th>
+              <th>Semestre</th>
+            </tr>
+          </thead>
+          <tbody id="student-table-body">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script type="module" src="./scripts/script.js"></script>
+  <script type="module" src="./scripts/sendFileStudentGroup.js"></script>
 </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+</head>
+<body>
+  div class="container mt-4">
+  <h2>Dashboard - Alunos Cadastrados</h2>
+  
+  <!-- Filtros -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <select class="form-select" id="filter-status">
+        <option value="">Todos os Status</option>
+        <option value="PRE_REGISTRATION">Pré-Cadastro</option>
+        <option value="PENDING_VERIFICATION">Verificação Pendente</option>
+        <option value="EMAIL_CONFIRMED">Email Confirmado</option>
+        <option value="ACTIVE">Ativo</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Tabela -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Nome</th>
+          <th>RA</th>
+          <th>Email Institucional</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="students-table-body">
+        <!-- Dados via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

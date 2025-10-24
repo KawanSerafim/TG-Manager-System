@@ -14,6 +14,7 @@
 body{
   font-family: "Ubuntu", sans-serif;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -28,7 +29,7 @@ main {
 }
 
 h1 {
-  color: #fbf9fe;
+  color: #a881e6;
   font-weight: 500;
 }
 
@@ -221,7 +222,7 @@ h1 {
   color: #fbf9fe;
 }
 
-.container{
+.container-main{
   display: flex;
   flex-direction: column;
 }
@@ -365,9 +366,46 @@ input[type="file"] {
     font-size: 1.5em;
 }
 
-.password-text{
-  color: #dff1e0;
-  font-weight: 500;
-  margin-top: 1rem;
+#results-container {
+    display: none; /* Começa escondido por padrão */
+    margin-top: 30px; /* Um espaço para separar do formulário */
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Estilo da Tabela */
+.table-container {
+    margin-top: 20px;
+}
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaços entre as bordas */
+}
+
+.student-table th, .student-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.student-table thead tr {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Efeito de hover nas linhas */
+.student-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Linhas zebradas para melhor legibilidade */
+.student-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
