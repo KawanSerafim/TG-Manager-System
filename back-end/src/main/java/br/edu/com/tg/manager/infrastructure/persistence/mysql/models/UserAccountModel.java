@@ -1,7 +1,10 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
+import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 /*
  * Anotação @Embeddable:
@@ -27,17 +30,28 @@ import jakarta.persistence.Embeddable;
 public class UserAccountModel {
 
     /*
-     * nullable = true: Porque um aluno em pré-cadastro ainda não tem email/senha.
-     * unique = true: Garante que não existam duas contas com o mesmo email.
+     * Nullable = true: porque um aluno em pré-cadastro ainda não tem email.
+     *
+     * Unique = true: garante que não existam duas contas com o mesmo email.
      */
     @Column(name = "email", unique = true)
     private String email;
 
     /*
-     * nullable = true: Pelo mesmo motivo do email.
+     * Nullable = true: Pelo mesmo motivo do email.
      */
     @Column(name = "password")
     private String password;
+
+    /*
+     * EnumType.STRING: porque um enum é numérico por padrão, e para não ter
+     * erro de sequência no futuro, o tipo é mantido para String.
+     *
+     * Nullable = false: a conta tem um status inicial, logo, não pode ser nulo.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_status", nullable = false)
+    private UserAccountStatus status;
 
     /**
      * Construtor vazio:
@@ -79,5 +93,23 @@ public class UserAccountModel {
     public void setPassword(String password) {
 
         this.password = password;
+    }
+
+    /**
+     * Método Get.
+     * @return Status da conta de usuário.
+     */
+    public UserAccountStatus getStatus() {
+
+        return status;
+    }
+
+    /**
+     * Método Set.
+     * @param status Status fornecido.
+     */
+    public void setStatus(UserAccountStatus status) {
+
+        this.status = status;
     }
 }

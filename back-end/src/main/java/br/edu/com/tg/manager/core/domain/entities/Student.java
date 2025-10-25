@@ -1,6 +1,7 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
+import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**
@@ -45,31 +46,6 @@ public class Student {
         this.setRegistration(registration);
         this.setStudentGroup(studentGroup);
         this.setStatus(StudentStatus.PRE_REGISTRATION);
-    }
-
-    /**
-     * Método de negócio:
-     * Finaliza o cadastro do aluno no sistema, garantindo que o objeto dele
-     * esteja em um estado válido para tornar a conta ativa.
-     * @param userAccount Conta de usuário do Aluno.
-     */
-    public void finalizeRegistration(UserAccount userAccount) {
-
-        /*
-         * Regra de negócio: o aluno deve estar pré-cadastrado para poder
-         * finalizar um cadastro.
-         */
-        if(this.status != StudentStatus.PRE_REGISTRATION) {
-
-            throw new DomainException(
-
-                "O aluno não tem o estado válido para ação."
-            );
-        }
-
-        // Delega as validações dos parâmetros aos seus devidos métodos Set.
-        this.setUserAccount(userAccount);
-        this.setStatus(StudentStatus.ACTIVE);
     }
 
     /**

@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
+import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**
@@ -13,6 +14,7 @@ public class UserAccount {
 
     private String email;
     private String password;
+    private UserAccountStatus status;
 
     /**
      * Construtor vazio:
@@ -28,6 +30,9 @@ public class UserAccount {
      * @param password Senha do usuário.
      */
     public UserAccount(String email, String password) {
+
+        // Define um status inicial a conta.
+        this.status = UserAccountStatus.PENDING_VERIFICATION;
 
         // Delega as validações dos parâmetros aos seus devidos métodos Set.
         this.setEmail(email);
@@ -97,5 +102,31 @@ public class UserAccount {
     public void setPassword(String password) {
 
         this.password = password;
+    }
+
+    /**
+     * Método Set.
+     * @return Status da conta de usuário.
+     */
+    public UserAccountStatus getStatus() {
+
+        return status;
+    }
+
+    /**
+     * Metodo Get.
+     * @param status Status fornecido.
+     */
+    public void setStatus(UserAccountStatus status) {
+
+        if(status == null) {
+
+            throw new DomainException(
+
+                "O campo status é obrigatório."
+            );
+        }
+
+        this.status = status;
     }
 }
