@@ -4,9 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+  <link rel="stylesheet" href="../../../style.css">
 </head>
 <body>
-  div class="container mt-4">
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom" data-bs-theme="dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Menu</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="../landing/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../login/login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../professor/send_file_student_group.html">Enviar Arquivo de Turma de TG</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Cadastros
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../create/create_professor.html">Cadastrar Professor</a></li>
+                    <li><a class="dropdown-item" href="../create/create_course.html">Cadastrar Cursos</a></li>
+                    <li><a class="dropdown-item" href="../create/create_student.html">Finalizar Cadastro Aluno</a></li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </nav>
+<!-- // Fim NavBar -->
+  <div class="container mt-4">
   <h2>Dashboard - Alunos Cadastrados</h2>
   
   <!-- Filtros -->
