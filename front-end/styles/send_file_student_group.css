@@ -265,6 +265,9 @@ input[type="file"] {
   color:#fbf9fe;
 }
 
+.discipline {
+  margin-top: 1rem;
+}
 /*Inputs de escolha de disciplina*/
 .discipline fieldset {
   border: 1px solid #ccc;

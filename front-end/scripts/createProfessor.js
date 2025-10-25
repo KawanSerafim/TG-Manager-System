@@ -1,3 +1,5 @@
+import { professorsRoleTranslation } from "../interfaces/professorsRoleTranslation.js";
+
 const API_URL = "http://localhost:8080/professors/api/create";
 
 // Garante que todo o código que manipula o DOM só rode depois que a página estiver pronta
@@ -69,7 +71,7 @@ async function createProfessor(professorData, toastSuccess, toastError) {
         if (response.ok) {
             const novoProfessor = await response.json(); 
             toastSuccess.show();
-            adicionarProfessorNaTabela(novoProfessor);
+            addProfessorInTable(novoProfessor);
             //Apaga os campos
             document.getElementById('form').reset();
             //Retira validação até o usuario enviar novamente
@@ -85,24 +87,26 @@ async function createProfessor(professorData, toastSuccess, toastError) {
     }
 }
 
-function adicionarProfessorNaTabela(professor) {
+function addProfessorInTable(professor) {
     // 1. Encontra o corpo da tabela pelo ID
-    const tabelaCorpo = document.getElementById('tabela-professores-corpo');
+    const tableBody = document.getElementById('tabela-professores-corpo');
 
     // 2. Insere uma nova linha (tr) no final do corpo da tabela
-    const novaLinha = tabelaCorpo.insertRow();
+    const newLine = tableBody.insertRow();
 
     // 3. Insere as células (td) na nova linha
-    const celulaNome = novaLinha.insertCell();
-    const celulaMatricula = novaLinha.insertCell();
-    const celulaEmail = novaLinha.insertCell();
-    const celulaCargo = novaLinha.insertCell();
+    const celName = newLine.insertCell();
+    const celRegistration = newLine.insertCell();
+    const celEmail = newLine.insertCell();
+    const celRole = newLine.insertCell();
 
     // 4. Preenche o conteúdo de cada célula com os dados do professor
-    celulaNome.textContent = professor.name;
-    celulaMatricula.textContent = professor.registration;
-    celulaEmail.textContent = professor.email;
-    celulaCargo.textContent = professor.role;
+    celName.textContent = professor.name;
+    celRegistration.textContent = professor.registration;
+    celEmail.textContent = professor.email;
+    //Traduz o Role/Cargo
+    let roleTranslated = professorsRoleTranslation[professor.role];
+    celRole.textContent = roleTranslated;
 
 }
 

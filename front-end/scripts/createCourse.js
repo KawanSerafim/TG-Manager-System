@@ -1,3 +1,5 @@
+import { courseShiftTranslations } from "../interfaces/coursesShiftTranslations.js";
+
 const API_URL = "http://localhost:8080/courses/api/create";
 
 // Garante que todo o código que manipula o DOM só rode depois que a página estiver pronta
@@ -88,9 +90,12 @@ function addCourseInTable(course) {
     const celProfTGName = newLine.insertCell();
     const celAdvisorName = newLine.insertCell();
 
+    
     // 4. Preenche o conteúdo de cada célula com os dados do professor
     celName.textContent = course.name;
-    celShift.textContent = course.shift;
+    //Traduz o turno
+    let courseShiftTranslated = courseShiftTranslations[course.shift];
+    celShift.textContent = courseShiftTranslated;
     celProfTGName.textContent = course.tgCoordinator.name;
     celAdvisorName.textContent = course.courseCoordinator.name;
 
