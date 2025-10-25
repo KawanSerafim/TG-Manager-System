@@ -13,10 +13,9 @@ public interface ValidateTokenCase {
     /**
      * Porta-dados de domínio:
      * Carrega os dados recebidos pela requisição.
-     * @param email Email do usuário.
      * @param token Token de confirmação.
      */
-    record Input(String email, String token) {}
+    record Input(String token) {}
 
     /**
      * Método de contrato de domínio:

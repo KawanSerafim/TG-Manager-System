@@ -75,11 +75,11 @@ public class SendConfirmationEmailService implements SendConfirmationEmailCase {
         String token = generateToken();
 
         // Construção do email.
-        String subject = "Confirme seu Email (Não responda este email).";
+        String subject = "Confirme seu Email.";
         String body = generateEmailBody(token);
 
         // Armazena o token na cache do usuário.
-        tokenCache.putToken(input.email(), token);
+        tokenCache.putToken(token, input.email());
 
         // Envio do email.
         emailSender.sendEmail(input.email(), subject, body);
@@ -151,7 +151,8 @@ public class SendConfirmationEmailService implements SendConfirmationEmailCase {
     private String generateEmailBody(String token) {
 
         return
-            "Olá e seja bem-vindo!\n\n" +
+            "NÃO RESPONDA ESTE EMAIL!\n\n" +
+            "Olá e seja bem-vindo!\n" +
             "Você está a um passo de concluir o seu cadastro, e para isso " +
             "é preciso inserir o token abaixo no formulário.\n\n" +
             "Token: " + token + "\n\n" +

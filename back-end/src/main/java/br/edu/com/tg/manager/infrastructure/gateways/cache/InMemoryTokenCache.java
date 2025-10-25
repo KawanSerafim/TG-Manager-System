@@ -27,18 +27,18 @@ public class InMemoryTokenCache implements TokenCache {
      * {@inheritDoc}
      */
     @Override
-    @CachePut(value = CACHE_NAME, key = "#key")
-    public String putToken(String key, String token) {
+    @CachePut(value = CACHE_NAME, key = "#token")
+    public String putToken(String token, String email) {
 
-        return token;
+        return email;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Cacheable(value = CACHE_NAME, key = "#key")
-    public Optional<String> getToken(String key) {
+    @Cacheable(value = CACHE_NAME, key = "#token")
+    public Optional<String> getEmailByToken(String token) {
 
         return Optional.empty();
     }
@@ -47,6 +47,6 @@ public class InMemoryTokenCache implements TokenCache {
      * {@inheritDoc}
      */
     @Override
-    @CacheEvict(value = CACHE_NAME, key = "#key")
-    public void removeToken(String key) {}
+    @CacheEvict(value = CACHE_NAME, key = "#token")
+    public void removeToken(String token) {}
 }
