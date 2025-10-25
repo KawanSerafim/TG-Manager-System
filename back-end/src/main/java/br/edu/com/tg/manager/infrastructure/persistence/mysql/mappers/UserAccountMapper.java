@@ -31,6 +31,7 @@ public class UserAccountMapper {
 
         userAccountModel.setEmail(domain.getEmail());
         userAccountModel.setPassword(domain.getPassword());
+        userAccountModel.setStatus(domain.getStatus());
 
         // Retorno do modelo de dados.
         return userAccountModel;
@@ -44,14 +45,14 @@ public class UserAccountMapper {
             return null;
         }
 
-        /*
-         * Inserção dos dados do modelo de dados na entidade de domínio e
-         * retorno da entidade de domínio.
-         */
-        return new UserAccount(
+        // Inserção dos dados do modelo de dados na entidade de domínio.
+        var userAccount = new UserAccount();
 
-            model.getEmail(),
-            model.getPassword()
-        );
+        userAccount.setEmail(model.getEmail());
+        userAccount.setPassword(model.getPassword());
+        userAccount.setStatus(model.getStatus());
+
+        // Retorno da entidade de domínio.
+        return userAccount;
     }
 }
