@@ -1,7 +1,6 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers;
 
 import br.edu.com.tg.manager.core.domain.entities.Student;
-import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
         .StudentModel;
 import org.springframework.stereotype.Component;
@@ -41,7 +40,8 @@ public class StudentMapper {
 
     /**
      * Método de aplicação:
-     * Converte a entidade de domínio Student para o modelo de dados StudentModel.
+     * Converte a entidade de domínio Student para o modelo de dados
+     * StudentModel.
      * @param domain Entidade de domínio Student.
      * @return Modelo de dados StudentModel.
      */
@@ -95,14 +95,10 @@ public class StudentMapper {
             studentGroupMapper.toDomain(model.getStudentGroup())
         );
 
-        if(model.getStatus() == StudentStatus.ACTIVE) {
+        student.setUserAccount(
 
-            student.setUserAccount(
-
-                userAccountMapper.toDomain(model.getUserAccount())
-            );
-        }
-
+            userAccountMapper.toDomain(model.getUserAccount())
+        );
         student.setId(model.getId());
         student.setStatus(model.getStatus());
 
