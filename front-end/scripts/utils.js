@@ -1,20 +1,8 @@
-export function getSemester(){
-  //Retorna em number o mes atual, 0 - Janeiro ... 11- Dezembro
-  const month = new Date().getMonth();
-
-  //De janeiro até a julho, primeiro semestre
-  if ( month <= 6){
-    return '1'
-  }
-  else{
-    //Caso contrario segundo semestre
-    return '2'
-  }
-}
+import { courseShiftTranslations } from "../interfaces/coursesShiftTranslations.js";
 
 /**
  * Função responsável por preencher a tabela e exibir a seção de resultados.
- * @param {Object} data - A resposta do backend.
+ * @param {Response} data - A resposta do backend.
  * @param {HTMLElement} tableBody - O elemento <tbody> da tabela a ser preenchido.
  * @param {HTMLElement} resultsContainer - O contêiner que envolve a tabela.
  */
@@ -31,13 +19,15 @@ export function displayResults(data, tableBody, resultsContainer) {
         students = students.filter((student) => student.name != 'RA' && student.registration != 'ALUNO')
         // Cria uma linha (tr) para cada aluno
         students.forEach(student => {
+            //Traduz o shift
+            const shiftTranslated = courseShiftTranslations[data.shift]
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${student.name}</td>
                 <td>${student.registration}</td>
                 <td>${data.courseName}</td>
                 <td>${data.discipline}</td>
-                <td>${data.shift}</td>
+                <td>${shiftTranslated}</td>
                 <td>${data.year}</td>
                 <td>${data.semester}</td>
             `;

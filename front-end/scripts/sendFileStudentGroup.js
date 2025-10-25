@@ -1,4 +1,4 @@
-import { getSemester, displayResults } from "./utils.js";
+import { displayResults } from "./utils.js";
 
 //Inicia a bilbioteca de icones
 lucide.createIcons()
@@ -60,11 +60,6 @@ inputsOptions.forEach(input => {
     isMouseOrTouch && optionsViewButton.click()
   })
 })
-//Setar ano e semestre atual
-const yearSemesterDiv = document.querySelector('.year-semester');
-const currentYear = new Date().getFullYear();
-const currentSemester = getSemester();
-yearSemesterDiv.innerHTML += `<span>Ano: ${currentYear} - Semestre: ${currentSemester}</span>`;
 })
 
 //exibir nome do arquivo ao selecionar um:
