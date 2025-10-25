@@ -1,6 +1,6 @@
-import { professorsRoleTranslation } from "../interfaces/professorsRoleTranslation.js";
+import { courseShiftTranslations } from "../interfaces/coursesShiftTranslations.js";
 
-const API_URL = "http://localhost:8080/professors/api/create";
+const API_URL = "http://localhost:8080/courses/api/create";
 
 // Garante que todo o código que manipula o DOM só rode depois que a página estiver pronta
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,46 +32,36 @@ document.addEventListener('DOMContentLoaded', () => {
         } else{
           //Se ta tudo certo
           // Captura dos dados do formulário
-          const professorData = {
+          const courseData = {
             name: document.getElementById('name').value,
-            registration: document.getElementById('registration').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            role: document.getElementById('role').value
+            shift: document.querySelector('input[name="shift-input"]:checked').value,
+            tgCoordinatorRegistration: document.getElementById('tgCoordinatorRegistration').value,
+            courseCoordinatorRegistration: document.getElementById('courseCoordinatorRegistration').value
           }; 
           // Agora, ao chamar createProfessor, as variáveis toastSuccess e toastError GARANTIDAMENTE existem
-          createProfessor(professorData, toastSuccess, toastError);
+          createCourse(courseData, toastSuccess, toastError);
         }
         // 5. Adiciona a classe para exibir os estilos de feedback (vermelho/verde)
         form.classList.add('was-validated');
     });
-    // Encontra o input de confirmação de senha
-    const confirmPasswordInput = document.getElementById('confirmation-password');
-
-    // Adiciona o "escutador" para o evento 'blur'
-    confirmPasswordInput.addEventListener('blur', validatePasswords);
-
-    // Opcional, mas recomendado: validar também quando o usuário digita na primeira senha
-    const passwordInput = document.getElementById('password');
-    passwordInput.addEventListener('keyup', validatePasswords);
 });
 
 
 // --- FUNÇÕES AUXILIARES ---
 
 // A função de fetch agora recebe as instâncias do toast como parâmetros para ficar mais limpa
-async function createProfessor(professorData, toastSuccess, toastError) {
+async function createCourse(courseData, toastSuccess, toastError) {
     try {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(professorData)
+            body: JSON.stringify(courseData)
         });
         
         if (response.ok) {
-            const novoProfessor = await response.json(); 
+            const newCourse = await response.json(); 
             toastSuccess.show();
-            addProfessorInTable(novoProfessor);
+            addCourseInTable(newCourse);
             //Apaga os campos
             document.getElementById('form').reset();
             //Retira validação até o usuario enviar novamente
@@ -87,49 +77,26 @@ async function createProfessor(professorData, toastSuccess, toastError) {
     }
 }
 
-function addProfessorInTable(professor) {
+function addCourseInTable(course) {
     // 1. Encontra o corpo da tabela pelo ID
-    const tableBody = document.getElementById('tabela-professores-corpo');
+    const tablebody = document.getElementById('tabela-professores-corpo');
 
     // 2. Insere uma nova linha (tr) no final do corpo da tabela
-    const newLine = tableBody.insertRow();
+    const newLine = tablebody.insertRow();
 
     // 3. Insere as células (td) na nova linha
     const celName = newLine.insertCell();
-    const celRegistration = newLine.insertCell();
-    const celEmail = newLine.insertCell();
-    const celRole = newLine.insertCell();
+    const celShift = newLine.insertCell();
+    const celProfTGName = newLine.insertCell();
+    const celAdvisorName = newLine.insertCell();
 
+    
     // 4. Preenche o conteúdo de cada célula com os dados do professor
-    celName.textContent = professor.name;
-    celRegistration.textContent = professor.registration;
-    celEmail.textContent = professor.email;
-    //Traduz o Role/Cargo
-    let roleTranslated = professorsRoleTranslation[professor.role];
-    celRole.textContent = roleTranslated;
+    celName.textContent = course.name;
+    //Traduz o turno
+    let courseShiftTranslated = courseShiftTranslations[course.shift];
+    celShift.textContent = courseShiftTranslated;
+    celProfTGName.textContent = course.tgCoordinator.name;
+    celAdvisorName.textContent = course.courseCoordinator.name;
 
-}
-
-
-function validatePasswords(){
-  let passwordInput = document.getElementById('password'),
-  confirmPasswordInput = document.getElementById('confirmation-password');
-  // valores digitados nos inputs
-  const passwordValue = passwordInput.value;
-  const confirmPasswordValue = confirmPasswordInput.value;
-
-  // 3. Compara os valores
-  // Só valida se o campo de confirmação tiver algo digitado
-  if (confirmPasswordValue !== "" && passwordValue !== confirmPasswordValue) {
-      // Se as senhas forem diferentes, adiciona a classe de erro do Bootstrap
-      confirmPasswordInput.classList.add('is-invalid');
-      confirmPasswordInput.classList.remove('is-valid');
-  } else {
-      // Se as senhas forem iguais (ou o campo estiver vazio), remove a classe de erro
-      confirmPasswordInput.classList.remove('is-invalid');
-      // Opcional: Adiciona uma classe de sucesso se o campo não estiver vazio
-      if (confirmPasswordValue !== "") {
-          confirmPasswordInput.classList.add('is-valid');
-      }
-  }
 }

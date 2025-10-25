@@ -4,8 +4,149 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Curso</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
-  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom" data-bs-theme="dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="../landing/index.html">Menu</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="../landing/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../login/login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../professor/send_file_student_group.html">Enviar Arquivo de Turma de TG</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Cadastros
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../create/create_professor.html">Cadastrar Professor</a></li>
+                    <li><a class="dropdown-item active" href="../create/create_course.html">Cadastrar Cursos</a></li>
+                    <li><a class="dropdown-item" href="../create/create_student.html">Finalizar Cadastro Aluno</a></li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </nav>
+<!-- // Fim NavBar -->
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h3 class="text-center">Cadastro de Curso</h3>
+          </div>
+          <div class="card-body">
+            <form id="form" class="needs-validation" novalidate>
+              <!-- Nome -->
+               <div class="mb-3 has-validation">
+                <label for="name" class="form-label">Nome do curso</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">
+                  Nome é um campo obrigatório
+                </div>
+               </div>
+
+               <!-- Shift/Turno -->
+               <div class="mb-3 has-validation">
+                 <label for="">Turno: </label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="shift-input" id="night" value="NIGHT">
+                  <label class="form-check-label" for="inlineRadio1">Noite</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="shift-input" id="morning" value="MORNING">
+                  <label class="form-check-label" for="inlineRadio2">Manhã</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="shift-input" id="afternoon" value="AFTERNOON">
+                  <label class="form-check-label" for="inlineRadio3">Tarde</label>
+                </div>
+            </div>
+              <!-- (Matricula) Professor de TG -->
+              <div class="mb-3 has-validation">
+                <label for="tgCoordinatorRegistration" class="form-label">Professor de TG (Matricula)</label>
+                <input type="text" class="form-control" id="tgCoordinatorRegistration" name="tgCoordinatorRegistration" required>
+                 <div class="invalid-feedback">
+                  A matricula do professor de TG é um campo obrigatório
+                </div>
+              </div>
+              <!-- (Matricula) Professor Coordenador do curso -->
+              <div class="mb-3 has-validation">
+                <label for="tgCoordinatorRegistration" class="form-label">Coordenador do curso (Matricula)</label>
+                <input type="text" class="form-control" id="courseCoordinatorRegistration" name="courseCoordinatorRegistration" required>
+                 <div class="invalid-feedback">
+                  A matricula do coordenador de curso é um campo obrigatório
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Div de lista de cursos cadatrados com sucesso -->
+ <div class="container mt-5">
+    <h2>Cursos Cadastrados</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Turno</th>
+                    <th scope="col">Nome Professor TG</th>
+                    <th scope="col">Nome Coordenador </th>
+            </thead>
+            
+            <tbody id="tabela-professores-corpo">
+            </tbody>
+            
+        </table>
+    </div>
+  </div>
+  <!-- Toasts para exibição de sucesso ou erro -->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+
+    <div id="toast-sucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-success">
+            <strong class="me-auto">Sucesso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Curso cadastrado com sucesso!
+        </div>
+    </div>
+
+    <div id="toast-erro" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-danger">
+            <strong class="me-auto">Erro na Requisição</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            </div>
+    </div>
+
+</div>
+<!-- Scripts do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <!-- Script da página -->
+  <script type="module" src="../../scripts/createCourse.js"></script>
 </body>
 </html>
