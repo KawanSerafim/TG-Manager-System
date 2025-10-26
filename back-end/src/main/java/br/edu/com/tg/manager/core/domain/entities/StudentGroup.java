@@ -63,7 +63,7 @@ public class StudentGroup {
     }
 
     public void setCourse(Course course) {
-        // Regra de negócio: o campo curso é obrigatório.
+        // Regra de domínio: o campo curso é obrigatório.
         if(course == null) {
             throw new DomainException(
                     "O campo curso é obrigatório."
@@ -77,7 +77,7 @@ public class StudentGroup {
     }
 
     public void setDiscipline(Discipline discipline) {
-        // Regra de negócio: o campo disciplina de TG é obrigatório.
+        // Regra de domínio: o campo disciplina de TG é obrigatório.
         if(discipline == null) {
             throw new DomainException(
                     "O campo disciplina de TG é obrigatório."
@@ -91,7 +91,7 @@ public class StudentGroup {
     }
 
     public void setYear(Integer year) {
-        // Regra de negócio: o campo ano é obrigatório.
+        // Regra de domínio: o campo ano é obrigatório.
         if(year == null) {
             throw new DomainException(
                     "O campo ano é obrigatório."
@@ -100,7 +100,7 @@ public class StudentGroup {
 
         int currentYear = Year.now().getValue();
 
-        // Regra de negócio: o ano não pode ser diferente do atual.
+        // Regra de domínio: o ano não pode ser diferente do atual.
         if(!(year.equals(currentYear))) {
             throw new DomainException(
                     "O ano não pode ser diferente do atual."
@@ -114,14 +114,14 @@ public class StudentGroup {
     }
 
     public void setSemester(Integer semester) {
-        // Regra de negócio: o campo semestre é obrigatório.
+        // Regra de domínio: o campo semestre é obrigatório.
         if(semester == null) {
             throw new DomainException(
                     "O campo semestre é obrigatório."
             );
         }
 
-        // Regra de negócio: o semestre foge do padrão: 1 ou 2.
+        // Regra de domínio: o semestre foge do padrão: 1 ou 2.
         if(semester != 1 && semester != 2) {
             throw new DomainException(
                     "O semestre foge do padrão: 1 ou 2."
