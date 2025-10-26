@@ -61,7 +61,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        // Regra de negócio: o campo nome é obrigatório.
+        // Regra de domínio: o campo nome é obrigatório.
         if(name == null || name.trim().isEmpty()) {
             throw new DomainException(
                     "O campo nome é obrigatório."
@@ -75,7 +75,7 @@ public class Student {
     }
 
     public void setRegistration(String registration) {
-        // Regra de negócio: o campo nome é obrigatório.
+        // Regra de domínio: o campo nome é obrigatório.
         if(registration == null || registration.trim().isEmpty()) {
             throw new DomainException(
                     "O campo matrícula é obrigatório."
@@ -97,7 +97,7 @@ public class Student {
     }
 
     public void setStatus(StudentStatus status) {
-        // Regra de negócio: o campo status é obrigatório.
+        // Regra de domínio: o campo status é obrigatório.
         if(status == null) {
             throw new DomainException(
                     "O campo status é obrigatório."
@@ -111,7 +111,7 @@ public class Student {
     }
 
     public void setStudentGroup(StudentGroup studentGroup) {
-        // Regra de negócio: o campo turma é obrigatório.
+        // Regra de domínio: o campo turma é obrigatório.
         if(studentGroup == null) {
             throw new DomainException(
                     "O campo turma é obrigatório."
