@@ -46,6 +46,27 @@ public class Professor {
         this.setRole(role);
     }
 
+    // MÉTODOS DE DOMÍNIO:
+
+    /**
+     * Método de domínio:
+     * Verifica se o professor tem cargo necessário para ser coordenador de TG.
+     * @return True ou False.
+     */
+    public boolean canBeTgCoordinator() {
+        return this.role.hasTgCoordinatorPermissions();
+    }
+
+    /**
+     * Método de domínio:
+     * Verifica se o professor tem cargo necessário para ser coordenador de
+     * curso.
+     * @return True ou False.
+     */
+    public boolean canBeCourseCoordinator() {
+        return this.role.hasCourseCoordinatorPermissions();
+    }
+
     // MÉTODOS GETTERS E SETTERS.
 
     public Long getId() {
