@@ -61,7 +61,7 @@ public class Professor {
     }
 
     public void setName(String name) {
-        // Regra de domínio: professor não pode conter nome vazio ou nulo.
+        // Regra de domínio: o campo nome é obrigatório.
         if(name == null || name.trim().isEmpty()) {
             throw new DomainException(
                     "O campo nome é obrigatório."
@@ -75,7 +75,7 @@ public class Professor {
     }
 
     public void setRegistration(String registration) {
-        // Regra de domínio: professor não pode conter matrícula vazia ou nula.
+        // Regra de domínio: o campo matrícula é obrigatório.
         if(registration == null || registration.trim().isEmpty()) {
             throw new DomainException(
                     "O campo matrícula é obrigatório."
@@ -89,7 +89,7 @@ public class Professor {
     }
 
     public void setUserAccount(UserAccount userAccount) {
-        // Regra de domínio: professor não pode ter conta de usuário nula.
+        // Regra de domínio: o campo conta de usuário é obrigatório.
         if(userAccount == null) {
             throw new DomainException(
                     "O campo conta de usuário é obrigatório."
@@ -103,7 +103,7 @@ public class Professor {
     }
 
     public void setRole(ProfessorRole role) {
-        // Regra de domínio: professor não pode conter cargo nulo.
+        // Regra de domínio: o campo cargo é obrigatório.
         if(role == null) {
             throw new DomainException(
                     "O campo cargo é obrigatório."
