@@ -50,6 +50,15 @@ public class Professor {
 
     /**
      * Método de domínio:
+     * Verifica se o professor tem cargo necessário para ser orientador.
+     * @return True ou False.
+     */
+    public boolean canBeAdvisor() {
+        return this.role.hasAdvisorPermissions();
+    }
+
+    /**
+     * Método de domínio:
      * Verifica se o professor tem cargo necessário para ser coordenador de TG.
      * @return True ou False.
      */
