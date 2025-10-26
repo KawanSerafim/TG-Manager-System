@@ -63,7 +63,7 @@ public class UserAccount {
         }
     }
 
-    // MÉTODOS GETTERS E SETTERS
+    // MÉTODOS GETTERS E SETTERS.
 
     public String getEmail() {
         return email;
