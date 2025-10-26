@@ -50,7 +50,7 @@ public class Administrator {
     }
 
     public void setName(String name) {
-        // Regra de domínio: administrador não pode conter nome vazio ou nulo.
+        // Regra de domínio: o campo nome é obrigatório.
         if(name == null || name.trim().isEmpty()) {
             throw new DomainException(
                     "O campo nome é obrigatório."
@@ -64,7 +64,7 @@ public class Administrator {
     }
 
     public void setUserAccount(UserAccount userAccount) {
-        // Regra de domínio: administrador não pode conter conta de usuário nula.
+        // Regra de domínio: o campo conta de usuário é obrigatório.
         if(userAccount == null) {
             throw new DomainException(
                     "O campo conta de usuário é obrigatório."
