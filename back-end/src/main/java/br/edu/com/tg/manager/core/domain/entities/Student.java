@@ -61,7 +61,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        // Regra de negócio: aluno não pode conter nome vazio ou nulo.
+        // Regra de negócio: o campo nome é obrigatório.
         if(name == null || name.trim().isEmpty()) {
             throw new DomainException(
                     "O campo nome é obrigatório."
@@ -75,7 +75,7 @@ public class Student {
     }
 
     public void setRegistration(String registration) {
-        // Regra de negócio: aluno não pode conter matrícula vazia ou nula.
+        // Regra de negócio: o campo nome é obrigatório.
         if(registration == null || registration.trim().isEmpty()) {
             throw new DomainException(
                     "O campo matrícula é obrigatório."
@@ -97,7 +97,7 @@ public class Student {
     }
 
     public void setStatus(StudentStatus status) {
-        // Regra de negócio: aluno não pode conter status nulo.
+        // Regra de negócio: o campo status é obrigatório.
         if(status == null) {
             throw new DomainException(
                     "O campo status é obrigatório."
@@ -111,7 +111,7 @@ public class Student {
     }
 
     public void setStudentGroup(StudentGroup studentGroup) {
-        // Regra de negócio: aluno não pode conter turma nula.
+        // Regra de negócio: o campo turma é obrigatório.
         if(studentGroup == null) {
             throw new DomainException(
                     "O campo turma é obrigatório."
@@ -127,7 +127,6 @@ public class Student {
      * @return Email da conta de usuário do aluno.
      */
     public String getEmail() {
-
         return userAccount.getEmail();
     }
 
@@ -136,7 +135,6 @@ public class Student {
      * @param email Email fornecido.
      */
     public void setEmail(String email) {
-
         this.userAccount.setEmail(email);
     }
 
@@ -145,7 +143,6 @@ public class Student {
      * @return Senha criptografada da conta de usuário do aluno.
      */
     public String getPassword() {
-
         return userAccount.getPassword();
     }
 
@@ -154,7 +151,6 @@ public class Student {
      * @param password Senha fornecida.
      */
     public void setPassword(String password) {
-
         this.userAccount.setPassword(password);
     }
 }
