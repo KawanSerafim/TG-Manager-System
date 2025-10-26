@@ -13,25 +13,25 @@ public interface TokenCache {
 
     /**
      * Método de contrato de domínio:
-     * Armazena ou atualiza um token associado a uma chave ID, no cache.
-     * @param key Chave ID.
+     * Armazena ou atualiza um email associado a um token, no cache.
      * @param token Token a ser armazenado.
+     * @param email Email do usuário.
      * @return Token armazenado.
      */
-    String putToken(String key, String token);
+    String putToken(String token, String email);
 
     /**
      * Método de contrato de domínio:
-     * Busca um token associado a uma chave ID, no cache.
-     * @param key Chave ID.
-     * @return Optional vazio ou Token.
+     * Busca um email associado a um token.
+     * @param token Token fornecido pela requisição.
+     * @return Optional vazio ou String com o email.
      */
-    Optional<String> getToken(String key);
+    Optional<String> getEmailByToken(String token);
 
     /**
      * Método de contrato de domínio:
-     * Remove um token associado a uma chave ID, do cache.
-     * @param key Chave ID.
+     * Remove o token fornecido.
+     * @param token Token fornecido pela requisição.
      */
-    void removeToken(String key);
+    void removeToken(String token);
 }
