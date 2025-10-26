@@ -8,7 +8,6 @@ package br.edu.com.tg.manager.core.domain.exceptions;
  * portanto, considerada uma classe pura.
  */
 public class DomainException extends RuntimeException {
-
     /**
      * Construtor de domínio:
      * Encaminha a mensagem de erro ao método do RuntimeException.
