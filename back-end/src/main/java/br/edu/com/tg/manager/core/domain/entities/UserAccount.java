@@ -47,8 +47,7 @@ public class UserAccount {
      * @throws DomainException Lançada se o email for nulo, vazio ou tiver
      * formato inválido.
      */
-    public static void validateEmailFormat(String email)
-            throws DomainException {
+    public static void validateEmailFormat(String email) throws DomainException {
         // Regra de domínio: email não pode ser vazio ou nulo.
         if(email == null || email.trim().isEmpty()) {
             throw new DomainException(
