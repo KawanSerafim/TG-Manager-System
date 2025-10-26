@@ -9,9 +9,9 @@ import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
  * Administrator terão ao serem cadastradas no sistema. Esta entidade é
  * responsável pela consistência dos dados de autenticação (email e senha) e
  * pelo ciclo de vida da conta através do seu status de verificação.
- * Por pertencer ao núcleo (core) da aplicação, esta classe é independente de
- * frameworks ou bibliotecas externas, sendo, portanto, considerada uma classe
- * pura.
+ * Por pertencer ao núcleo (core) da aplicação, esta classe é
+ * independente de frameworks ou bibliotecas externas, sendo,
+ * portanto, considerada uma classe pura.
  */
 public class UserAccount {
     private String email;
@@ -35,7 +35,7 @@ public class UserAccount {
         // Define um status inicial a conta, que exige validação de email.
         this.status = UserAccountStatus.PENDING_VERIFICATION;
 
-        // Delega as validações dos parâmetros aos seus devidos métodos setters.
+        // Delega as validações dos parâmetros aos seus devidos setters.
         this.setEmail(email);
         this.setPassword(password);
     }
@@ -48,7 +48,7 @@ public class UserAccount {
      * formato inválido.
      */
     public static void validateEmailFormat(String email) throws DomainException {
-        // Regra de domínio: email não pode ser vazio ou nulo.
+        // Regra de domínio: o campo email é obrigatório.
         if(email == null || email.trim().isEmpty()) {
             throw new DomainException(
                 "O campo email é obrigatório."
@@ -88,7 +88,7 @@ public class UserAccount {
     }
 
     public void setStatus(UserAccountStatus status) {
-        // Regra de domínio: o status da conta não pode ser nulo.
+        // Regra de domínio: o campo status é obrigatório.
         if(status == null) {
             throw new DomainException(
                     "O campo status é obrigatório."
