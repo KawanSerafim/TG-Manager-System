@@ -8,7 +8,7 @@ import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentGroupRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
