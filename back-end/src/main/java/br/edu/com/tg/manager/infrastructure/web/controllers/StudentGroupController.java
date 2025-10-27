@@ -6,13 +6,12 @@ import br.edu.com.tg.manager.infrastructure.web.dtos.requests
         .StudentGroupRequest;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses
         .StudentGroupResponse;
-import br.edu.com.tg.manager.infrastructure.web.dtos.responses.StudentResponse;
+import br.edu.com.tg.manager.infrastructure.web.mappers.StudentResponseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/student-group/api")
@@ -20,13 +19,15 @@ import java.util.List;
 public class StudentGroupController {
     private final CreateStudentGroupCase useCase;
     private final StudentDataReader studentDataReader;
+    private final StudentResponseMapper studentResponseMapper;
 
     public StudentGroupController(
             CreateStudentGroupCase useCase,
-            StudentDataReader studentDataReader
-    ) {
+            StudentDataReader studentDataReader,
+            StudentResponseMapper studentResponseMapper) {
         this.useCase = useCase;
         this.studentDataReader = studentDataReader;
+        this.studentResponseMapper = studentResponseMapper;
     }
 
     @PostMapping(consumes = "multipart/form-data", path = "create")
@@ -43,13 +44,7 @@ public class StudentGroupController {
 
         var result = useCase.execute(input);
 
-        List<StudentResponse> studentDTOs = result.students().stream()
-                .map(student ->
-                        new StudentResponse(
-                                student.getName(),
-                                student.getRegistration()
-                        )
-                ).toList();
+        var studentDTOs = studentResponseMapper.toResponseList(result.students());
 
         var responseBody = new StudentGroupResponse(
                 result.courseName(),
