@@ -16,8 +16,9 @@ public interface StudentRepository {
      * Método de contrato de núcleo:
      * Persiste o objeto de um aluno no banco de dados.
      * @param student Aluno.
+     * @return Student.
      */
-    void save(Student student);
+    Student save(Student student);
 
     /**
      * Método de contrato de núcleo:
