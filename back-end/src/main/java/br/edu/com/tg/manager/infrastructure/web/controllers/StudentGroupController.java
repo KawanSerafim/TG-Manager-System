@@ -24,7 +24,8 @@ public class StudentGroupController {
     public StudentGroupController(
             CreateStudentGroupCase useCase,
             StudentDataReader studentDataReader,
-            StudentResponseMapper studentResponseMapper) {
+            StudentResponseMapper studentResponseMapper
+    ) {
         this.useCase = useCase;
         this.studentDataReader = studentDataReader;
         this.studentResponseMapper = studentResponseMapper;
@@ -44,7 +45,8 @@ public class StudentGroupController {
 
         var result = useCase.execute(input);
 
-        var studentDTOs = studentResponseMapper.toResponseList(result.students());
+        var studentDTOs = studentResponseMapper
+                .toResponseList(result.students());
 
         var responseBody = new StudentGroupResponse(
                 result.courseName(),
