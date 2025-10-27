@@ -29,9 +29,11 @@ public class StudentRepositoryImpl implements StudentRepository {
      * {@inheritDoc}
      */
     @Override
-    public void save(Student student) {
+    public Student save(Student student) {
         var studentModel = studentMapper.toModel(student);
         springRepository.save(studentModel);
+
+        return studentMapper.toDomain(studentModel);
     }
 
     /**
