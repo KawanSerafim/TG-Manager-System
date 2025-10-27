@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/email-confirmation")
 @CrossOrigin(origins = "*")
 public class EmailConfirmationController {
-
     private final SendConfirmationEmailCase useCase;
 
     public EmailConfirmationController(SendConfirmationEmailCase useCase) {
-
         this.useCase = useCase;
     }
 
     @PostMapping("/send")
-    public ResponseEntity<String>
-    sendConfirmation(@RequestBody SendConfirmationRequest request) {
-
+    public ResponseEntity<String> sendConfirmation(
+            @RequestBody SendConfirmationRequest request
+    ) {
         var input = new SendConfirmationEmailCase.Input(request.email());
 
         useCase.execute(input);
