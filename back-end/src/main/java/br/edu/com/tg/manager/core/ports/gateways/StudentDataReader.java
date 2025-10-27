@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Portão de acesso de domínio:
+ * Portão de acesso de núcleo:
  * Define um contrato para a ação de ler dados de alunos e demais
  * informações de turma, todos vindos de um arquivo.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface StudentDataReader {
     /**
-     * Porta-dados de contrato de domínio:
+     * Porta-dados de contrato de núcleo:
      * Carrega os dados de um único aluno que estão num arquivo.
      */
     record StudentData(
@@ -23,7 +23,7 @@ public interface StudentDataReader {
     ) {}
 
     /**
-     * Porta-dados de contrato de domínio:
+     * Porta-dados de contrato de núcleo:
      * Carrega os metadados da turma que estão no arquivo (ano,
      * semestre, turno) e a lista de alunos (StudentData).
      */
@@ -35,7 +35,7 @@ public interface StudentDataReader {
     ) {}
 
     /**
-     * Método de contrato de domínio:
+     * Método de contrato de núcleo:
      * Lê um fluxo de dados de um arquivo e o converte em FileData.
      * @param fileStream Fluxo de dados do arquivo.
      * @return FileData.

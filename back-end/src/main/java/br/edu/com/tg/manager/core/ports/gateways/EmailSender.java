@@ -1,7 +1,7 @@
 package br.edu.com.tg.manager.core.ports.gateways;
 
 /**
- * Portão de acesso de domínio:
+ * Portão de acesso de núcleo:
  * Define um contrato para a ação de enviar um email mediante um
  * serviço externo (SMTP).
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
@@ -10,7 +10,7 @@ package br.edu.com.tg.manager.core.ports.gateways;
  */
 public interface EmailSender {
     /**
-     * Método de contrato de domínio:
+     * Método de contrato de núcleo:
      * Executa o envio de email a um destino.
      * @param to Email de destino.
      * @param subject Assunto do email.

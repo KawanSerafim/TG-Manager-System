@@ -3,7 +3,7 @@ package br.edu.com.tg.manager.core.ports.gateways;
 import java.util.Optional;
 
 /**
- * Portão de acesso de domínio:
+ * Portão de acesso de núcleo:
  * Define um contrato para a ação de armazenar e recuperar Tokens
  * temporários.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public interface TokenCache {
     /**
-     * Método de contrato de domínio:
+     * Método de contrato de núcleo:
      * Armazena ou atualiza um email associado a um token, no cache.
      * O token é a chave.
      * @param token Token a ser armazenado.
@@ -22,7 +22,7 @@ public interface TokenCache {
     String putToken(String token, String email);
 
     /**
-     * Método de contrato de domínio:
+     * Método de contrato de núcleo:
      * Busca um email associado a um token.
      * @param token Token fornecido pela requisição.
      * @return Optional vazio ou String (o email).
@@ -30,7 +30,7 @@ public interface TokenCache {
     Optional<String> getEmailByToken(String token);
 
     /**
-     * Método de contrato de domínio:
+     * Método de contrato de núcleo:
      * Remove o token fornecido.
      * @param token Token fornecido pela requisição.
      */
