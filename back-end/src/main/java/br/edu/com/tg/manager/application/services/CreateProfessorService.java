@@ -1,47 +1,39 @@
 package br.edu.com.tg.manager.application.services;
 
 import br.edu.com.tg.manager.application.events.UserRequiresConfirmationEvent;
+import br.edu.com.tg.manager.core.domain.entities.Administrator;
 import br.edu.com.tg.manager.core.domain.entities.Professor;
+import br.edu.com.tg.manager.core.domain.entities.Student;
 import br.edu.com.tg.manager.core.domain.entities.UserAccount;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
+import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
+import jakarta.transaction.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
-/**
- * Implementador de caso de uso:
- * Implementa o funcionamento e a lógica do caso de uso de criar um professor e
- * o persistir no banco de dados. Por pertencer à infraestrutura da aplicação,
- * esta classe utiliza da anotação Service do SpringBoot, que é uma
- * especialização da anotação Component, permitindo que o framework gerencie
- * a classe.
- */
 @Service
 public class CreateProfessorService implements CreateProfessorCase {
-
+    private final AdministratorRepository administratorRepository;
     private final ProfessorRepository professorRepository;
+    private final StudentRepository studentRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * Construtor de injeção de dependência:
-     * Realiza, através do Spring Boot, a injeção de dependência dos
-     * repositórios de domínio e injeta a dependência que, quando
-     * CreateProfessorCase é instanciado por outra classe, a implementação da
-     * interface é assumida por esta classe aqui.
-     * @param professorRepository Repositório de domínio do professor.
-     */
     public CreateProfessorService(
-
-        ProfessorRepository professorRepository,
-        ApplicationEventPublisher eventPublisher,
-        PasswordEncoder passwordEncoder
+            AdministratorRepository administratorRepository,
+            ProfessorRepository professorRepository,
+            StudentRepository studentRepository,
+            ApplicationEventPublisher eventPublisher,
+            PasswordEncoder passwordEncoder
     ) {
-
+        this.administratorRepository = administratorRepository;
         this.professorRepository = professorRepository;
+        this.studentRepository = studentRepository;
         this.eventPublisher = eventPublisher;
         this.passwordEncoder = passwordEncoder;
     }
@@ -50,79 +42,64 @@ public class CreateProfessorService implements CreateProfessorCase {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public Output execute(Input input) {
-
+        validateEmailUniqueness(input);
         var professor = getProfessor(input);
         var professorSaved = professorRepository.save(professor);
 
         eventPublisher.publishEvent(
-
-            new UserRequiresConfirmationEvent(professorSaved.getEmail())
+                new UserRequiresConfirmationEvent(professorSaved.getEmail())
         );
 
         return new CreateProfessorCase.Output(
-
-            professorSaved.getId(),
-            professorSaved.getName(),
-            professorSaved.getRegistration(),
-            professorSaved.getEmail(),
-            professorSaved.getRole()
+                professorSaved.getId(),
+                professorSaved.getName(),
+                professorSaved.getRegistration(),
+                professorSaved.getEmail(),
+                professorSaved.getRole()
         );
     }
 
-    /**
-     * Método de aplicação:
-     * Tenta encontrar um professor com a matrícula fornecida, e se não achar,
-     * insere num objeto Professor.
-     * @param input Porta-dados da requisição.
-     * @return Professor.
-     */
-    private Professor getProfessor(Input input) {
-
-        /*
-         * Insere num Optional, o professor que será buscado pelo repositório
-         * usando a sua matrícula.
-         */
+    private void validateEmailUniqueness(CreateProfessorCase.Input input) {
         Optional<Professor> optionalProfessor = professorRepository
-            .findByRegistration(input.registration());
+                .findByEmail(input.email());
+
+        Optional<Student> optionalStudent = studentRepository
+                .findByEmail(input.email());
+
+        Optional<Administrator> optionalAdministrator = administratorRepository
+                .findByEmail(input.email());
+
+        if(optionalProfessor.isPresent()
+                || optionalStudent.isPresent()
+                || optionalAdministrator.isPresent()
+        ) {
+            throw new DomainException(
+                    "Esse email já foi cadastrado no sistema."
+            );
+        }
+    }
+
+    private Professor getProfessor(Input input) {
+        Optional<Professor> optionalProfessor = professorRepository
+                .findByRegistration(input.registration());
 
         if(optionalProfessor.isPresent()) {
-
             throw new DomainException(
-
-                "A matrícula já foi cadastrada no sistema."
+                    "A matrícula já foi cadastrada no sistema."
             );
         }
 
-        /*
-         * Insere num Optional, o professor que será buscado pelo repositório
-         * usando o seu email.
-         */
-        optionalProfessor = professorRepository.findByEmail(input.email());
-
-        if(optionalProfessor.isPresent()){
-
-            throw new DomainException(
-
-                "O email já foi cadastrado no sistema."
-            );
-        }
-
-        /*
-         * Se não, um novo professor é criado utilizando os valores fornecidos
-         * pela requisição, e o salva no banco de dados.
-         */
         String rawPassword = input.password();
         String hashedPassword = passwordEncoder.encode(rawPassword);
-
         var userAccount = new UserAccount(input.email(), hashedPassword);
 
         return new Professor(
-
-            input.name(),
-            input.registration(),
-            userAccount,
-            input.role()
+                input.name(),
+                input.registration(),
+                userAccount,
+                input.role()
         );
     }
 }

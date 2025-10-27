@@ -9,30 +9,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-/**
- * Implementador de portão de acesso:
- * Implementa o funcionamento do envio de email.
- * Por pertencer à infraestrutura da aplicação, esta classe utiliza da anotação
- * Component do SpringBoot, permitindo que o framework gerencie a classe e a
- * abstração JavaMailSender.
- */
 @Component
 public class JavaMailEmailSender implements EmailSender {
-
-    private final Logger log = LoggerFactory
-        .getLogger(JavaMailEmailSender.class);
     private final JavaMailSender mailSender;
+    private final Logger log = LoggerFactory
+            .getLogger(JavaMailEmailSender.class);
 
     @Value("${spring.mail.from}")
     private String fromEmail;
 
-    /**
-     * Construtor de injeção de dependência:
-     * Recebe o JavaMailSender configurado pelo SpringBoot.
-     * @param mailSender JavaMailSender.
-     */
     public JavaMailEmailSender(JavaMailSender mailSender) {
-
         this.mailSender = mailSender;
     }
 
@@ -41,20 +27,15 @@ public class JavaMailEmailSender implements EmailSender {
      */
     @Override
     public void sendEmail(String to, String subject, String body) {
-
         try {
-
-            // Cria a mensagem de email simples.
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(fromEmail);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(body);
 
-            // Envia o email.
             mailSender.send(message);
         } catch (MailException e) {
-
             log.error("Erro ao enviar e-mail para {}:", to, e);
         }
     }
