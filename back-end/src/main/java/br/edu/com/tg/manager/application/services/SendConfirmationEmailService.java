@@ -44,7 +44,6 @@ public class SendConfirmationEmailService implements SendConfirmationEmailCase {
     @Override
     public void execute(Input input) {
         UserAccount.validateEmailFormat(input.email());
-        validateUniqueness(input);
 
         String token = generateToken();
         String subject = "Confirme seu Email.";
@@ -52,26 +51,6 @@ public class SendConfirmationEmailService implements SendConfirmationEmailCase {
 
         tokenCache.putToken(token, input.email());
         emailSender.sendEmail(input.email(), subject, body);
-    }
-
-    private void validateUniqueness(Input input) {
-        Optional<Professor> optionalProfessor = professorRepository
-                .findByEmail(input.email());
-
-        Optional<Student> optionalStudent = studentRepository
-                .findByEmail(input.email());
-
-        Optional<Administrator> optionalAdministrator = administratorRepository
-                .findByEmail(input.email());
-
-        if(optionalProfessor.isPresent()
-                || optionalStudent.isPresent()
-                || optionalAdministrator.isPresent()
-        ) {
-            throw new DomainException(
-                    "Esse email já foi cadastrado no sistema."
-            );
-        }
     }
 
     private String generateToken() {
