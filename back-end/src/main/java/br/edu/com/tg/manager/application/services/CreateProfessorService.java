@@ -6,13 +6,13 @@ import br.edu.com.tg.manager.core.domain.entities.Professor;
 import br.edu.com.tg.manager.core.domain.entities.Student;
 import br.edu.com.tg.manager.core.domain.entities.UserAccount;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import br.edu.com.tg.manager.core.ports.gateways.PasswordHasher;
 import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -22,20 +22,20 @@ public class CreateProfessorService implements CreateProfessorCase {
     private final ProfessorRepository professorRepository;
     private final StudentRepository studentRepository;
     private final ApplicationEventPublisher eventPublisher;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordHasher passwordHasher;
 
     public CreateProfessorService(
             AdministratorRepository administratorRepository,
             ProfessorRepository professorRepository,
             StudentRepository studentRepository,
             ApplicationEventPublisher eventPublisher,
-            PasswordEncoder passwordEncoder
+            PasswordHasher passwordHasher
     ) {
         this.administratorRepository = administratorRepository;
         this.professorRepository = professorRepository;
         this.studentRepository = studentRepository;
         this.eventPublisher = eventPublisher;
-        this.passwordEncoder = passwordEncoder;
+        this.passwordHasher = passwordHasher;
     }
 
     /**
@@ -92,7 +92,7 @@ public class CreateProfessorService implements CreateProfessorCase {
         }
 
         String rawPassword = input.password();
-        String hashedPassword = passwordEncoder.encode(rawPassword);
+        String hashedPassword = passwordHasher.hash(rawPassword);
         var userAccount = new UserAccount(input.email(), hashedPassword);
 
         return new Professor(
