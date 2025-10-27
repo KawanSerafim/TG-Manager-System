@@ -10,6 +10,7 @@ import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.ValidateTokenCase;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class ValidateTokenService implements ValidateTokenCase {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void execute(Input input) {
         String email = tokenCache.getEmailByToken(input.token())
                 .orElseThrow(() -> new DomainException(

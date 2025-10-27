@@ -10,6 +10,7 @@ import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
+import jakarta.transaction.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class CreateProfessorService implements CreateProfessorCase {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public Output execute(Input input) {
         validateEmailUniqueness(input);
         var professor = getProfessor(input);
