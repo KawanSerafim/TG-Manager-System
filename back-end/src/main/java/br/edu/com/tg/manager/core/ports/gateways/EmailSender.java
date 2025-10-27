@@ -2,7 +2,7 @@ package br.edu.com.tg.manager.core.ports.gateways;
 
 /**
  * Portão de acesso de núcleo:
- * Define um contrato para a ação de enviar um email mediante um
+ * Define um contrato abstrato para a ação de enviar um email mediante um
  * serviço externo (SMTP).
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
  * independente de frameworks ou bibliotecas externas, sendo,

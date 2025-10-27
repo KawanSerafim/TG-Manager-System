@@ -4,7 +4,7 @@ import java.util.Optional;
 
 /**
  * Portão de acesso de núcleo:
- * Define um contrato para a ação de armazenar e recuperar Tokens
+ * Define um contrato abstrato para a ação de armazenar e recuperar Tokens
  * temporários.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
  * independente de frameworks ou bibliotecas externas, sendo,
