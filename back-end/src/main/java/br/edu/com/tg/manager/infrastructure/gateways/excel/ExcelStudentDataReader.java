@@ -29,7 +29,7 @@ public class ExcelStudentDataReader implements StudentDataReader {
                     headerRow.getCell(0)
             );
 
-            int yearSemesterInt = (int) Integer.parseInt(yearSemesterCell);
+            int yearSemesterInt = Integer.parseInt(yearSemesterCell);
             int year = yearSemesterInt / 10;
             int semester = yearSemesterInt % 10;
 
@@ -58,20 +58,22 @@ public class ExcelStudentDataReader implements StudentDataReader {
 
     private static CourseShift getShift(Cell shiftCell) {
         String shiftString = shiftCell.getStringCellValue().toUpperCase();
-        CourseShift shift = null;
 
         if(shiftString.contains("MANHÃ")) {
-            shift = CourseShift.MORNING;
+            return CourseShift.MORNING;
         }
 
         if(shiftString.contains("TARDE")) {
-            shift = CourseShift.AFTERNOON;
+            return CourseShift.AFTERNOON;
         }
 
         if(shiftString.contains("NOITE")) {
-            shift = CourseShift.NIGHT;
+            return CourseShift.NIGHT;
         }
-        return shift;
+
+        throw new IllegalArgumentException(
+                "Turno inválido ou não reconhecido no arquivo: " + shiftString
+        );
     }
 
     private String getCellStringValue(Cell cell) {
