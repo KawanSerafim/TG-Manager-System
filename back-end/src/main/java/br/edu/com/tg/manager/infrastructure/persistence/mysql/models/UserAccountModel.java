@@ -15,7 +15,7 @@ public class UserAccountModel {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "account_status", nullable = false)
+    @Column(name = "account_status")
     private UserAccountStatus status;
 
     public UserAccountModel() {}
