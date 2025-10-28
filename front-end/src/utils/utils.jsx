@@ -1,0 +1,1 @@
+//TODO: Funções adicionais reaproveitaveis

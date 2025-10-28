@@ -1,23 +1,41 @@
 import './App.css'
-import AppNavBar from './components/AppNavBar'
-import { Container } from 'react-bootstrap'
+// Componentes
+import NavBarApp from './components/NavBarApp';
+// Dependencias
+import { Routes, Route } from 'react-router-dom';
+// Paginas
+import Login from './pages/Login';
+import SendFileStudentGroup from './pages/SendFileStudentGroup'
+import CreateProfessor from './pages/CreateProfessor';
+import CreateCourse from './pages/CreateCourse';
+import Home from './pages/Home'
+import CreateStudent from './pages/CreateStudent';
+// Layouts
+import HomeLayout from './layouts/HomeLayout'
+import DefaultLayout from './layouts/DefaultLayout';
 
 function App() {
 
   return (
-    <>
-    <Container fluid>
-      <div className="row justify-content-center">
-        <div class="col-md-8 text-center d-flex-align mt-5">
-          <div>
-            <h1>Bem-vindo a Plataforma de Gerenciamento de Trabalhos de Graduação </h1>
-            <p class="lead">Ajudando Orientadores e Orientandos!</p>
-          </div>
-          <AppNavBar />
-          </div>
-        </div>
-       </Container>
-    </>
+    <div className="App">
+      
+     
+        {/* define onde as páginas serão trocadas */}
+        <Routes>
+          {/* Todas as rotas "filhas" aqui usarão o HomeLayout */}
+          <Route element={<HomeLayout />}> 
+            <Route path="/" element={<Home />} />
+          </Route> 
+          {/* Todas as rotas "filhas" aqui usarão o DefaultLayout */}
+          <Route element={<DefaultLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/professor/enviar-arquivo" element={<SendFileStudentGroup />} />
+            <Route path="/cadastro/professor" element={<CreateProfessor />} />
+            <Route path="/cadastro/curso" element={<CreateCourse />} />
+            <Route path="/cadastro/aluno" element={<CreateStudent />} />
+          </Route>
+        </Routes>
+    </div>
   )
 }
 
