@@ -70,7 +70,7 @@ public class ValidateTokenService implements ValidateTokenCase {
     private void updateAdministrator(Administrator administrator) {
         var userAccount = administrator.getUserAccount();
         validateUserAccountStatus(userAccount.getStatus());
-        userAccount.setStatus(UserAccountStatus.EMAIL_CONFIRMED);
+        userAccount.setStatus(UserAccountStatus.ACTIVE);
         administrator.setUserAccount(userAccount);
 
         administratorRepository.save(administrator);
@@ -79,7 +79,7 @@ public class ValidateTokenService implements ValidateTokenCase {
     private void updateProfessor(Professor professor) {
         var userAccount = professor.getUserAccount();
         validateUserAccountStatus(userAccount.getStatus());
-        userAccount.setStatus(UserAccountStatus.EMAIL_CONFIRMED);
+        userAccount.setStatus(UserAccountStatus.ACTIVE);
         professor.setUserAccount(userAccount);
 
         professorRepository.save(professor);
