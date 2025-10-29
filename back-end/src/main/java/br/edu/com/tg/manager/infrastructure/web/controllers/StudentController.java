@@ -18,7 +18,7 @@ public class StudentController {
     }
 
     @PostMapping("complete-registration")
-    public ResponseEntity<String> completeRegistration(
+    public void completeRegistration(
             @RequestBody CompleteRegistrationRequest request
     ) {
         var input = new CompleteStudentRegistrationCase.Input(
@@ -28,7 +28,5 @@ public class StudentController {
         );
 
         useCase.execute(input);
-
-        return ResponseEntity.ok("Cadastro Finalizado com sucesso!");
     }
 }
