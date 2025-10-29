@@ -20,7 +20,7 @@ public class StudentModel {
     private UserAccountModel userAccount;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private StudentStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

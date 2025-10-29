@@ -1,6 +1,7 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
+import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 
 /**
@@ -44,6 +45,22 @@ public class Student {
         this.setName(name);
         this.setRegistration(registration);
         this.setStudentGroup(studentGroup);
+    }
+
+    // MÉTODO DE DOMÍNIO.
+
+    public void completeRegistration(UserAccount userAccount)
+            throws DomainException {
+        // Regra de domínio: conta de usuário deve estar com o email confirmado.
+        if(userAccount.getStatus() != UserAccountStatus.EMAIL_CONFIRMED) {
+            throw new DomainException(
+                    "A conta de usuário não tem o estado válido para a ação."
+            );
+        }
+
+        this.userAccount = userAccount;
+        userAccount.setStatus(UserAccountStatus.ACTIVE);
+        this.setStatus(StudentStatus.REGISTERED);
     }
 
     // MÉTODOS GETTERS E SETTERS.
@@ -127,6 +144,9 @@ public class Student {
      * @return Email da conta de usuário do aluno.
      */
     public String getEmail() {
+        if(this.userAccount == null) {
+            return null;
+        }
         return userAccount.getEmail();
     }
 
@@ -135,6 +155,11 @@ public class Student {
      * @param email Email fornecido.
      */
     public void setEmail(String email) {
+        if(this.userAccount == null) {
+            throw new DomainException(
+                    "Ação impossível com conta de usuário nula."
+            );
+        }
         this.userAccount.setEmail(email);
     }
 
@@ -143,6 +168,9 @@ public class Student {
      * @return Senha criptografada da conta de usuário do aluno.
      */
     public String getPassword() {
+        if(this.userAccount == null) {
+            return null;
+        }
         return userAccount.getPassword();
     }
 
@@ -151,6 +179,11 @@ public class Student {
      * @param password Senha fornecida.
      */
     public void setPassword(String password) {
+        if(this.userAccount == null) {
+            throw new DomainException(
+                    "Ação impossível com conta de usuário nula."
+            );
+        }
         this.userAccount.setPassword(password);
     }
 }
