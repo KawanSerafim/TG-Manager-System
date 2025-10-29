@@ -13,14 +13,6 @@ import br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
-/**
- * Implementador de repositório:
- * Implementa o repositório de domínio da entidade Course, executando os métodos
- * do contrato com o repositório Spring JPA. Por pertencer à infraestrutura da
- * aplicação, esta classe utiliza da anotação Repository do Spring Boot,
- * permitindo que o framework manipule o banco de dados com os métodos do
- * contrato.
- */
 @Repository
 public class CourseRepositoryImpl implements CourseRepository {
 

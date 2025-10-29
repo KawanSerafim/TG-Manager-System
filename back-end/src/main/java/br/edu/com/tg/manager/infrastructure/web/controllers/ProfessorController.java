@@ -11,55 +11,34 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/professors/api")
 @CrossOrigin(origins = "*")
 public class ProfessorController {
-
     private final CreateProfessorCase useCase;
 
     public ProfessorController(CreateProfessorCase useCase) {
-
         this.useCase = useCase;
     }
 
-    /**
-     * Método de infra estrutura:
-     * Captura os dados da requisição POST para criar um novo professor.
-     * @param request Porta-dados das informações requisitadas.
-     * @return ResponseEntity do record montado para exibição, ResponseEntity do
-     * tipo texto para DomainException ou Exception genérica.
-     */
     @PostMapping("create")
-    public ResponseEntity<ProfessorResponse>
-    create(@RequestBody ProfessorRequest request) {
-
-        /*
-         * Atribuindo ao porta-dados do caso de uso, os dados recolhidos da
-         * requisição POST.
-         */
+    public ResponseEntity<ProfessorResponse> create(
+            @RequestBody ProfessorRequest request
+    ) {
         var input = new CreateProfessorCase.Input(
-
-            request.name(),
-            request.registration(),
-            request.email(),
-            request.password(),
-            request.role()
+                request.name(),
+                request.registration(),
+                request.email(),
+                request.password(),
+                request.role()
         );
 
-        /*
-         * Executando o caso de uso. Por injeção de dependência, quem irá
-         * aplicar a lógica será o service responsável pelo caso de uso.
-         */
         var result = useCase.execute(input);
 
-        // Monta um DTO de resposta com todos os dados
         var responseBody = new ProfessorResponse(
-
-            result.id(),
-            result.name(),
-            result.registration(),
-            result.email(),
-            result.role()
+                result.id(),
+                result.name(),
+                result.registration(),
+                result.email(),
+                result.role()
         );
 
-        // Retorna ao cliente o response body montado.
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 }

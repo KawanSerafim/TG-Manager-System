@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/validate-token")
 @CrossOrigin(origins = "*")
 public class TokenValidationController {
-
     private final ValidateTokenCase useCase;
 
     public TokenValidationController(ValidateTokenCase useCase) {
-
         this.useCase = useCase;
     }
 
     @PostMapping
-    public ResponseEntity<String>
-    validateToken(@RequestBody ValidateTokenRequest request) {
-
+    public ResponseEntity<String> validateToken(
+            @RequestBody ValidateTokenRequest request
+    ) {
         var input = new ValidateTokenCase.Input(request.token());
 
         useCase.execute(input);

@@ -8,90 +8,115 @@ import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 import java.util.List;
 
 /**
- * Caso de uso de domínio:
- * Define um contrato abstrato para a camada de aplicação implementar a
- * lógica de criar uma turma.
- * Por pertencer ao núcleo (core) da aplicação, esta interface é independente de
- * frameworks ou bibliotecas externas, sendo, portanto, considerada uma
- * interface pura.
+ * Caso de uso de núcleo:
+ * Define um contrato abstrato para a camada de aplicação
+ * implementar a lógica de cadastrar uma turma.
+ * Por pertencer ao núcleo (core) da aplicação, esta interface é
+ * independente de frameworks ou bibliotecas externas, sendo,
+ * portanto, considerada uma interface pura.
  */
 public interface CreateStudentGroupCase {
-
     /**
-     * Porta-dados de domínio:
-     * Carrega os dados recebidos pela requisição.
+     * Porta-dados de contrato de núcleo:
+     * Carrega os dados enviados pela requisição POST.
+     * @param courseName Nome do curso.
+     * @param discipline Disciplina do curso.
+     * @param fileData Porta-dados dos metadados da turma.
      */
     record Input(
-
-        String courseName,
-        Discipline discipline,
-        StudentDataReader.FileData fileData
+            String courseName,
+            Discipline discipline,
+            StudentDataReader.FileData fileData
     ) {
-
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Turno do curso.
+         */
         public CourseShift shift() {
-
             return this.fileData.shift();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Ano da turma.
+         */
         public Integer year() {
-
             return this.fileData.year();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Semestre da turma.
+         */
         public Integer semester() {
-
             return this.fileData.semester();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Lista de alunos.
+         */
         public List<StudentDataReader.StudentData> students() {
-
             return this.fileData.students();
         }
     }
 
     /**
-     * Porta-dados de domínio:
-     * Carrega os dados recebidos pela requisição que foram salvos.
-     * @param studentGroup
-     * @param students
+     * Porta-dados de contrato de núcleo:
+     * Carrega os dados de informações dos coordenadores do curso.
+     * @param studentGroup Turma.
+     * @param students Lista de alunos.
      */
-    record CreateStudentGroupResult (
-
-        StudentGroup studentGroup,
-        List<Student> students
+    record Output(
+            StudentGroup studentGroup,
+            List<Student> students
     ) {
-
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Nome do curso.
+         */
         public String courseName() {
-
             return this.studentGroup.getCourseName();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Turno do curso.
+         */
         public CourseShift courseShift() {
-
             return this.studentGroup.getCourseShift();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Disciplina da turma.
+         */
         public Discipline discipline() {
-
             return this.studentGroup.getDiscipline();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Ano da turma.
+         */
         public Integer year() {
-
             return this.studentGroup.getYear();
         }
 
+        /**
+         * Método Get (DELEGAÇÃO).
+         * @return Semestre da turma.
+         */
         public Integer semester() {
-
             return this.studentGroup.getSemester();
         }
     }
 
     /**
-     * Método de contrato de domínio:
-     * Executa a criação de uma nova turma, e a persiste no banco de dados.
-     * @param input Porta-dados da requisição.
-     * @return Lista de alunos.
+     * Método de contrato de núcleo:
+     * Executa o cadastro de uma turma no sistema.
+     * @param input Porta-dados da requisição POST.
+     * @return Output.
      */
-    CreateStudentGroupResult execute(Input input);
+    Output execute(Input input);
 }
