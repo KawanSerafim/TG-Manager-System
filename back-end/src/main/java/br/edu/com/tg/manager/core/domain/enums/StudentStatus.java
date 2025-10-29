@@ -8,5 +8,6 @@ package br.edu.com.tg.manager.core.domain.enums;
  * portanto, considerada um enum puro.
  */
 public enum StudentStatus {
-    PRE_REGISTRATION
+    PRE_REGISTRATION,
+    REGISTERED
 }

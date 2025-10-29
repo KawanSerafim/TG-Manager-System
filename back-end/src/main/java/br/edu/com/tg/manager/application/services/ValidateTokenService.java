@@ -10,8 +10,8 @@ import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.ValidateTokenCase;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
@@ -89,7 +89,7 @@ public class ValidateTokenService implements ValidateTokenCase {
         var userAccount = student.getUserAccount();
         validateUserAccountStatus(userAccount.getStatus());
         userAccount.setStatus(UserAccountStatus.EMAIL_CONFIRMED);
-        student.setUserAccount(userAccount);
+        student.completeRegistration(userAccount);
 
         studentRepository.save(student);
     }

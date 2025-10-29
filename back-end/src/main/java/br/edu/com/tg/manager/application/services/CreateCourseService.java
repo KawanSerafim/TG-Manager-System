@@ -6,8 +6,8 @@ import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.usecases.CreateCourseCase;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
