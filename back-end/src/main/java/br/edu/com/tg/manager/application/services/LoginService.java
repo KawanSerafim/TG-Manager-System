@@ -52,46 +52,54 @@ public class LoginService implements LoginCase {
         var optionalProfessor = getOptionalProfessor(input.email());
         var optionalStudent = getOptionalStudent(input.email());
 
+        Output output = null;
+        String userPassword = null;
+
         if(optionalAdministrator.isPresent()) {
             var administrator = optionalAdministrator.get();
             var userAccount = administrator.getUserAccount();
-            validatePassword(administrator.getPassword(), input.password());
 
-            return new Output(
+            output = new Output(
                     administrator.getName(),
                     administrator.getEmail(),
                     userAccount.getStatus()
             );
+            userPassword = administrator.getPassword();
         }
 
         if(optionalProfessor.isPresent()) {
             var professor = optionalProfessor.get();
             var userAccount = professor.getUserAccount();
-            validatePassword(professor.getPassword(), input.password());
 
-            return new Output(
+            output = new Output(
                     professor.getName(),
                     professor.getEmail(),
                     userAccount.getStatus()
             );
+            userPassword = professor.getPassword();
         }
 
         if(optionalStudent.isPresent()) {
             var student = optionalStudent.get();
             var userAccount = student.getUserAccount();
-            validatePassword(student.getPassword(), input.password());
 
-            return new Output(
+            output = new Output(
                     student.getName(),
                     student.getEmail(),
                     userAccount.getStatus()
             );
+            userPassword = student.getPassword();
         }
 
-        throw new DomainException(
-                "O campo do email ou da senha foram digitados incorretamente."
-                + " Tente novamente!"
-        );
+        if(userPassword == null) {
+            throw new DomainException(
+                    "O campo do email ou da senha foram digitados "
+                    + "incorretamente. Tente novamente!"
+            );
+        }
+
+        validatePassword(userPassword, input.password());
+        return output;
     }
 
     private void validatePassword(
