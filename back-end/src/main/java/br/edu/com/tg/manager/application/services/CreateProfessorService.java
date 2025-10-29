@@ -10,10 +10,11 @@ import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
-import jakarta.transaction.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
