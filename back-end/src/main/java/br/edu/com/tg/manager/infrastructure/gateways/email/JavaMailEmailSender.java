@@ -27,16 +27,12 @@ public class JavaMailEmailSender implements EmailSender {
      */
     @Override
     public void sendEmail(String to, String subject, String body) {
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(fromEmail);
-            message.setTo(to);
-            message.setSubject(subject);
-            message.setText(body);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
 
-            mailSender.send(message);
-        } catch (MailException e) {
-            log.error("Erro ao enviar e-mail para {}:", to, e);
-        }
+        mailSender.send(message);
     }
 }
