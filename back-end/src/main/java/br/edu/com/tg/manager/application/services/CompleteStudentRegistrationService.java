@@ -101,6 +101,6 @@ public class CompleteStudentRegistrationService
             );
         }
 
-        return optionalStudent.get();
+        return student;
     }
 }
