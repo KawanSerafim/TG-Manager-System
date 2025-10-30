@@ -1,9 +1,6 @@
 package br.edu.com.tg.manager.core.ports.repositories;
 
 import br.edu.com.tg.manager.core.domain.entities.Professor;
-import br.edu.com.tg.manager.core.domain.enums.ProfessorRole;
-
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,12 +35,4 @@ public interface ProfessorRepository {
      * @return Optional vazio ou Professor.
      */
     Optional<Professor> findByEmail(String email);
-
-    /**
-     * Método de contrato de núcleo:
-     * Busca uma lista de professores pelo cargo em comum.
-     * @param role Cargo do professor.
-     * @return Optional vazio ou Professor.
-     */
-    List<Professor> findAllByRole(ProfessorRole role);
 }
