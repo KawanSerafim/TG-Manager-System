@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ListCoordinatorResponseMapper {
+public class ListTgCoordinatorResponseMapper {
     public ListCoordinatorResponse toResponse(
             ListTgCoordinatorsCase.Output result
     ) {
