@@ -1,14 +1,16 @@
 package br.edu.com.tg.manager.infrastructure.web.controllers;
 
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
+import br.edu.com.tg.manager.core.usecases.ListCourseCoordinatorsCase;
 import br.edu.com.tg.manager.core.usecases.ListTgCoordinatorsCase;
 import br.edu.com.tg.manager.infrastructure.web.dtos.requests.ProfessorRequest;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses.professor
         .ListCoordinatorResponse;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses.professor
         .ProfessorResponse;
+import br.edu.com.tg.manager.infrastructure.web.mappers.ListCourseCoordinatorResponseMapper;
 import br.edu.com.tg.manager.infrastructure.web.mappers
-        .ListCoordinatorResponseMapper;
+        .ListTgCoordinatorResponseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +22,22 @@ import java.util.List;
 public class ProfessorController {
     private final CreateProfessorCase createUseCase;
     private final ListTgCoordinatorsCase listTgUseCase;
-    private final ListCoordinatorResponseMapper mapper;
+    private final ListCourseCoordinatorsCase listCourseUseCase;
+    private final ListTgCoordinatorResponseMapper tgMapper;
+    private final ListCourseCoordinatorResponseMapper courseMapper;
 
     public ProfessorController(
             CreateProfessorCase createUseCase,
             ListTgCoordinatorsCase listTgUseCase,
-            ListCoordinatorResponseMapper mapper
+            ListCourseCoordinatorsCase listCourseUseCase,
+            ListTgCoordinatorResponseMapper tgMapper,
+            ListCourseCoordinatorResponseMapper courseMapper
     ) {
         this.createUseCase = createUseCase;
         this.listTgUseCase = listTgUseCase;
-        this.mapper = mapper;
+        this.listCourseUseCase = listCourseUseCase;
+        this.tgMapper = tgMapper;
+        this.courseMapper = courseMapper;
     }
 
     @PostMapping("create")
@@ -61,7 +69,16 @@ public class ProfessorController {
     public ResponseEntity<List<ListCoordinatorResponse>> listTgCoordinators() {
         var results = listTgUseCase.execute();
 
-        var responseBody = mapper.toResponseList(results);
+        var responseBody = tgMapper.toResponseList(results);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    @GetMapping("/list/course-coordinators")
+    public ResponseEntity<List<ListCoordinatorResponse>> listCourseCoordinators() {
+        var results = listCourseUseCase.execute();
+
+        var responseBody = courseMapper.toResponseList(results);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

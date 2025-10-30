@@ -3,15 +3,16 @@ package br.edu.com.tg.manager.application.services;
 import br.edu.com.tg.manager.core.domain.entities.Professor;
 import br.edu.com.tg.manager.core.domain.enums.ProfessorRole;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
-import br.edu.com.tg.manager.core.usecases.ListTgCoordinatorsCase;
+import br.edu.com.tg.manager.core.usecases.ListCourseCoordinatorsCase;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ListTgCoordinatorsService implements ListTgCoordinatorsCase {
+public class ListCourseCoordinatorsService implements
+        ListCourseCoordinatorsCase {
     private final ProfessorRepository professorRepository;
 
-    public ListTgCoordinatorsService(ProfessorRepository professorRepository) {
+    public ListCourseCoordinatorsService(ProfessorRepository professorRepository) {
         this.professorRepository = professorRepository;
     }
 
@@ -20,13 +21,13 @@ public class ListTgCoordinatorsService implements ListTgCoordinatorsCase {
      */
     @Override
     public List<Output> execute() {
-        List<Professor> tgCoordinators = professorRepository
-                .findAllByRole(ProfessorRole.TG_COORDINATOR);
+        List<Professor> courseCoordinators = professorRepository
+                .findAllByRole(ProfessorRole.COURSE_COORDINATOR);
 
-        return tgCoordinators.stream()
-                .map(tgCoordinator -> new Output(
-                        tgCoordinator.getName(),
-                        tgCoordinator.getRegistration()
+        return courseCoordinators.stream()
+                .map(courseCoordinator -> new Output(
+                        courseCoordinator.getName(),
+                        courseCoordinator.getRegistration()
                 ))
                 .toList();
     }
