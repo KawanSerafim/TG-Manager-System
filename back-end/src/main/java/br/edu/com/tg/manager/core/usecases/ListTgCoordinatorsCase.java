@@ -15,6 +15,7 @@ public interface ListTgCoordinatorsCase {
      * Porta-dados de contrato de núcleo:
      * Carrega os dados resposta a requisição POST.
      * @param name Nome do coordenador de TG.
+     * @param registration Matrícula do coordenador de TG.
      */
     record Output(String name, String registration) {}
 
