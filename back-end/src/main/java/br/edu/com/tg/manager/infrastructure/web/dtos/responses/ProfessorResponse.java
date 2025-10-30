@@ -1,4 +1,4 @@
-package br.edu.com.tg.manager.infrastructure.web.dtos.responses.professor;
+package br.edu.com.tg.manager.infrastructure.web.dtos.responses;
 
 import br.edu.com.tg.manager.core.domain.enums.ProfessorRole;
 

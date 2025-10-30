@@ -2,7 +2,6 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
         .implementation;
 
 import br.edu.com.tg.manager.core.domain.entities.Professor;
-import br.edu.com.tg.manager.core.domain.enums.ProfessorRole;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers
         .ProfessorMapper;
@@ -10,8 +9,6 @@ import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
         .ProfessorModel;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
         .SpringProfessorRepository;
-
-import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
@@ -59,18 +56,5 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
                .findByUserAccountEmail(email);
 
        return optionalProfessorModel.map(professorMapper::toDomain);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Professor> findAllByRole(ProfessorRole role) {
-        List<ProfessorModel> professorModels = springRepository
-                .findAllByRole(role);
-
-        return professorModels.stream()
-                .map(professorMapper::toDomain)
-                .toList();
     }
 }
