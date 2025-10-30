@@ -15,6 +15,9 @@ public class ListTgCoordinatorsService implements ListTgCoordinatorsCase {
         this.professorRepository = professorRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Output> execute() {
         List<Professor> tgCoordinators = professorRepository
