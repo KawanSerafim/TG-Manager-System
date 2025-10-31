@@ -52,22 +52,6 @@ public class StudentGroup {
         this.setCourseShift(courseShift);
     }
 
-    // MÉTODOS DE DOMÍNIO.
-
-    public boolean hasScheduleConflict(StudentGroup otherGroup) {
-        if(otherGroup == null) {
-            return false;
-        }
-
-        boolean yearMatch =  this.getYear().equals(otherGroup.getYear());
-        boolean semesterMatch =  this.getSemester()
-                .equals(otherGroup.getSemester());
-        boolean shiftMatch = this.getCourseShift()
-                .equals(otherGroup.getCourseShift());
-
-        return (yearMatch && semesterMatch && shiftMatch);
-    }
-
     // MÉTODOS GETTERS E SETTERS.
 
     public Long getId() {
