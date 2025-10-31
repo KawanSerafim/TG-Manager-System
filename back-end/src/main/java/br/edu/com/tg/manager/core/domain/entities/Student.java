@@ -3,10 +3,12 @@ package br.edu.com.tg.manager.core.domain.entities;
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entidade de domínio:
- * Representa um aluno da instituição, numa determinada turma.
+ * Representa um aluno da instituição, em determinadas turmas.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
  * independente de frameworks ou bibliotecas externas, sendo,
  * portanto, considerada uma classe pura.
@@ -17,7 +19,7 @@ public class Student {
     private String registration;
     private UserAccount userAccount;
     private StudentStatus status;
-    private StudentGroup studentGroup;
+    private List<StudentGroup> studentGroups = new ArrayList<>();
 
     /**
      * Construtor vazio:
@@ -31,12 +33,12 @@ public class Student {
      * criado num estado inicial válido (PRE_REGISTRATION).
      * @param name Nome do aluno.
      * @param registration Matrícula do aluno.
-     * @param studentGroup Turma do aluno.
+     * @param studentGroups Turma(s) do aluno.
      */
     public Student(
             String name,
             String registration,
-            StudentGroup studentGroup
+            StudentGroup studentGroups
     ) {
         // Define o status inicial no construtor de domínio.
         this.setStatus(StudentStatus.PRE_REGISTRATION);
@@ -44,13 +46,43 @@ public class Student {
         // Delega as validações dos parâmetros aos seus devidos setters.
         this.setName(name);
         this.setRegistration(registration);
-        this.setStudentGroup(studentGroup);
+
+        // Matricula na turma.
+        this.enrollInGroup(studentGroups);
     }
 
-    // MÉTODO DE DOMÍNIO.
+    // MÉTODOS DE DOMÍNIO.
 
-    public void completeRegistration(UserAccount userAccount)
-            throws DomainException {
+    /**
+     * Método de domínio:
+     * Matricula o aluno em uma turma.
+     * @param studentGroup Turma.
+     */
+    public void enrollInGroup(StudentGroup studentGroup) {
+        // Regra de domínio: o campo turma é obrigatório.
+        if(studentGroup == null) {
+            throw new DomainException(
+                    "O campo turma é obrigatório."
+            );
+        }
+
+        // Regra de domínio: o aluno não pode matricular na mesma turma.
+        if(this.studentGroups.contains(studentGroup)) {
+            throw new DomainException(
+                    "O aluno já está matrículado nesta turma."
+            );
+        }
+
+        // Adiciona à lista.
+        this.studentGroups.add(studentGroup);
+    }
+
+    /**
+     * Método de domínio:
+     * Atualiza a conta de usuário do aluno para uma ativa.
+     * @param userAccount Conta de usuário do aluno.
+     */
+    public void completeRegistration(UserAccount userAccount) {
         // Regra de domínio: conta de usuário deve estar com o email confirmado.
         if(userAccount.getStatus() != UserAccountStatus.EMAIL_CONFIRMED) {
             throw new DomainException(
@@ -123,18 +155,18 @@ public class Student {
         this.status = status;
     }
 
-    public StudentGroup getStudentGroup() {
-        return studentGroup;
+    public List<StudentGroup> getStudentGroups() {
+        return studentGroups;
     }
 
-    public void setStudentGroup(StudentGroup studentGroup) {
-        // Regra de domínio: o campo turma é obrigatório.
-        if(studentGroup == null) {
+    public void setStudentGroups(List<StudentGroup> studentGroups) {
+        // Regra de domínio: o campo turmas é obrigatório.
+        if(studentGroups == null) {
             throw new DomainException(
-                    "O campo turma é obrigatório."
+                    "O campo turmas é obrigatório."
             );
         }
-        this.studentGroup = studentGroup;
+        this.studentGroups = studentGroups;
     }
 
     // MÉTODOS DE DELEGAÇÃO.
