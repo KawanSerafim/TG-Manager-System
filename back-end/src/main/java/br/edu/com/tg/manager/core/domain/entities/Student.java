@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
@@ -71,6 +72,19 @@ public class Student {
             throw new DomainException(
                     "O aluno já está matrículado nesta turma."
             );
+        }
+
+        for(StudentGroup group : this.studentGroups) {
+            /*
+             * Regra de domínio: o aluno não pode estar cadastrado outra
+             * turma do mesmo turno.
+             */
+            if(group.hasScheduleConflict(studentGroup)) {
+                throw new DomainException(
+                        "Esse aluno já foi cadastrado numa turma com o mesmo"
+                        + "ano, semestre e turno."
+                );
+            }
         }
 
         // Adiciona à lista.
