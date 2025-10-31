@@ -25,6 +25,8 @@ public class SecurityConfig {
                         .requestMatchers("/professors/api/**").permitAll()
                         .requestMatchers("/courses/api/**").permitAll()
                         .requestMatchers("/student-group/api/**").permitAll()
+                        .requestMatchers("students/api/**").permitAll()
+                        .requestMatchers("login/api").permitAll()
                         .anyRequest().authenticated()
                 );
 

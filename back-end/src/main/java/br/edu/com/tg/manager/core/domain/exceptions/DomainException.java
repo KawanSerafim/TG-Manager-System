@@ -74,4 +74,10 @@ public class DomainException extends RuntimeException {
  * - Campo/Objeto já cadastrado.
  *
  * [Esse 'campo/objeto' já foi cadastrado no sistema.]
+ *
+ * -------------------
+ *
+ * - Ação impossível com campo nulo.
+ *
+ * [Ação impossível com 'campo' nulo(a).]
  */
