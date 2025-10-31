@@ -2,7 +2,6 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
         .implementation;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
-import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers
         .CourseMapper;
@@ -60,11 +59,11 @@ public class CourseRepositoryImpl implements CourseRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Course> findByNameAndShift(String name, CourseShift shift) {
+    public Optional<Course> findByName(String name) {
 
         // Tenta encontrar um curso no banco com o nome e o turno fornecido.
         Optional<CourseModel> optionalCourseModel = springRepository
-            .findByNameAndShift(name, shift);
+            .findByName(name);
 
         /*
          * Se achar o curso, converte o modelo de dados para entidade de

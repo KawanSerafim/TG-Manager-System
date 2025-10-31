@@ -80,4 +80,10 @@ public class DomainException extends RuntimeException {
  * - Ação impossível com campo nulo.
  *
  * [Ação impossível com 'campo' nulo(a).]
+ *
+ * -------------------
+ *
+ * - Pelo menos um campo.
+ *
+ * [O(A) 'Entidade' deve ter pelo menos um(a) 'campo' disponível.]
  */
