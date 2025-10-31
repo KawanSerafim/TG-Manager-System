@@ -66,22 +66,30 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
             studentGroup = studentGroupRepository.save(newStudentGroup);
         }
 
-        List<Student> students = new ArrayList<>();
+        List<Student> newStudents = new ArrayList<>();
 
         for(var studentData : input.students()) {
             Optional<Student> optionalStudent = studentRepository
                     .findByRegistration(studentData.registration());
 
+            Student studentToProcess;
+
             if(optionalStudent.isEmpty()) {
-                var student = new Student(
+                studentToProcess = new Student(
                         studentData.name(),
                         studentData.registration(),
                         studentGroup
                 );
-                studentRepository.save(student);
-                students.add(student);
+
+                newStudents.add(studentToProcess);
+            } else {
+                studentToProcess = optionalStudent.get();
+                studentToProcess.enrollInGroup(studentGroup);
             }
+
+            studentRepository.save(studentToProcess);
         }
-        return new Output(studentGroup, students);
+
+        return new Output(studentGroup, newStudents);
     }
 }
