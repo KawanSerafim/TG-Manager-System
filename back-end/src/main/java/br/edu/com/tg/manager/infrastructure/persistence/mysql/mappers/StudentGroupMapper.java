@@ -26,6 +26,7 @@ public class StudentGroupMapper {
         studentGroupModel.setDiscipline(domain.getDiscipline());
         studentGroupModel.setYear(domain.getYear());
         studentGroupModel.setSemester(domain.getSemester());
+        studentGroupModel.setCourseShift(domain.getCourseShift());
 
         return studentGroupModel;
     }
@@ -39,7 +40,8 @@ public class StudentGroupMapper {
                 courseMapper.toDomain(model.getCourse()),
                 model.getDiscipline(),
                 model.getYear(),
-                model.getSemester()
+                model.getSemester(),
+                model.getCourseShift()
         );
 
         studentGroup.setId(model.getId());

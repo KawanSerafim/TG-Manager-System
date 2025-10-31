@@ -1,6 +1,8 @@
 package br.edu.com.tg.manager.core.usecases;
 
 import br.edu.com.tg.manager.core.domain.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
+import java.util.List;
 
 /**
  * Caso de uso de núcleo:
@@ -15,13 +17,15 @@ public interface CreateCourseCase {
      * Porta-dados de contrato de núcleo:
      * Carrega os dados enviados pela requisição POST.
      * @param name Nome do curso.
-     * @param shift Turno do curso.
+     * @param availableShifts Lista de turnos disponíveis.
+     * @param availableDisciplines Lista de disciplinas de TG disponíveis.
      * @param tgCoordinatorRegistration Coordenador de TG do curso.
      * @param courseCoordinatorRegistration Coordenador do curso.
      */
     record Input(
             String name,
-            CourseShift shift,
+            List<CourseShift> availableShifts,
+            List<Discipline> availableDisciplines,
             String tgCoordinatorRegistration,
             String courseCoordinatorRegistration
     ) {}
@@ -42,14 +46,16 @@ public interface CreateCourseCase {
      * Carrega os dados resposta a requisição POST.
      * @param id ID do curso.
      * @param name Nome do curso.
-     * @param shift Turno do curso.
-     * @param tgCoordinator Coordenador de TG do curso.
+     * @param availableShifts Lista de turnos disponíveis.
+     * @param availableDisciplines Lista de disciplinas de TG disponíveis.
+     * @param tgCoordinator Coordenador de TG   do curso.
      * @param courseCoordinator Coordenador do curso.
      */
     record Output(
             Long id,
             String name,
-            CourseShift shift,
+            List<CourseShift> availableShifts,
+            List<Discipline> availableDisciplines,
             CoordinatorInfo tgCoordinator,
             CoordinatorInfo courseCoordinator
     ) {}

@@ -1,6 +1,5 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
-import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,9 +12,8 @@ public class CourseModel {
     @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CourseShift shift;
+    @Embedded
+    private CourseParametersModel parameters;
 
     @OneToOne
     @JoinColumn(name = "tg_coordinator_id", nullable = false)
@@ -43,12 +41,12 @@ public class CourseModel {
         this.name = name;
     }
 
-    public CourseShift getShift() {
-        return shift;
+    public CourseParametersModel getParameters() {
+        return parameters;
     }
 
-    public void setShift(CourseShift shift) {
-        this.shift = shift;
+    public void setParameters(CourseParametersModel parameters) {
+        this.parameters = parameters;
     }
 
     public ProfessorModel getTgCoordinator() {

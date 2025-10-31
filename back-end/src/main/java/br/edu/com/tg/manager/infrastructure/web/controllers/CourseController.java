@@ -23,7 +23,8 @@ public class CourseController {
     ) {
         var input = new CreateCourseCase.Input(
                 request.name(),
-                request.shift(),
+                request.availableShifts(),
+                request.availableDisciplines(),
                 request.tgCoordinatorRegistration(),
                 request.courseCoordinatorRegistration()
         );
@@ -33,7 +34,8 @@ public class CourseController {
         var responseBody = new CourseResponse(
                 result.id(),
                 result.name(),
-                result.shift(),
+                result.availableShifts(),
+                result.availableDisciplines(),
                 result.tgCoordinator(),
                 result.courseCoordinator()
         );
