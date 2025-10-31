@@ -8,7 +8,7 @@ import java.time.Year;
 /**
  * Entidade de domínio:
  * Representa uma turma da disciplina de Trabalho de Graduação (TG)
- * em um determinado semestre e ano.
+ * em um determinado semestre, ano e turno.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
  * independente de frameworks ou bibliotecas externas, sendo,
  * portanto, considerada uma classe pura.
@@ -19,6 +19,7 @@ public class StudentGroup {
     private Discipline discipline;
     private Integer year;
     private Integer semester;
+    private CourseShift courseShift;
 
     /**
      * Construtor vazio:
@@ -34,18 +35,21 @@ public class StudentGroup {
      * @param discipline Disciplina de TG (TG1 ou TG2).
      * @param year Ano da turma.
      * @param semester Semestre da turma.
+     * @param courseShift Turno da turma.
      */
     public StudentGroup(
             Course course,
             Discipline discipline,
             Integer year,
-            Integer semester
+            Integer semester,
+            CourseShift courseShift
     ) {
         // Delega as validações dos parâmetros aos seus devidos setters.
         this.setCourse(course);
         this.setDiscipline(discipline);
         this.setYear(year);
         this.setSemester(semester);
+        this.setCourseShift(courseShift);
     }
 
     // MÉTODOS GETTERS E SETTERS.
@@ -77,10 +81,25 @@ public class StudentGroup {
     }
 
     public void setDiscipline(Discipline discipline) {
+        // Regra de domínio: o curso deve existir para validar a disciplina.
+        if(this.course == null) {
+            throw new DomainException(
+                    "Impossível validar a disciplina com curso nulo."
+            );
+        }
+
         // Regra de domínio: o campo disciplina de TG é obrigatório.
         if(discipline == null) {
             throw new DomainException(
                     "O campo disciplina de TG é obrigatório."
+            );
+        }
+
+        // Regra de domínio: a disciplina deve ser suportada pelo curso.
+        if(!this.course.getAvailableDisciplines().contains(discipline)) {
+            throw new DomainException(
+                    "A disciplina [" + discipline + "] não é oferecida pelo "
+                    + "curso."
             );
         }
         this.discipline = discipline;
@@ -130,6 +149,36 @@ public class StudentGroup {
         this.semester = semester;
     }
 
+    public CourseShift getCourseShift() {
+        return courseShift;
+    }
+
+    public void setCourseShift(CourseShift courseShift) {
+        // Regra de domínio: o curso deve existir para validar o turno.
+        if(this.course == null) {
+            throw new DomainException(
+                    "Impossível validar o turno com curso nulo."
+            );
+        }
+
+        // Regra de domínio: o campo turno do curso é obrigatório.
+        if(courseShift == null) {
+            throw new DomainException(
+                    "O campo turno do curso é obrigatório."
+            );
+        }
+
+        // Regra de domínio: o turno deve ser suportado pelo curso.
+        if(!this.course.getAvailableShifts().contains(courseShift)) {
+            throw new DomainException(
+                    "A disciplina [" + courseShift + "] não é oferecida pelo "
+                    + "curso."
+            );
+        }
+
+        this.courseShift = courseShift;
+    }
+
     // MÉTODOS DE DELEGAÇÃO.
 
     /**
@@ -138,13 +187,5 @@ public class StudentGroup {
      */
     public String getCourseName() {
         return course.getName();
-    }
-
-    /**
-     * Método Get (DELEGAÇÃO).
-     * @return Turno do curso associado à turma.
-     */
-    public CourseShift getCourseShift() {
-        return course.getShift();
     }
 }

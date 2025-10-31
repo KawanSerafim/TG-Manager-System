@@ -1,5 +1,6 @@
 package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import jakarta.persistence.*;
 
@@ -23,6 +24,10 @@ public class StudentGroupModel {
 
     @Column(nullable = false)
     private Integer semester;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "course_shift", nullable = false)
+    private CourseShift courseShift;
 
     public StudentGroupModel() {}
 
@@ -64,5 +69,13 @@ public class StudentGroupModel {
 
     public void setSemester(Integer semester) {
         this.semester = semester;
+    }
+
+    public CourseShift getCourseShift() {
+        return courseShift;
+    }
+
+    public void setCourseShift(CourseShift courseShift) {
+        this.courseShift = courseShift;
     }
 }
