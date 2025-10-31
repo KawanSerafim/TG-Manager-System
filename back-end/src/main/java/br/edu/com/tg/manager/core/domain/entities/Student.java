@@ -1,6 +1,5 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
-import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
