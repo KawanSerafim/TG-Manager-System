@@ -76,21 +76,32 @@
                 </div>
             </div>
               <!-- (Matricula) Professor de TG -->
-              <div class="mb-3 has-validation">
-                <label for="tgCoordinatorRegistration" class="form-label">Professor de TG (Matricula)</label>
-                <input type="text" class="form-control" id="tgCoordinatorRegistration" name="tgCoordinatorRegistration" required>
-                 <div class="invalid-feedback">
-                  A matricula do professor de TG é um campo obrigatório
+              <div class="input-group mb-3 has-validation">
+                <div class="input-group-append">
+                  <label class="input-group-text" for="tgCoordinatorRegistration">Professor de TG</label>
                 </div>
-              </div>
-              <!-- (Matricula) Professor Coordenador do curso -->
-              <div class="mb-3 has-validation">
-                <label for="tgCoordinatorRegistration" class="form-label">Coordenador do curso (Matricula)</label>
-                <input type="text" class="form-control" id="courseCoordinatorRegistration" name="courseCoordinatorRegistration" required>
+                 <select class="custom-select" id="tgCoordinatorRegistration">
+                   <option disabled>Selecione o professor coordenador de TG...</option>
+                   <!-- Opções vem do JS -->
+                 </select>
                  <div class="invalid-feedback">
-                  A matricula do coordenador de curso é um campo obrigatório
+                   A matricula do professor coordenador de TG é um campo obrigatório
+                 </div>
+               </div>
+              
+              <!-- (Matricula) Professor Coordenador do curso --><div class="input-group mb-3 has-validation">
+                <div class="input-group-append">
+                  <label class="input-group-text" for="courseCoordinatorRegistration">Coordenador do curso</label>
                 </div>
-              </div>
+                 <select class="custom-select" id="courseCoordinatorRegistration">
+                   <option disabled>Selecione o professor coordenador de curso...</option>
+                   <!-- Opções vem do JS -->
+                 </select>
+                 <div class="invalid-feedback">
+                   A matricula do coordenador de curso é um campo obrigatório
+                 </div>
+               </div>
+             
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
               </div>
