@@ -25,7 +25,7 @@ public class StudentModel {
     @Column(nullable = false, length = 30)
     private StudentStatus status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "student_enrolled_groups",
             joinColumns = @JoinColumn(name = "student_id"),

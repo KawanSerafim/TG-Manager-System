@@ -5,6 +5,7 @@ import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Entidade de domínio:
@@ -66,8 +67,13 @@ public class Student {
             );
         }
 
+        Long newId = studentGroup.getId();
+
+        boolean alreadyEnrolled = this.studentGroups.stream()
+                .anyMatch(s -> Objects.equals(s.getId(), newId));
+
         // Regra de domínio: o aluno não pode matricular na mesma turma.
-        if(this.studentGroups.contains(studentGroup)) {
+        if(alreadyEnrolled) {
             throw new DomainException(
                     "O aluno já está matrículado nesta turma."
             );
