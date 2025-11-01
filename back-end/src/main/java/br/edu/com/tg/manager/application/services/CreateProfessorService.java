@@ -45,6 +45,7 @@ public class CreateProfessorService implements CreateProfessorCase {
     @Override
     @Transactional
     public Output execute(Input input) {
+        validateAdminPermission(input.executorEmail());
         validateEmailUniqueness(input);
         var professor = getProfessor(input);
         var professorSaved = professorRepository.save(professor);
@@ -60,6 +61,23 @@ public class CreateProfessorService implements CreateProfessorCase {
                 professorSaved.getEmail(),
                 professorSaved.getRole()
         );
+    }
+
+    private void validateAdminPermission(String executorEmail) {
+        if(executorEmail == null || executorEmail.isBlank()) {
+            throw new DomainException(
+                    "Acesso negado: falha em tentar validá-lo."
+            );
+        }
+
+        var administrator = administratorRepository
+                .findByEmail(executorEmail);
+
+        if(administrator.isEmpty()) {
+            throw new DomainException(
+                    "Acesso negado: apenas Admins podem executar esta ação!"
+            );
+        }
     }
 
     private void validateEmailUniqueness(CreateProfessorCase.Input input) {

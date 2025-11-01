@@ -42,14 +42,16 @@ public class ProfessorController {
 
     @PostMapping("create")
     public ResponseEntity<ProfessorResponse> create(
-            @RequestBody ProfessorRequest request
+            @RequestBody ProfessorRequest request,
+            @RequestHeader("Authorization") String token
     ) {
         var input = new CreateProfessorCase.Input(
                 request.name(),
                 request.registration(),
                 request.email(),
                 request.password(),
-                request.role()
+                request.role(),
+                token
         );
 
         var result = createUseCase.execute(input);

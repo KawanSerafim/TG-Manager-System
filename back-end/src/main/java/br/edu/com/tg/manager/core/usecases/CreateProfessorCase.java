@@ -19,13 +19,15 @@ public interface CreateProfessorCase {
      * @param email Email do professor.
      * @param password Senha do professor.
      * @param role Cargo do professor.
+     * @param executorEmail Email do executor da ação.
      */
     record Input(
             String name,
             String registration,
             String email,
             String password,
-            ProfessorRole role
+            ProfessorRole role,
+            String executorEmail
     ) {}
 
     /**

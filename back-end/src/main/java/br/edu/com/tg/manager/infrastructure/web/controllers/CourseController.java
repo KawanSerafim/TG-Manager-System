@@ -19,14 +19,16 @@ public class CourseController {
 
     @PostMapping("create")
     public ResponseEntity<CourseResponse> create(
-            @RequestBody CourseRequest request
+            @RequestBody CourseRequest request,
+            @RequestHeader("Authorization") String token
     ) {
         var input = new CreateCourseCase.Input(
                 request.name(),
                 request.availableShifts(),
                 request.availableDisciplines(),
                 request.tgCoordinatorRegistration(),
-                request.courseCoordinatorRegistration()
+                request.courseCoordinatorRegistration(),
+                token
         );
 
         var result = useCase.execute(input);

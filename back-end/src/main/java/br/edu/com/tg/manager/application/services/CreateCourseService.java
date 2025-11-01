@@ -4,6 +4,7 @@ import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.core.domain.entities.CourseParameters;
 import br.edu.com.tg.manager.core.domain.entities.Professor;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.usecases.CreateCourseCase;
@@ -14,13 +15,16 @@ import java.util.Optional;
 @Service
 public class CreateCourseService implements CreateCourseCase {
     private final CourseRepository courseRepository;
+    private final AdministratorRepository administratorRepository;
     private final ProfessorRepository professorRepository;
 
     public CreateCourseService(
             CourseRepository courseRepository,
+            AdministratorRepository administratorRepository,
             ProfessorRepository professorRepository
     ) {
         this.courseRepository = courseRepository;
+        this.administratorRepository = administratorRepository;
         this.professorRepository = professorRepository;
     }
 
@@ -30,6 +34,8 @@ public class CreateCourseService implements CreateCourseCase {
     @Override
     @Transactional
     public Output execute(Input input) {
+        validateAdminPermission(input.executorEmail());
+
         var tgCoordinator = getProfessor(input.tgCoordinatorRegistration());
         var courseCoordinator = getProfessor(
                 input.courseCoordinatorRegistration()
@@ -57,6 +63,23 @@ public class CreateCourseService implements CreateCourseCase {
                 tgCoordinatorInfo,
                 courseCoordinatorInfo
         );
+    }
+
+    private void validateAdminPermission(String executorEmail) {
+        if(executorEmail == null || executorEmail.isBlank()) {
+            throw new DomainException(
+                    "Acesso negado: falha em tentar validá-lo."
+            );
+        }
+
+        var administrator = administratorRepository
+                .findByEmail(executorEmail);
+
+        if(administrator.isEmpty()) {
+            throw new DomainException(
+                    "Acesso negado: apenas Admins podem executar esta ação!"
+            );
+        }
     }
 
     private Course getCourse(

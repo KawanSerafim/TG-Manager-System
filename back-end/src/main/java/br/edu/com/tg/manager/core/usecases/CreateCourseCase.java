@@ -21,13 +21,15 @@ public interface CreateCourseCase {
      * @param availableDisciplines Lista de disciplinas de TG disponíveis.
      * @param tgCoordinatorRegistration Coordenador de TG do curso.
      * @param courseCoordinatorRegistration Coordenador do curso.
+     * @param executorEmail Email do executor da ação.
      */
     record Input(
             String name,
             List<CourseShift> availableShifts,
             List<Discipline> availableDisciplines,
             String tgCoordinatorRegistration,
-            String courseCoordinatorRegistration
+            String courseCoordinatorRegistration,
+            String executorEmail
     ) {}
 
     /**
