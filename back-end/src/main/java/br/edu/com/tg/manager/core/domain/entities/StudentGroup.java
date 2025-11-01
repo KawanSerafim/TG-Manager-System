@@ -171,7 +171,7 @@ public class StudentGroup {
         // Regra de domínio: o turno deve ser suportado pelo curso.
         if(!this.course.getAvailableShifts().contains(courseShift)) {
             throw new DomainException(
-                    "A disciplina [" + courseShift + "] não é oferecida pelo "
+                    "O turno [" + courseShift + "] não é oferecido pelo "
                     + "curso."
             );
         }
