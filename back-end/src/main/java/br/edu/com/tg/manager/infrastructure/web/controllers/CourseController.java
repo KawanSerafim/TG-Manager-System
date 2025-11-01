@@ -1,10 +1,12 @@
 package br.edu.com.tg.manager.infrastructure.web.controllers;
 
 import br.edu.com.tg.manager.core.usecases.CreateCourseCase;
+import br.edu.com.tg.manager.infrastructure.gateways.security.authentication.CustomUserDetails;
 import br.edu.com.tg.manager.infrastructure.web.dtos.requests.CourseRequest;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses.CourseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +22,7 @@ public class CourseController {
     @PostMapping("create")
     public ResponseEntity<CourseResponse> create(
             @RequestBody CourseRequest request,
-            @RequestHeader("Authorization") String token
+            @AuthenticationPrincipal CustomUserDetails loggedInUser
     ) {
         var input = new CreateCourseCase.Input(
                 request.name(),
@@ -28,7 +30,7 @@ public class CourseController {
                 request.availableDisciplines(),
                 request.tgCoordinatorRegistration(),
                 request.courseCoordinatorRegistration(),
-                token
+                loggedInUser.getUsername()
         );
 
         var result = useCase.execute(input);

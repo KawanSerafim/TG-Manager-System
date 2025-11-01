@@ -2,7 +2,8 @@ package br.edu.com.tg.manager.infrastructure.web.controllers;
 
 import br.edu.com.tg.manager.core.usecases.LoginCase;
 import br.edu.com.tg.manager.infrastructure.web.dtos.requests.LoginRequest;
-import br.edu.com.tg.manager.infrastructure.web.dtos.responses.LoginResponse;
+import br.edu.com.tg.manager.infrastructure.web.dtos.responses
+        .JwtAuthenticationResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,16 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<LoginResponse> login(
+    public ResponseEntity<JwtAuthenticationResponse> login(
             @RequestBody LoginRequest request
     ) {
         var input = new LoginCase.Input(request.email(),request.password());
 
         var result = useCase.execute(input);
 
-        var responseBody = new LoginResponse(
-                result.userName(),
-                result.email(),
-                result.userAccountStatus()
+        var responseBody = new JwtAuthenticationResponse(
+                result.token(),
+                result.tokenType()
         );
 
         return ResponseEntity.ok(responseBody);

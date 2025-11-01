@@ -1,7 +1,5 @@
 package br.edu.com.tg.manager.core.usecases;
 
-import br.edu.com.tg.manager.core.domain.enums.UserAccountStatus;
-
 /**
  * Caso de uso de núcleo:
  * Define um contrato abstrato para a camada de aplicação
@@ -19,16 +17,19 @@ public interface LoginCase {
      */
     record Input(String email, String password) {}
 
-    record Output(
-            String userName,
-            String email,
-            UserAccountStatus userAccountStatus
-    ) {}
+    /**
+     * Porta-dados de contrato de núcleo:
+     * Carrega os dados de informações dos coordenadores do curso.
+     * @param token Token JWT gerado.
+     * @param tokenType O tipo do Token.
+     */
+    record Output(String token, String tokenType) {}
 
     /**
      * Método de contrato de núcleo:
      * Executa o login do usuário.
-     * @param input Porta-dados da requisição POST.
+     * @param input Porta-dados da requisição POST
+     * @return Output.
      */
     Output execute(Input input);
 }

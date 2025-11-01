@@ -2,6 +2,7 @@ package br.edu.com.tg.manager.infrastructure.web.controllers;
 
 import br.edu.com.tg.manager.core.ports.gateways.StudentDataReader;
 import br.edu.com.tg.manager.core.usecases.CreateStudentGroupCase;
+import br.edu.com.tg.manager.infrastructure.gateways.security.authentication.CustomUserDetails;
 import br.edu.com.tg.manager.infrastructure.web.dtos.requests
         .StudentGroupRequest;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses
@@ -9,6 +10,7 @@ import br.edu.com.tg.manager.infrastructure.web.dtos.responses
 import br.edu.com.tg.manager.infrastructure.web.mappers.StudentResponseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -35,14 +37,14 @@ public class StudentGroupController {
     public ResponseEntity<StudentGroupResponse> create(
             StudentGroupRequest request,
             @RequestPart("file") MultipartFile file,
-            @RequestHeader("Authorization") String token
+            @AuthenticationPrincipal CustomUserDetails loggedInUser
     ) throws IOException {
         var fileData = studentDataReader.read(file.getInputStream());
         var input = new CreateStudentGroupCase.Input(
                 request.courseName(),
                 request.discipline(),
                 fileData,
-                token
+                loggedInUser.getUsername()
         );
 
         var result = useCase.execute(input);

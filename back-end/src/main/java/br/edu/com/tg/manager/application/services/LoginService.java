@@ -8,6 +8,7 @@ import br.edu.com.tg.manager.core.ports.repositories.AdministratorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.ProfessorRepository;
 import br.edu.com.tg.manager.core.ports.repositories.StudentRepository;
 import br.edu.com.tg.manager.core.usecases.LoginCase;
+import br.edu.com.tg.manager.infrastructure.gateways.security.authentication.JwtTokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -18,17 +19,20 @@ public class LoginService implements LoginCase {
     private final ProfessorRepository professorRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenService jwtTokenService;
 
     public LoginService(
             AdministratorRepository administratorRepository,
             ProfessorRepository professorRepository,
             StudentRepository studentRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            JwtTokenService jwtTokenService
     ) {
         this.administratorRepository = administratorRepository;
         this.professorRepository = professorRepository;
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenService = jwtTokenService;
     }
 
     /**
@@ -52,42 +56,20 @@ public class LoginService implements LoginCase {
         var optionalProfessor = getOptionalProfessor(input.email());
         var optionalStudent = getOptionalStudent(input.email());
 
-        Output output = null;
         String userPassword = null;
 
         if(optionalAdministrator.isPresent()) {
             var administrator = optionalAdministrator.get();
-            var userAccount = administrator.getUserAccount();
-
-            output = new Output(
-                    administrator.getName(),
-                    administrator.getEmail(),
-                    userAccount.getStatus()
-            );
             userPassword = administrator.getPassword();
         }
 
         if(optionalProfessor.isPresent()) {
             var professor = optionalProfessor.get();
-            var userAccount = professor.getUserAccount();
-
-            output = new Output(
-                    professor.getName(),
-                    professor.getEmail(),
-                    userAccount.getStatus()
-            );
             userPassword = professor.getPassword();
         }
 
         if(optionalStudent.isPresent()) {
             var student = optionalStudent.get();
-            var userAccount = student.getUserAccount();
-
-            output = new Output(
-                    student.getName(),
-                    student.getEmail(),
-                    userAccount.getStatus()
-            );
             userPassword = student.getPassword();
         }
 
@@ -99,7 +81,10 @@ public class LoginService implements LoginCase {
         }
 
         validatePassword(userPassword, input.password());
-        return output;
+
+        String token = jwtTokenService.generateToken(input.email());
+
+        return new Output(token, "Bearer");
     }
 
     private void validatePassword(

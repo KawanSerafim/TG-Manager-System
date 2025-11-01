@@ -3,6 +3,7 @@ package br.edu.com.tg.manager.infrastructure.web.controllers;
 import br.edu.com.tg.manager.core.usecases.CreateProfessorCase;
 import br.edu.com.tg.manager.core.usecases.ListCourseCoordinatorsCase;
 import br.edu.com.tg.manager.core.usecases.ListTgCoordinatorsCase;
+import br.edu.com.tg.manager.infrastructure.gateways.security.authentication.CustomUserDetails;
 import br.edu.com.tg.manager.infrastructure.web.dtos.requests.ProfessorRequest;
 import br.edu.com.tg.manager.infrastructure.web.dtos.responses.professor
         .ListCoordinatorResponse;
@@ -13,6 +14,7 @@ import br.edu.com.tg.manager.infrastructure.web.mappers
         .ListTgCoordinatorResponseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class ProfessorController {
     @PostMapping("create")
     public ResponseEntity<ProfessorResponse> create(
             @RequestBody ProfessorRequest request,
-            @RequestHeader("Authorization") String token
+            @AuthenticationPrincipal CustomUserDetails loggedInUser
     ) {
         var input = new CreateProfessorCase.Input(
                 request.name(),
@@ -51,7 +53,7 @@ public class ProfessorController {
                 request.email(),
                 request.password(),
                 request.role(),
-                token
+                loggedInUser.getUsername()
         );
 
         var result = createUseCase.execute(input);

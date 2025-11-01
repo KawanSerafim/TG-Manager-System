@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/email-confirmation")
+@RequestMapping("/email-confirmation/api")
 @CrossOrigin(origins = "*")
 public class EmailConfirmationController {
     private final SendConfirmationEmailCase useCase;

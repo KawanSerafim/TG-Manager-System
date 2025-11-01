@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/validate-token")
+@RequestMapping("/validate-token/api")
 @CrossOrigin(origins = "*")
 public class TokenValidationController {
     private final ValidateTokenCase useCase;
