@@ -1,5 +1,6 @@
 import { courseShiftTranslations } from "../interfaces/coursesShiftTranslations.js";
 import { getProfessorsCourse, getProfessorsTG } from "./serviceProfessor.js";
+import { getSelectedDisciplines, getSelectedShifts } from "./utils.js";
 
 const API_URL = "http://localhost:8080/courses/api";
 
@@ -67,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
           // Captura dos dados do formulário
           const courseData = {
             name: document.getElementById('name').value,
-            shift: document.querySelector('input[name="shift-input"]:checked').value,
+            availableShifts: getSelectedShifts(),
+            availableDisciplines: getSelectedDisciplines(),
             tgCoordinatorRegistration: document.getElementById('tgCoordinatorRegistration').value,
             courseCoordinatorRegistration: document.getElementById('courseCoordinatorRegistration').value
           }; 
