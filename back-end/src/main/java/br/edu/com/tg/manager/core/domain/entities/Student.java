@@ -167,7 +167,7 @@ public class Student {
 
     public void setStudentGroups(List<StudentGroup> studentGroups) {
         // Regra de domínio: o campo turmas é obrigatório.
-        if(studentGroups == null) {
+        if(studentGroups == null || studentGroups.isEmpty()) {
             throw new DomainException(
                     "O campo turmas é obrigatório."
             );

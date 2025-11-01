@@ -57,6 +57,27 @@ public class StudentTest {
     }
 
     @Test
+    @DisplayName("Deve setar turma, email e senha com dados válidos.")
+    void shouldSetStudentGroupAndEmailAndPasswordWithValidData() {
+        String email = "email@teste";
+        String password = "senha";
+        var userAccount = new UserAccount(email, password);
+
+        var student = new Student();
+        List<StudentGroup> studentGroups = new ArrayList<>();
+        studentGroups.add(new StudentGroup());
+
+        student.setUserAccount(userAccount);
+        student.setStudentGroups(studentGroups);
+        student.setPassword("senha2");
+        student.setEmail("email2@teste");
+
+        assertEquals(studentGroups, student.getStudentGroups());
+        assertEquals("senha2", student.getPassword());
+        assertEquals("email2@teste", student.getEmail());
+    }
+
+    @Test
     @DisplayName(
             "Em matricular em turma deve lançar exceção de domínio quando "
                     + "turma é vazia."
@@ -179,15 +200,30 @@ public class StudentTest {
 
     @Test
     @DisplayName(
-            "Em set student group deve lançar exceção de domínio quando turma"
-                    + " é nula."
+            "Em set student group deve lançar exceção de domínio quando turmas"
+                    + " são nulas."
     )
-    void inSetStudentGroupShouldThrowDomainExceptionWhenStudentGroupIsNull() {
+    void inSetStudentGroupShouldThrowDomainExceptionWhenStudentGroupsAreNull() {
         var student = new Student();
         String message = "O campo turmas é obrigatório.";
 
         var exception = assertThrows(DomainException.class,
                 () -> student.setStudentGroups(null));
+
+        assertEquals(message, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName(
+            "Em set student group deve lançar exceção de domínio quando turmas"
+                    + " são vazias."
+    )
+    void inSetStudentGroupShouldThrowDomainExceptionWhenStudentGroupsAreEmpty() {
+        var student = new Student();
+        String message = "O campo turmas é obrigatório.";
+
+        var exception = assertThrows(DomainException.class,
+                () -> student.setStudentGroups(new ArrayList<>()));
 
         assertEquals(message, exception.getMessage());
     }
