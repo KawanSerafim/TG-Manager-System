@@ -1,12 +1,15 @@
 package br.edu.com.tg.manager.core.domain.entities;
 
 import br.edu.com.tg.manager.core.domain.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
+
+import java.util.List;
 
 /**
  * Entidade de domínio:
- * Representa um curso da instituição, com seu respectivo turno e
- * professores coordenadores.
+ * Representa um curso da instituição, com seus respectivos
+ * parâmetros (turnos e disciplinas de TG) e professores coordenadores.
  * Por pertencer ao núcleo (core) da aplicação, esta classe é
  * independente de frameworks ou bibliotecas externas, sendo,
  * portanto, considerada uma classe pura.
@@ -14,7 +17,7 @@ import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 public class Course {
     private Long id;
     private String name;
-    private CourseShift shift;
+    private CourseParameters parameters;
     private Professor tgCoordinator;
     private Professor courseCoordinator;
 
@@ -29,19 +32,19 @@ public class Course {
      * Cria um novo objeto de Course e garante que o objeto seja
      * criado num estado válido.
      * @param name Nome do curso.
-     * @param shift Turno do curso.
+     * @param parameters Parâmetros do curso (turnos e disciplinas).
      * @param tgCoordinator Coordenador de TG do curso.
      * @param courseCoordinator Coordenador do curso.
      */
     public Course(
             String name,
-            CourseShift shift,
+            CourseParameters parameters,
             Professor tgCoordinator,
             Professor courseCoordinator
     ) {
         // Delega as validações dos parâmetros aos seus devidos setters.
         this.setName(name);
-        this.setShift(shift);
+        this.setParameters(parameters);
         this.setTgCoordinator(tgCoordinator);
         this.setCourseCoordinator(courseCoordinator);
     }
@@ -70,18 +73,18 @@ public class Course {
         this.name = name;
     }
 
-    public CourseShift getShift() {
-        return shift;
+    public CourseParameters getParameters() {
+        return parameters;
     }
 
-    public void setShift(CourseShift shift) {
-        // Regra de domínio: o campo turno é obrigatório.
-        if(shift == null) {
+    public void setParameters(CourseParameters parameters) {
+        // Regra de domínio: o campo parâmetros é obrigatório.
+        if(parameters == null) {
             throw new DomainException(
-                    "O campo turno é obrigatório."
+                    "O campo parâmetros (turnos/disciplinas) são obrigatórios."
             );
         }
-        this.shift = shift;
+        this.parameters = parameters;
     }
 
     public Professor getTgCoordinator() {
@@ -130,5 +133,23 @@ public class Course {
             );
         }
         this.courseCoordinator = courseCoordinator;
+    }
+
+    // MÉTODOS DE DELEGAÇÃO.
+
+    /**
+     * Método Get (DELEGAÇÃO).
+     * @return Lista de turnos disponíveis.
+     */
+    public List<CourseShift> getAvailableShifts() {
+        return this.parameters.getAvailableShifts();
+    }
+
+    /**
+     * Método Get (DELEGAÇÃO).
+     * @return Lista de disciplinas de TG disponíveis.
+     */
+    public List<Discipline> getAvailableDisciplines() {
+        return this.parameters.getAvailableDisciplines();
     }
 }

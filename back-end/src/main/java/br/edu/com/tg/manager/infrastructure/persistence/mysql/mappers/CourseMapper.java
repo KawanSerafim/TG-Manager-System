@@ -8,9 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseMapper {
     private final ProfessorMapper professorMapper;
+    private final CourseParametersMapper parametersMapper;
 
-    public CourseMapper(ProfessorMapper professorMapper) {
+    public CourseMapper(
+            ProfessorMapper professorMapper,
+            CourseParametersMapper parametersMapper
+    ) {
         this.professorMapper = professorMapper;
+        this.parametersMapper = parametersMapper;
     }
 
     public CourseModel toModel(Course domain) {
@@ -21,7 +26,9 @@ public class CourseMapper {
         var courseModel = new CourseModel();
         courseModel.setId(domain.getId());
         courseModel.setName(domain.getName());
-        courseModel.setShift(domain.getShift());
+        courseModel.setParameters(
+                parametersMapper.toModel(domain.getParameters())
+        );
         courseModel.setTgCoordinator(
                 professorMapper.toModel(domain.getTgCoordinator())
         );
@@ -39,7 +46,7 @@ public class CourseMapper {
 
         var course = new Course(
                 model.getName(),
-                model.getShift(),
+                parametersMapper.toDomain(model.getParameters()),
                 professorMapper.toDomain(model.getTgCoordinator()),
                 professorMapper.toDomain(model.getCourseCoordinator())
         );

@@ -3,6 +3,8 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.repositories
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
 import br.edu.com.tg.manager.core.domain.entities.StudentGroup;
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
 import br.edu.com.tg.manager.core.ports.repositories.StudentGroupRepository;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.mappers
         .CourseMapper;
@@ -46,16 +48,20 @@ public class StudentGroupRepositoryImpl implements StudentGroupRepository {
      * {@inheritDoc}
      */
     @Override
-    public Optional<StudentGroup> findByCourseAndYearAndSemester(
+    public Optional<StudentGroup> findByCourseAndYearAndSemesterAndCourseShiftAndDiscipline(
             Course course,
             Integer year,
-            Integer semester
+            Integer semester,
+            CourseShift courseShift,
+            Discipline discipline
     ) {
         Optional<StudentGroupModel> optionalStudentGroupModel = springRepository
-                .findByCourseAndYearAndSemester(
+                .findByCourseAndYearAndSemesterAndCourseShiftAndDiscipline(
                         courseMapper.toModel(course),
                         year,
-                        semester
+                        semester,
+                        courseShift,
+                        discipline
                 );
 
         return optionalStudentGroupModel.map(studentGroupMapper::toDomain);

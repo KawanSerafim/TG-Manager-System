@@ -4,6 +4,7 @@ import br.edu.com.tg.manager.core.domain.entities.Student;
 import br.edu.com.tg.manager.infrastructure.persistence.mysql.models
         .StudentModel;
 import org.springframework.stereotype.Component;
+import java.util.stream.Collectors;
 
 @Component
 public class StudentMapper {
@@ -31,9 +32,14 @@ public class StudentMapper {
                 userAccountMapper.toModel(domain.getUserAccount())
         );
         studentModel.setStatus(domain.getStatus());
-        studentModel.setStudentGroup(
-                studentGroupMapper.toModel(domain.getStudentGroup())
-        );
+
+        if(domain.getStudentGroups() != null) {
+            studentModel.setStudentGroups(
+                    domain.getStudentGroups().stream()
+                            .map(studentGroupMapper::toModel)
+                            .collect(Collectors.toList())
+            );
+        }
 
         return studentModel;
     }
@@ -43,17 +49,22 @@ public class StudentMapper {
             return null;
         }
 
-        var student = new Student(
-                model.getName(),
-                model.getRegistration(),
-                studentGroupMapper.toDomain(model.getStudentGroup())
-        );
-
+        var student = new Student();
+        student.setId(model.getId());
+        student.setName(model.getName());
+        student.setRegistration(model.getRegistration());
+        student.setStatus(model.getStatus());
         student.setUserAccount(
                 userAccountMapper.toDomain(model.getUserAccount())
         );
-        student.setId(model.getId());
-        student.setStatus(model.getStatus());
+
+        if(model.getStudentGroups() != null) {
+            student.setStudentGroups(
+                    model.getStudentGroups().stream()
+                            .map(studentGroupMapper::toDomain)
+                            .collect(Collectors.toList())
+            );
+        }
 
         return student;
     }

@@ -2,6 +2,9 @@ package br.edu.com.tg.manager.core.ports.repositories;
 
 import br.edu.com.tg.manager.core.domain.entities.StudentGroup;
 import br.edu.com.tg.manager.core.domain.entities.Course;
+import br.edu.com.tg.manager.core.domain.enums.CourseShift;
+import br.edu.com.tg.manager.core.domain.enums.Discipline;
+
 import java.util.Optional;
 
 /**
@@ -27,11 +30,15 @@ public interface StudentGroupRepository {
      * @param course Curso da turma.
      * @param year Ano da turma.
      * @param semester Semestre da turma.
+     * @param courseShift Turno do curso da turma.
+     * @param discipline Disciplina de TG da turma.
      * @return Optional vazio ou StudentGroup.
      */
-    Optional<StudentGroup> findByCourseAndYearAndSemester(
+    Optional<StudentGroup> findByCourseAndYearAndSemesterAndCourseShiftAndDiscipline(
             Course course,
             Integer year,
-            Integer semester
+            Integer semester,
+            CourseShift courseShift,
+            Discipline discipline
     );
 }
