@@ -218,4 +218,12 @@ public class Student {
         }
         this.userAccount.setPassword(password);
     }
+
+    /**
+     * Método Get (DELEGAÇÃO).
+     * @return Status de conta de usuário do aluno.
+     */
+    public UserAccountStatus getUserAccountStatus() {
+        return this.userAccount.getStatus();
+    }
 }
