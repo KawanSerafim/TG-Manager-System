@@ -22,11 +22,13 @@ public interface CreateStudentGroupCase {
      * @param courseName Nome do curso.
      * @param discipline Disciplina do curso.
      * @param fileData Porta-dados dos metadados da turma.
+     * @param executorEmail Email do executor da ação.
      */
     record Input(
             String courseName,
             Discipline discipline,
-            StudentDataReader.FileData fileData
+            StudentDataReader.FileData fileData,
+            String executorEmail
     ) {
         /**
          * Método Get (DELEGAÇÃO).

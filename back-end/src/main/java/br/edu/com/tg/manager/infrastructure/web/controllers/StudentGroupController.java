@@ -34,13 +34,15 @@ public class StudentGroupController {
     @PostMapping(consumes = "multipart/form-data", path = "create")
     public ResponseEntity<StudentGroupResponse> create(
             StudentGroupRequest request,
-            @RequestPart("file") MultipartFile file
+            @RequestPart("file") MultipartFile file,
+            @RequestHeader("Authorization") String token
     ) throws IOException {
         var fileData = studentDataReader.read(file.getInputStream());
         var input = new CreateStudentGroupCase.Input(
                 request.courseName(),
                 request.discipline(),
-                fileData
+                fileData,
+                token
         );
 
         var result = useCase.execute(input);
