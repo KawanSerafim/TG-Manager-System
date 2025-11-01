@@ -1,7 +1,6 @@
 package br.edu.com.tg.manager.core.ports.repositories;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
-import br.edu.com.tg.manager.core.domain.enums.CourseShift;
 import java.util.Optional;
 
 /**
@@ -25,8 +24,7 @@ public interface CourseRepository {
      * Método de contrato de núcleo:
      * Busca um curso pelo seu nome e seu turno.
      * @param name Nome do curso.
-     * @param shift Turno do curso.
      * @return Optional vazio ou Course.
      */
-    Optional<Course> findByNameAndShift(String name, CourseShift shift);
+    Optional<Course> findByName(String name);
 }

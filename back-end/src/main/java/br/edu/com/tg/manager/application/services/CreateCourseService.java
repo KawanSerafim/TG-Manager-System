@@ -1,6 +1,7 @@
 package br.edu.com.tg.manager.application.services;
 
 import br.edu.com.tg.manager.core.domain.entities.Course;
+import br.edu.com.tg.manager.core.domain.entities.CourseParameters;
 import br.edu.com.tg.manager.core.domain.entities.Professor;
 import br.edu.com.tg.manager.core.domain.exceptions.DomainException;
 import br.edu.com.tg.manager.core.ports.repositories.CourseRepository;
@@ -33,7 +34,17 @@ public class CreateCourseService implements CreateCourseCase {
         var courseCoordinator = getProfessor(
                 input.courseCoordinatorRegistration()
         );
-        var course = getCourse(input, tgCoordinator, courseCoordinator);
+        var parameters = new CourseParameters(
+                input.availableShifts(),
+                input.availableDisciplines()
+        );
+
+        var course = getCourse(
+                input,
+                parameters,
+                tgCoordinator,
+                courseCoordinator
+        );
         var courseSaved = courseRepository.save(course);
         var tgCoordinatorInfo = getCoordinatorInfo(tgCoordinator);
         var courseCoordinatorInfo = getCoordinatorInfo(courseCoordinator);
@@ -41,7 +52,8 @@ public class CreateCourseService implements CreateCourseCase {
         return new CreateCourseCase.Output(
                 courseSaved.getId(),
                 courseSaved.getName(),
-                courseSaved.getShift(),
+                courseSaved.getAvailableShifts(),
+                courseSaved.getAvailableDisciplines(),
                 tgCoordinatorInfo,
                 courseCoordinatorInfo
         );
@@ -49,11 +61,12 @@ public class CreateCourseService implements CreateCourseCase {
 
     private Course getCourse(
             Input input,
+            CourseParameters parameters,
             Professor tgCoordinator,
             Professor courseCoordinator
     ) {
         Optional<Course> optionalCourse = courseRepository
-                .findByNameAndShift(input.name(), input.shift());
+                .findByName(input.name());
 
         if(optionalCourse.isPresent()) {
             throw new DomainException(
@@ -63,7 +76,7 @@ public class CreateCourseService implements CreateCourseCase {
 
         return new Course(
                 input.name(),
-                input.shift(),
+                parameters,
                 tgCoordinator,
                 courseCoordinator
         );

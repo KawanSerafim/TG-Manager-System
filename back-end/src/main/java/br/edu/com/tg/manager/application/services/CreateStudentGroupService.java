@@ -36,21 +36,21 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
     @Override
     @Transactional
     public Output execute(Input input) {
-        Course course = courseRepository.findByNameAndShift(
-                input.courseName(),
-                input.shift()
-        ).orElseThrow(() -> new DomainException(
-                "O curso com nome = " + input.courseName() + ", turno = "
-                + input.shift() + " não foi encontrado."
-        ));
+        Course course = courseRepository.findByName(input.courseName())
+                .orElseThrow(() -> new DomainException(
+                        "O curso com nome = " + input.courseName() + ", "
+                        + "não foi encontrado."
+                ));
         
         StudentGroup studentGroup;
 
         Optional<StudentGroup> optionalGroup = studentGroupRepository
-                .findByCourseAndYearAndSemester(
+                .findByCourseAndYearAndSemesterAndCourseShiftAndDiscipline(
                         course,
                         input.year(),
-                        input.semester()
+                        input.semester(),
+                        input.shift(),
+                        input.discipline()
                 );
 
         if(optionalGroup.isPresent()) {
@@ -60,27 +60,36 @@ public class CreateStudentGroupService implements CreateStudentGroupCase {
                     course,
                     input.discipline(),
                     input.year(),
-                    input.semester()
+                    input.semester(),
+                    input.shift()
             );
             studentGroup = studentGroupRepository.save(newStudentGroup);
         }
 
-        List<Student> students = new ArrayList<>();
+        List<Student> newStudents = new ArrayList<>();
 
         for(var studentData : input.students()) {
             Optional<Student> optionalStudent = studentRepository
                     .findByRegistration(studentData.registration());
 
+            Student studentToProcess;
+
             if(optionalStudent.isEmpty()) {
-                var student = new Student(
+                studentToProcess = new Student(
                         studentData.name(),
                         studentData.registration(),
                         studentGroup
                 );
-                studentRepository.save(student);
-                students.add(student);
+
+                newStudents.add(studentToProcess);
+            } else {
+                studentToProcess = optionalStudent.get();
+                studentToProcess.enrollInGroup(studentGroup);
             }
+
+            studentRepository.save(studentToProcess);
         }
-        return new Output(studentGroup, students);
+
+        return new Output(studentGroup, newStudents);
     }
 }

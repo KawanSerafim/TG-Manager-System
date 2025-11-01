@@ -2,6 +2,8 @@ package br.edu.com.tg.manager.infrastructure.persistence.mysql.models;
 
 import br.edu.com.tg.manager.core.domain.enums.StudentStatus;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -23,9 +25,13 @@ public class StudentModel {
     @Column(nullable = false, length = 30)
     private StudentStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "student_group_id", nullable = false)
-    private StudentGroupModel studentGroup;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "student_enrolled_groups",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_group_id")
+    )
+    private List<StudentGroupModel> studentGroups = new ArrayList<>();
 
     public StudentModel() {}
 
@@ -69,11 +75,11 @@ public class StudentModel {
         this.status = status;
     }
 
-    public StudentGroupModel getStudentGroup() {
-        return studentGroup;
+    public List<StudentGroupModel> getStudentGroups() {
+        return studentGroups;
     }
 
-    public void setStudentGroup(StudentGroupModel studentGroup) {
-        this.studentGroup = studentGroup;
+    public void setStudentGroups(List<StudentGroupModel> studentGroups) {
+        this.studentGroups = studentGroups;
     }
 }

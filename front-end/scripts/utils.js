@@ -38,3 +38,33 @@ export function displayResults(data, tableBody, resultsContainer) {
     //torna o contêiner de resultados visível!
     resultsContainer.style.display = 'block';
 }
+
+ /**
+ * Retorna um array com os valores de todos os turnos selecionados.
+ * Exemplo: ["NIGHT", "MORNING"]
+ */
+export function getSelectedShifts() {
+  // 1. Seleciona todos os checkboxes com esse nome que estão marcados
+  const checkedShifts = document.querySelectorAll('input[name="shift-input[]"]:checked');
+  
+  // 2. Converte o NodeList (resultado do querySelectorAll) em um array
+  const shiftValues = Array.from(checkedShifts);
+  
+  // 3. Extrai apenas os valores (ex: "NIGHT", "MORNING")
+  return shiftValues.map(checkbox => checkbox.value);
+}
+
+/**
+ * Retorna um array com os valores de todas as disciplinas selecionadas.
+ * Exemplo: ["TG1"] ou ["TG1", "TG2"]
+ */
+export function getSelectedDisciplines() {
+  // 1. Seleciona todos os checkboxes com esse nome que estão marcados
+  const checkedDisciplines = document.querySelectorAll('input[name="discipline-input[]"]:checked');
+  
+  // 2. Converte o NodeList em um array
+  const disciplineValues = Array.from(checkedDisciplines);
+  
+  // 3. Extrai apenas os valores
+  return disciplineValues.map(checkbox => checkbox.value);
+}

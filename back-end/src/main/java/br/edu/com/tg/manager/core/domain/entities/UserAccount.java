@@ -33,7 +33,7 @@ public class UserAccount {
      */
     public UserAccount(String email, String password) {
         // Define um status inicial a conta, que exige validação de email.
-        this.status = UserAccountStatus.PENDING_VERIFICATION;
+        this.setStatus(UserAccountStatus.PENDING_VERIFICATION);
 
         // Delega as validações dos parâmetros aos seus devidos setters.
         this.setEmail(email);
