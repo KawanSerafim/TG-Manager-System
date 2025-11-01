@@ -1,10 +1,9 @@
 import { professorsRoleTranslation } from "../interfaces/professorsRoleTranslation.js";
 
-const API_URL = "http://localhost:8080/professors/api/create";
+const API_URL = "http://localhost:8080/professors/api";
 
 // Garante que todo o código que manipula o DOM só rode depois que a página estiver pronta
 document.addEventListener('DOMContentLoaded', () => {
-
     // --- INICIALIZAÇÃO E SELETORES ---
     const form = document.getElementById('form');
     const toastSuccessEl = document.getElementById('toast-sucesso');
@@ -62,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // A função de fetch agora recebe as instâncias do toast como parâmetros para ficar mais limpa
 async function createProfessor(professorData, toastSuccess, toastError) {
     try {
-        const response = await fetch(API_URL, {
+        let createProfessorURL = API_URL+"/create";
+        const response = await fetch(createProfessorURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(professorData)

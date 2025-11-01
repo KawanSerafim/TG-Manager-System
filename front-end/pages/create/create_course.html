@@ -60,37 +60,66 @@
                </div>
 
                <!-- Shift/Turno -->
-               <div class="mb-3 has-validation">
-                 <label for="">Turno: </label>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="shift-input" id="night" value="NIGHT">
-                  <label class="form-check-label" for="inlineRadio1">Noite</label>
+                <div class="mb-3 has-validation">
+                  <label for="">Turno: </label>
+                  
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="shift-input[]" id="night" value="NIGHT">
+                    <label class="form-check-label" for="night">Noite</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="shift-input[]" id="morning" value="MORNING">
+                    <label class="form-check-label" for="morning">Manhã</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="shift-input[]" id="afternoon" value="AFTERNOON">
+                    <label class="form-check-label" for="afternoon">Tarde</label>
+                  </div>
+
                 </div>
+                <!-- Disciplinas -->
+              <div class="mb-3 has-validation">
+                <label for="">Disciplinas: </label>
+                
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="shift-input" id="morning" value="MORNING">
-                  <label class="form-check-label" for="inlineRadio2">Manhã</label>
+                  <input class="form-check-input" type="checkbox" name="discipline-input[]" id="tg1" value="TG1">
+                  <label class="form-check-label" for="tg1">TG1</label>
                 </div>
+
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="shift-input" id="afternoon" value="AFTERNOON">
-                  <label class="form-check-label" for="inlineRadio3">Tarde</label>
+                  <input class="form-check-input" type="checkbox" name="discipline-input[]" id="tg2" value="TG2">
+                  <label class="form-check-label" for="tg2">TG2</label>
                 </div>
-            </div>
+              </div>
               <!-- (Matricula) Professor de TG -->
-              <div class="mb-3 has-validation">
-                <label for="tgCoordinatorRegistration" class="form-label">Professor de TG (Matricula)</label>
-                <input type="text" class="form-control" id="tgCoordinatorRegistration" name="tgCoordinatorRegistration" required>
-                 <div class="invalid-feedback">
-                  A matricula do professor de TG é um campo obrigatório
+              <div class="input-group mb-3 has-validation">
+                <div class="input-group-append">
+                  <label class="input-group-text" for="tgCoordinatorRegistration">Professor de TG</label>
                 </div>
-              </div>
-              <!-- (Matricula) Professor Coordenador do curso -->
-              <div class="mb-3 has-validation">
-                <label for="tgCoordinatorRegistration" class="form-label">Coordenador do curso (Matricula)</label>
-                <input type="text" class="form-control" id="courseCoordinatorRegistration" name="courseCoordinatorRegistration" required>
+                 <select class="custom-select" id="tgCoordinatorRegistration">
+                   <option disabled>Selecione o professor coordenador de TG...</option>
+                   <!-- Opções vem do JS -->
+                 </select>
                  <div class="invalid-feedback">
-                  A matricula do coordenador de curso é um campo obrigatório
+                   A matricula do professor coordenador de TG é um campo obrigatório
+                 </div>
+               </div>
+              
+              <!-- (Matricula) Professor Coordenador do curso --><div class="input-group mb-3 has-validation">
+                <div class="input-group-append">
+                  <label class="input-group-text" for="courseCoordinatorRegistration">Coordenador do curso</label>
                 </div>
-              </div>
+                 <select class="custom-select" id="courseCoordinatorRegistration">
+                   <option disabled>Selecione o professor coordenador de curso...</option>
+                   <!-- Opções vem do JS -->
+                 </select>
+                 <div class="invalid-feedback">
+                   A matricula do coordenador de curso é um campo obrigatório
+                 </div>
+               </div>
+             
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
               </div>
