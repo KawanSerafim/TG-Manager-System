@@ -73,19 +73,6 @@ public class Student {
             );
         }
 
-        for(StudentGroup group : this.studentGroups) {
-            /*
-             * Regra de domínio: o aluno não pode estar cadastrado outra
-             * turma do mesmo turno.
-             */
-            if(group.hasScheduleConflict(studentGroup)) {
-                throw new DomainException(
-                        "Esse aluno já foi cadastrado numa turma com o mesmo"
-                        + "ano, semestre e turno."
-                );
-            }
-        }
-
         // Adiciona à lista.
         this.studentGroups.add(studentGroup);
     }
@@ -230,5 +217,13 @@ public class Student {
             );
         }
         this.userAccount.setPassword(password);
+    }
+
+    /**
+     * Método Get (DELEGAÇÃO).
+     * @return Status de conta de usuário do aluno.
+     */
+    public UserAccountStatus getUserAccountStatus() {
+        return this.userAccount.getStatus();
     }
 }

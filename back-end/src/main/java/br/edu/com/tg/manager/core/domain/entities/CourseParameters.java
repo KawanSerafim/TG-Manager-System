@@ -46,7 +46,7 @@ public class CourseParameters {
     }
 
     public void setAvailableShifts(List<CourseShift> availableShifts) {
-        if(availableShifts == null ||  availableShifts.isEmpty()) {
+        if(availableShifts == null || availableShifts.isEmpty()) {
             // Regra de domínio: o curso deve ter pelo menos um turno.
             throw new DomainException(
                     "O curso deve ter pelo menos um turno disponível."
@@ -61,7 +61,7 @@ public class CourseParameters {
 
     public void setAvailableDisciplines(List<Discipline> availableDisciplines) {
         // Regra de domínio: o curso deve ter pelo menos uma disciplina.
-        if(availableDisciplines == null ||  availableDisciplines.isEmpty()) {
+        if(availableDisciplines == null || availableDisciplines.isEmpty()) {
             throw new DomainException(
                     "O curso deve ter pelo menos uma disciplina disponível."
             );
